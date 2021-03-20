@@ -7,15 +7,30 @@
   
   
   
-  <title>Hexo</title>
+  <title>海量高维向量检索算法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="图像检索：向量索引无论是在学界还是工业界，向量索引是一个研究得比较多的问题，学术上对应的专有名词叫Approximate Nearest Neighbor Search (ANNS)，即近似最近邻搜索。为什么是近似，而不是我们想要的精确？这就是精度与时间、算力资源的折中，采用了牺牲精度换取时间和空间的方式，从海量的样本中实时获取跟查询最相似的样本。 这里，给出向量索引的定义：向量索引是指通过某种数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="海量高维向量检索算法">
+<meta property="og:url" content="http://example.com/2021/03/20/%E5%90%91%E9%87%8F%E7%B4%A2%E5%BC%95/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="图像检索：向量索引无论是在学界还是工业界，向量索引是一个研究得比较多的问题，学术上对应的专有名词叫Approximate Nearest Neighbor Search (ANNS)，即近似最近邻搜索。为什么是近似，而不是我们想要的精确？这就是精度与时间、算力资源的折中，采用了牺牲精度换取时间和空间的方式，从海量的样本中实时获取跟查询最相似的样本。 这里，给出向量索引的定义：向量索引是指通过某种数">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yongyuan.name/imgs/posts/kd_tree.png">
+<meta property="og:image" content="http://yongyuan.name/imgs/posts/kd.jpg">
+<meta property="og:image" content="http://yongyuan.name/imgs/posts/lsh_ex.png">
+<meta property="og:image" content="http://yongyuan.name/imgs/posts/msvq_1.jpg">
+<meta property="og:image" content="http://yongyuan.name/imgs/posts/pq.png">
+<meta property="og:image" content="http://yongyuan.name/imgs/posts/pq_search.png">
+<meta property="og:image" content="http://yongyuan.name/imgs/posts/ivfpq.png">
+<meta property="og:image" content="http://yongyuan.name/imgs/posts/itq_hashing.png">
+<meta property="og:image" content="http://yongyuan.name/imgs/posts/hnsw.jpg">
+<meta property="og:image" content="http://yongyuan.name/imgs/posts/hnsw_face_2b.jpg">
+<meta property="article:published_time" content="2021-03-20T11:19:07.000Z">
+<meta property="article:modified_time" content="2021-03-20T11:32:18.772Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yongyuan.name/imgs/posts/kd_tree.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -33,9 +48,6 @@
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   
-    
-    
-  
   
       <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   
@@ -46,8 +58,8 @@
       var yiliaConfig = {
           fancybox: true,
           animate: true,
-          isHome: true,
-          isPost: false,
+          isHome: false,
+          isPost: true,
           isArchive: false,
           isTag: false,
           isCategory: false,
@@ -275,9 +287,7 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-向量索引" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-向量索引" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a  href="/2021/03/20/%E5%90%91%E9%87%8F%E7%B4%A2%E5%BC%95/" class="article-date">
@@ -294,13 +304,20 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2021/03/20/%E5%90%91%E9%87%8F%E7%B4%A2%E5%BC%95/">海量高维向量检索算法</a>
+    <h1 class="article-title" itemprop="name">
+      海量高维向量检索算法
     </h1>
   
 
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -682,31 +699,141 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/2021/03/20/%E5%90%91%E9%87%8F%E7%B4%A2%E5%BC%95/">海量高维向量检索算法</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问  的个人博客"></a></p>
+        <p><span>发布时间:</span>2021年03月20日 - 19时19分</p>
+        <p><span>最后更新:</span>2021年03月20日 - 19时32分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2021/03/20/%E5%90%91%E9%87%8F%E7%B4%A2%E5%BC%95/" title="海量高维向量检索算法">http://example.com/2021/03/20/%E5%90%91%E9%87%8F%E7%B4%A2%E5%BC%95/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://example.com/2021/03/20/%E5%90%91%E9%87%8F%E7%B4%A2%E5%BC%95/　　作者: " title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+
   
 </article>
 
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E6%A3%80%E7%B4%A2%EF%BC%9A%E5%90%91%E9%87%8F%E7%B4%A2%E5%BC%95"><span class="toc-number">1.</span> <span class="toc-text">图像检索：向量索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%A0%91%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">基于树的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#KD%E6%A0%91"><span class="toc-number">1.1.1.</span> <span class="toc-text">KD树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Annoy"><span class="toc-number">1.1.2.</span> <span class="toc-text">Annoy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">哈希方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Local-Sensitive-Hashing"><span class="toc-number">1.2.1.</span> <span class="toc-text">Local Sensitive Hashing</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E6%95%8F%E6%84%9F%E6%98%AF%E5%95%A5%E6%84%8F%E6%80%9D%EF%BC%9F"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">局部敏感是啥意思？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E5%93%88%E5%B8%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AF%E4%BB%A5%E5%8A%A0%E9%80%9F%E6%9F%A5%E6%89%BE%EF%BC%9F"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">用哈希为什么可以加速查找？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E5%A4%9A%E8%A1%A8%E5%93%88%E5%B8%8C%EF%BC%9F"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">为什么要用多表哈希？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E8%A1%A8%E5%93%88%E5%B8%8C%E4%B8%AD%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%E6%95%B0%E7%9B%AEK%E5%92%8C%E5%93%88%E5%B8%8C%E8%A1%A8%E6%95%B0%E7%9B%AEL%E5%A6%82%E4%BD%95%E9%80%89%E5%8F%96%EF%BC%9F"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">多表哈希中哈希函数数目K和哈希表数目L如何选取？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Multiprobe-LSH%E6%98%AF%E4%B8%BA%E4%BA%86%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-number">1.2.1.5.</span> <span class="toc-text">Multiprobe LSH是为了解决什么问题？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LSH%E5%BC%80%E6%BA%90%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.2.2.</span> <span class="toc-text">LSH开源实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LSHash"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">LSHash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FALCONN"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">FALCONN</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A2%E9%87%8F%E9%87%8F%E5%8C%96%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">矢量量化方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E9%98%B6%E6%AE%B5%E7%9F%A2%E9%87%8F%E9%87%8F%E5%8C%96"><span class="toc-number">1.3.1.</span> <span class="toc-text">多阶段矢量量化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%98%E7%A7%AF%E9%87%8F%E5%8C%96"><span class="toc-number">1.3.2.</span> <span class="toc-text">乘积量化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%80%92%E6%8E%92%E4%B9%98%E7%A7%AF%E9%87%8F%E5%8C%96"><span class="toc-number">1.3.3.</span> <span class="toc-text">倒排乘积量化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E4%B9%98%E7%A7%AF%E9%87%8F%E5%8C%96"><span class="toc-number">1.3.4.</span> <span class="toc-text">最优乘积量化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%B4%A2%E5%BC%95%E9%87%8F%E5%8C%96%E6%96%B9%E6%B3%95"><span class="toc-number">1.4.</span> <span class="toc-text">基于图索引量化方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HNSW"><span class="toc-number">1.4.1.</span> <span class="toc-text">HNSW</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%91%E9%82%BB%E5%9B%BE%E6%8A%80%E6%9C%AF"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">近邻图技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">算法描述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%9E%E9%AA%8C%E8%AF%B4%E6%98%8E"><span class="toc-number">1.4.1.3.</span> <span class="toc-text">数据实验说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C%E4%B8%8E%E8%B0%83%E4%BC%98"><span class="toc-number">1.4.1.4.</span> <span class="toc-text">实验结果与调优</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%99%E5%BC%A6%E7%9B%B8%E4%BC%BC%E5%BA%A6%E4%B8%8E%E4%BD%99%E5%BC%A6%E8%B7%9D%E7%A6%BB%E5%85%B3%E7%B3%BB"><span class="toc-number">1.4.1.5.</span> <span class="toc-text">余弦相似度与余弦距离关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">1.4.1.6.</span> <span class="toc-text">参数说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%AF%A6%E7%BB%86%E6%84%8F%E4%B9%89"><span class="toc-number">1.4.1.7.</span> <span class="toc-text">参数详细意义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HNSW-Demo"><span class="toc-number">1.4.1.8.</span> <span class="toc-text">HNSW Demo</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.5.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
 
 
 
 
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 
 
 
 
+    
+        <section class="changyan" id="comments">
+  <!--<div id="uyan_frame"></div>-->
+  <div id="SOHUCS"></div>
+  <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+  <script type="text/javascript">
+    window.changyan.api.config({
+      appid: 'xxxx',
+      conf: 'xxxxxxxxx'
+    });
+  </script>
+</section>
+    
 
 
-  
-  
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/03/20/%E5%90%91%E9%87%8F%E7%B4%A2%E5%BC%95/">海量高维向量检索算法</a></li></ul>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+
+    <script>
+        
+    </script>
 
 </div>
       <footer id="footer">
