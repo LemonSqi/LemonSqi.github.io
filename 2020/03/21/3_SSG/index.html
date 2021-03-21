@@ -138,10 +138,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="https://LemonSqi.top/2020/03/21/2_HNSW_NSG/">
+  <link rel="canonical" href="https://LemonSqi.top/2020/03/21/3_SSG/">
   <title>
     
-    向量索引算法HNSW和NSG的比较 - LemonD.K.
+    近似最近邻算法SSG - LemonD.K.
     
   </title>
 <meta name="generator" content="Hexo 4.2.1"></head>
@@ -317,8 +317,6 @@
               
               <a class="tag" href="/tags/#ANNS" title="ANNS">ANNS</a>
               
-              <a class="tag" href="/tags/#HNSW" title="HNSW">HNSW</a>
-              
               <a class="tag" href="/tags/#Python" title="Python">Python</a>
               
               <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
@@ -329,9 +327,13 @@
               
               <a class="tag" href="/tags/#NSG" title="NSG">NSG</a>
               
+              <a class="tag" href="/tags/#SSG" title="SSG">SSG</a>
+              
+              <a class="tag" href="/tags/#NSSG" title="NSSG">NSSG</a>
+              
             </div>
-            <h1>向量索引算法HNSW和NSG的比较</h1>
-            <h2 class="subheading">Comparison of high dimensional vector retrieval algorithm HNSW and NSG</h2>
+            <h1>近似最近邻算法SSG</h1>
+            <h2 class="subheading">A algorithm SSG about approximate nearest neighbor domain</h2>
             <span class="meta">
               Posted by sqwang on
               2020-03-21
@@ -342,11 +344,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">7</span> Minutes
+              Estimated Reading Time <span class="post-count">12</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">2.2k</span> In Total
+              Words <span class="post-count">3.3k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -408,34 +410,168 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h1 id="向量检索：HNSW与NSG"><a href="#向量检索：HNSW与NSG" class="headerlink" title="向量检索：HNSW与NSG"></a>向量检索：HNSW与NSG</h1><p>上篇中，已经介绍过现在常用的向量索引类型以及它们的局限性。首先是基于树的算法，这里举例较为经典的 <a href="https://zhuanlan.zhihu.com/p/53826008" target="_blank" rel="noopener">KD-tree</a>。这种索引类型在向量维度稍大一些的情况下 (d&gt;10)，索引性能会急剧下降甚至不如暴力搜索。再说说基于 <a href="https://blog.csdn.net/guoziqing506/article/details/53019049" target="_blank" rel="noopener">LSH</a> (locality-sensitive hashing) 的索引，如果想要取得高召回率，LSH算法必须要建立大量的Hash表，这会使得索引大小膨胀数倍。不仅如此，树和LSH都属于空间切分类算法，此类算法有一个无法避免的缺陷，即为了提高搜索精度，只能增大搜索空间。图1-A描述了基于树的切分搜索，每个虚线分割出的区域是一个子树，如果搜索向量在子树的边缘时，算法需要搜索多个子树来获取结果。图1-B描述了基于 Hash 的切分搜索，虚线描述了每个独立的hash表，搜索面临的问题与基于树的搜索算法类似。所以空间切分类算法在最坏的情况下需要扫描几乎整个数据集，这在很多场景下显然是无法接受的。</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X2pwZy9NcWdBOFlsZ2VoN2ljWGVqQUtIMXVjN3Q3VWVKQUJOYnlEVlVuVnJWaER6bGhwNXd0VHZPeU1acEpqNGlhZExyQ1JLbUVtR2dHYWx4R3lDQlRmNDBob0tBLzY0MA?x-oss-process=image/format,png" alt="img"></p>
-<p>由于图数据结构有天生近邻关系的特性，在图上做最近邻搜索看来是一种不错的思路，所以近年来基于图的向量搜索算法也是一个研究热点。</p>
-<h2 id="近邻图-Proximity-Graph-：最朴素的图算法"><a href="#近邻图-Proximity-Graph-：最朴素的图算法" class="headerlink" title="近邻图(Proximity Graph)：最朴素的图算法"></a><strong>近邻图(Proximity Graph)：最朴素的图算法</strong></h2><p>近邻图的特性可以粗略理解成：构建一张图，每一个顶点连接着最近的N个顶点。它的搜索过程可见下图，Target是待查询的向量。在搜索时，由于无法知道该从图的哪个区域开始搜索，所以我们选择任意一个顶点S出发。首先遍历S的邻居，找到距离与 Target 最近的A节点，将A设置为起始节点，再从A节点出发进行遍历，反复迭代，不断逼近，最后找到与 Target 距离最近的节点A``时搜索结束。</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X2pwZy9NcWdBOFlsZ2VoN2ljWGVqQUtIMXVjN3Q3VWVKQUJOYnkyeHlSaWFmRVJ1OGVZSXRPaWJ4aWI0eGp2ejNwNW44a3pqUXUyTEFvbzBWZ2YwTVVNWEFFQzZ5ZkEvNjQw?x-oss-process=image/format,png" alt="img"></p>
-<p>尽管思路很棒，但是基础的近邻图存在着非常多的问题，最为关键的就是搜索复杂度无法确定，孤岛效应难以解决，以及构建图的开销太高，复杂度达到了指数级别。由于这些原因，学术界在基础的近邻图上，对图的构建、度数的限制、边的裁选、图的连通性、节点的导向性等方面都做了许多改进。这里我们简单介绍下近年来较为热门的算法：HNSW 和 NSG。</p>
-<h3 id="HNSW"><a href="#HNSW" class="headerlink" title="HNSW"></a><strong>HNSW</strong></h3><p> HNSW 的前身是 NSW (Navigable-Small-World-Graph)。NSW 通过设计出一个具有导航性的图来解决近邻图发散搜索的问题，但其搜索复杂度仍然过高，达到多重对数的级别，并且整体性能极易被图的大小所影响。HNSW 则是着力于解决这个问题。作者借鉴了 <a href="https://blog.csdn.net/weixin_41462047/article/details/81253106" target="_blank" rel="noopener">SkipList</a> 的思想，提出了 Hierarchical-NSW 的设想。简单来说，按照一定的规则把一张的图分成多张，越接近上层的图，平均度数越低，节点之间的距离越远；越接近下层的图平均度数越高，节点之间的距离也就越近（见下图）。</p>
-<p>搜索从最上层开始，找到本层距离最近的节点之后进入下一层。下一层搜索的起始节点即是上一层的最近节点，往复循环，直至找到结果（见下图）。由于越是上层的图，节点越是稀少，平均度数也低，距离也远，所以可以通过非常小的代价提供了良好的搜索方向，通过这种方式减少大量没有价值的计算，减少了搜索算法复杂度。更进一步，如果把 HNSW 中节点的最大度数设为常数，这样可以获得一张搜索复杂度仅为 log(n) 的图。 </p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X2pwZy9NcWdBOFlsZ2VoN2ljWGVqQUtIMXVjN3Q3VWVKQUJOYnlZcmdXWHhEV2ZtYjlucHFTQlI1RlN0UmtXTmRjeUo0Y3ZLNDdISHltOVdQWkY4NndxZW5MSVEvNjQw?x-oss-process=image/format,png" alt="img"></p>
-<p>HNSW 利用多层图的优势，天生保证了图的连通性。并且由于每个新节点的加入都会被随机到任意一层中，这样做一定程度上避免了由于数据输入顺序从而改变图的分布，最后影响搜索路径的情况。</p>
-<p>让我们来看看插入操作。新节点在插入到图中任意位置后，会建立 candidate pool，它用来保存所有搜索过的节点。首先将插入位置附近的节点加入到 pool 中，从 pool 中挑选出距离最近的节点，再从它出发寻找更近的节点，找到后将其加入到 pool 中（下图2-A到2-B)，如果此节点都已搜索完毕，则挑选 pool 中的下一个节点进行搜索，不断循环N次，直至搜索到了 pool 的尾部，此时算法结束。在此过程中，如果pool满了但却发现了更近的节点，那么将它插入到 pool 中，剔除最远的节点，并且从新插入的位置处重新开始搜索（下图2-B到2-C）。这样减少了边的数量，改善了局部图的导航性。</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X2pwZy9NcWdBOFlsZ2VoN2ljWGVqQUtIMXVjN3Q3VWVKQUJOYnl3MEM3a1l1OEFGV2VaMUVVR2t5cUk3WXRzNE8wMXY4cjRpYjN6TUhYeXZzRFk0aWNoWUNYemJwdy82NDA?x-oss-process=image/format,png" alt="img"></p>
-<h3 id="NSG"><a href="#NSG" class="headerlink" title="NSG"></a><strong>NSG</strong></h3><p>NSG 全写为 Navigating Spreading-out Graph。NSG围绕四个方向来改进：图的连通性，减少出度，缩短搜索路径，缩减图的大小。具体是通过建立导航点 (Navigation Point)，特殊的选边策略,  深度遍历收回离散节点（Deep Traversal）等方法。</p>
-<p>首先是 Navigation Point，在建图时，首先需要一张预先建立的 K-nearest-neighbor-graph (KNNG) 作为构图基准。随机选择一个点作为 Navigation Point，后续所有新插入的节点在选边时都会将Navigation Point加入候选。在建图过程中，逐渐会将子图都和 Navigation point 相连接，这样其他的节点只需保持很少的边即可，从而减少了图的大小。每次搜索从 Navigation Point 出发能够指向具体的子图，从而减少无效搜索，获得更好搜索性能。</p>
-<p>NSG 使用的择边策略与 HNSW 类似，但是不同于 HNSW 只选择最短边为有效边，NSG 使用的择边策略如下图。以点r为例，当r与p建立连接时，以r和p为圆心，r和p的距离为半径，分别做圆，如果两个圆的交集内没有其他与p相连接的点，则r与p相连（见图3-B）。在连接点s时，由于以s和p距离为半径的交集圆内，已有点r与p相连，所以s和p不相连（见图3-C）。下图中最终与点p相连的点只有r, t 和 q（见图3-A）。</p>
-<p>NSG 这样做的原因是考虑到由于边数一多，整个图就会变得稠密，最后在搜索时会浪费大量算力。但是减少边的数量，带来的坏处也比较明显，最后的图会是一张稀疏图，会使得有些节点难以被搜索到。不仅如此，NSG 的边还是单向边。在如此激进的策略下，图的连通性就会产生问题，这时 NSG 选择使用深度遍历来将离群的节点收回到图中。通过以上步骤，图的建立就完成了。</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X2pwZy9NcWdBOFlsZ2VoN2ljWGVqQUtIMXVjN3Q3VWVKQUJOYnl4aWI2d05UZGJDWjlUQU5jRGgyUUhpY1pPVFpRYlNvQmN4OWpQTWNuUUI5aWJzVWxTcHVnazdUaWF3LzY0MA?x-oss-process=image/format,png" alt="img"></p>
-<h3 id="HNSW-和-NSG-的比较"><a href="#HNSW-和-NSG-的比较" class="headerlink" title="HNSW 和 NSG 的比较"></a><strong>HNSW 和 NSG 的比较</strong></h3><p>至此，我们大致了解了 HNSW 以及 NSG 两种算法的基本思路。HNSW 从结构入手，利用分层图提高图的导航性减少无效计算从而降低搜索时间，达到优化的目的。而 NSG 选择将图的整体度数控制在尽可能小的情况下，提高导航性，缩短搜索路径来提高搜索效率。</p>
-<p>下面我们从内存占用，搜索速度，精度等方面来比较 HNSW 和 NSG。HNSW 由于多层图的结构以及连边策略，导致搜索时内存占用量会大于 NSG，在内存受限场景下选择 NSG 会更好。但是 NSG 在建图过程中无论内存占用还是耗时都大于 HNSW。此外 HNSW 还拥有目前 NSG 不支持的特性，即增量索引，虽然耗时巨大。对比其他的索引类型，无论 NSG 还是 HNSW 在搜索时间和精度两个方面，都有巨大优势。目前在Milvus内部已经实现了 NSG 算法，并将 KNNG 计算放到了 GPU 上进行从而极大地加快了 NSG 图的构建。未来 Milvus 还会集成 HNSW，以适配更广泛的场景。</p>
+        <h1 id="ANNS近似最近邻搜索问题"><a href="#ANNS近似最近邻搜索问题" class="headerlink" title="ANNS近似最近邻搜索问题"></a>ANNS近似最近邻搜索问题</h1><h2 id="ANNS的主要思想"><a href="#ANNS的主要思想" class="headerlink" title="ANNS的主要思想"></a>ANNS的主要思想</h2><p>搜索可能是近邻的数据项而不再只局限于返回最可能的项目，在牺牲可接受范围内的精度的情况下提高检索效率。</p>
+<h2 id="ANNS的分类"><a href="#ANNS的分类" class="headerlink" title="ANNS的分类"></a>ANNS的分类</h2><ul>
+<li><p>基于树的方法（如图a）<br>随机KD树、R树</p>
+</li>
+<li><p>基于散列的方法（如图b）<br>局部敏感哈希（LSH）、光谱散列</p>
+</li>
+<li><p>基于量化的方法<br>产品量化、复合量化</p>
+</li>
+<li><p>基于图的方法（如图c）<br>NSW、HNSW、FANNG、NSG</p>
+<p><img src="https://gulico.github.io//2019/08/12/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95SSG%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/ANNS.png" alt="ANNS"></p>
+</li>
+</ul>
+<p>其中NSG与SSG都是由同一位作者提出的，两种图的主要思想和构建方法都非常类似，而且SSG的很多改进点都由NSG的缺点引出的。所以，了解NSG有利于SSG的理解。那么下面就来介绍以下NSG等相关知识。</p>
+<h2 id="相关研究"><a href="#相关研究" class="headerlink" title="相关研究"></a>相关研究</h2><h3 id="单调搜索网络MSNET与单调相对领域图MRNG"><a href="#单调搜索网络MSNET与单调相对领域图MRNG" class="headerlink" title="单调搜索网络MSNET与单调相对领域图MRNG"></a>单调搜索网络MSNET与单调相对领域图MRNG</h3><ul>
+<li><strong>单调路径Monotonic Path</strong><br>在给定空间的有限点集S中，p、q为在集合中的两点，且G为定义在S上的图。其中</li>
+</ul>
+<p>$$<br>v_1,v_2…v_k(v_1=p,v_k=q)<br>$$</p>
+<p> 为从点p到q的路径上的点，且∀i = 1,…,k−1,δ(,q) &gt; δ(+1,q)随着i的增大， 与q的距离越来越近。</p>
+<ul>
+<li><p><strong>单调搜索网络Monotonic Search Networks (MSNET)</strong><br>在给定空间的有限点集S中，任意两点p、q之间至少存在一条单调路径。<br><strong>特性：</strong><br>强连通图，确保图的连接性<br>不需要回溯，路径中每一步都更加接近终点q</p>
+</li>
+<li><p><strong>单调搜索网络MSNET与单调相对领域图MRNG</strong><br>相对邻域图 Relative Neighborhood Graph(RNG)<br>在给定空间的有限点集S中，当且仅当任意两点p、q的之间的区域 中不包含集合S中的任何点。<br>其中，<br>$$<br>lune_{pq}= B(p,δ(p,q)) ∩ B(q,δ(p,q))<br>$$</p>
+</li>
+<li><p><strong>单调相对邻域图Monotonic Relative Neighborhood Graph (MRNG)</strong><br><strong>定义：</strong>在给定空间的有限点集S中，满足：<br>任意两点p、q的区域中不包含集合S中的任何点。（RNG的定义）<br>或者，若区域中存在的点r，但不属于MRNG<br><strong>定理：</strong><br>在给定空间的有限点集S中，在 S 上定 义的 MRNG 是 MSNET 。</p>
+</li>
+<li><p>例子：</p>
+<p><img src="D:%5CGit%5Crepository%5Cblog%5Csource_posts%5C3_SSG%5C1.jpg" alt="3_SSG"></p>
+<p><img src="D:%5CGit%5Crepository%5Cblog%5Csource_posts%5C3_SSG%5C2.jpg" alt="3_SSG"></p>
+</li>
+</ul>
+<h3 id="NSG存在的一些缺陷"><a href="#NSG存在的一些缺陷" class="headerlink" title="NSG存在的一些缺陷"></a>NSG存在的一些缺陷</h3><ul>
+<li><p><strong>MSNET过于稀疏，导致搜索性能较差</strong><br>基于ANN的搜索复杂度主要取决于结点的出度、起点到终点的路径长度<br>(a)(b)(c)分别为MSNET图族的三种不同的图，且(a)-&gt;(c)：稀疏度降低<br>(a)(b)(c)图分别需要7、5、8次计算。<br><strong>结论：</strong>并不是图越稀疏、或者越稠密效率越高，而是存在“最优稀疏度</p>
+<p><strong>解决途径：</strong>图的理论定义-&gt;新的msnet图ssg</p>
+<p>利用参数描述边缘之间的最大角度，控制图的系数性，探索最佳出度。</p>
+<p><img src="https://gulico.github.io//2019/08/12/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95SSG%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/msnet_family.png" alt="稀疏度对MSNET图族搜索性能的影响"></p>
+</li>
+<li><p><strong>规模较大的实际应用中，nsg索引的复杂度依然很高，限制了它的扩展和搜索性能</strong></p>
+<p><strong>解决途径：</strong>索引算法的设计，产生近似ssg，具有较低的时间复杂度，有利于应用于大规模的项目。</p>
+</li>
+</ul>
+<h2 id="解决办法-SSG"><a href="#解决办法-SSG" class="headerlink" title="解决办法-SSG"></a>解决办法-SSG</h2><p>为了解决NSG的一些缺陷，作者提出了新的MSNET图SSG(Satellite System Graph卫星系图)。</p>
+<h3 id="SSG的定义"><a href="#SSG的定义" class="headerlink" title="SSG的定义"></a>SSG的定义</h3><p><img src="https://gulico.github.io//2019/08/12/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95SSG%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/ssg.png" alt="img"></p>
+<ul>
+<li><p>卫星系图Satellite System Graphs (SSG)<br>定义在有向边集S上，满足，对于任何$vec{pq} $， $vec{pq} $∈ SSG当且仅当Cone($vec{pq} $,α) ∩B(p,δ(p,q))∩S = ∅ 或者∀r ∈ Cone($vec{pq} $,α) ∩B(p,δ(p,q))∩S ≠ ∅，但 ∉SSG。(<strong>大白话</strong>： pq ∈ SSG当且仅当以pq为轴，α为角直径的圆锥和以p为圆心，pq为半径的球体和有向边集S的交集为空</p>
+<p>或者该交集中存在点r，但是有向边pr不属于ssg。)</p>
+</li>
+<li><p>δ(p,q)表示pq之间的距离</p>
+</li>
+<li><p>B(p,δ(p,q))表示一p为圆心，pq为半径的开球</p>
+</li>
+<li><p>α ≤ 60◦</p>
+</li>
+<li><p>Cone($vec{pq} $,α) 表示<br>在欧几里得空间中，对于任意，Cone(,α) 是以为轴，2α为角直径的圆锥。<br>δ：角直径<br>d：物体直径<br>D：物体距离</p>
+<p><img src="https://gulico.github.io//2019/08/12/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95SSG%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/cone.png" alt="cone"></p>
+</li>
+</ul>
+<h3 id="构建朴素SSG索引"><a href="#构建朴素SSG索引" class="headerlink" title="构建朴素SSG索引"></a>构建朴素SSG索引</h3><p>对于集合S中每一个 p ∈ S 执行以下过程:</p>
+<ol>
+<li>计算集合S中除p点以外的所有点q(q ∈ S−{p})和p的距离pq</li>
+<li>按照pq的距离，升序对集合q ∈ S−{p}进行排序，形成列表C</li>
+<li>按顺序检查是否满足SSG的定义，满足则可加入SSG</li>
+</ol>
+<ul>
+<li><p>例子：</p>
+<p>在2维空间中，首先计算与p点的距离，并升序排序。按顺序检查有向边是否可以加入SSG。</p>
+<ul>
+<li>首先看q点，Cone($vec{pq} $,α) ∩B(p,δ(p,q))∩S = ∅ ，所以有向边pq加入SSG。其他的以此类推。</li>
+<li>再看r点，检查它的顺序肯定在q之后，s之前。 q ∈ Cone($vec{pq} $α) ∩B(p,δ(p,r))∩S ≠ ∅ ，且SSG，所以不能加入SSG。</li>
+<li>看s点， r ∈ Cone(,α) ∩B(p,δ(p,s))∩S ≠ ∅ ，但，所以可以加入SSG。</li>
+</ul>
+</li>
+</ul>
+<h3 id="SSG的ANNS特性分析"><a href="#SSG的ANNS特性分析" class="headerlink" title="SSG的ANNS特性分析"></a>SSG的ANNS特性分析</h3><h4 id="数据库内查询和非数据库内查询"><a href="#数据库内查询和非数据库内查询" class="headerlink" title="数据库内查询和非数据库内查询"></a>数据库内查询和非数据库内查询</h4><ul>
+<li><p><strong>数据库内查询</strong><br>返回的是数据库中存在的数据</p>
+</li>
+<li><p><strong>非数据库内查询</strong><br>返回的是与查询点邻近的数据</p>
+</li>
+<li><p><strong>例子</strong><br>如上图，设黑点为起始点，红点为查询点。</p>
+<p>使用贪婪搜索从黑点开始搜索，下一跳应选择黑点的邻居中距离红点最近的点。图a中黑点斜上方的点距离红色查询点更近，而图b中黑点斜下方的点距离红色查询点更近。接着两张图上的查询沿着不同的路径（红色路径）得到了相同的返回结点（红色路径的终点）。</p>
+<p>所以，虽然起始点和最终得到的结果完全相同，但是由于查询点与当前点的距离不同，导致使用贪婪搜索，得到的搜索路径完全不同。</p>
+<h4 id="数据库内查询"><a href="#数据库内查询" class="headerlink" title="数据库内查询"></a>数据库内查询</h4></li>
+<li><p><strong>定理1</strong>：SSG属于MSNET图族</p>
+</li>
+<li><p><strong>与同为MSNET图族的MRNG比较</strong>：<br>图(a)为MRNG，图(b)为SSG</p>
+<ul>
+<li>实验显示MRNG的平均出度小于SSG，但平均搜索路径长于SSG。</li>
+<li>由于MRNG中三角形的最长边必须被移除，所以如图a虚线部分是空白的。而且根据MRNG的定义，对于确定的数据集S，MRNG是确定的，不能根据不同情况进行调节。</li>
+<li>SSG通过边之间的夹角进行裁边，使得边缘分布更加均匀，减少空白区域。通过改变边缘之间的最大夹角α可以控制图的稀疏程度，由此可以<strong>根据不同的数据分布调节α</strong>，并找到搜索路径长度和出度的平衡点。</li>
+</ul>
+<p><img src="https://gulico.github.io//2019/08/12/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95SSG%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/ANNS_of_SSG.png" alt="img"></p>
+</li>
+</ul>
+<h4 id="非数据库内查询"><a href="#非数据库内查询" class="headerlink" title="非数据库内查询"></a>非数据库内查询</h4><ul>
+<li><strong>定理3</strong>：对于随机分布在欧几里得空间上的有限集S，任意不属于S的查询q，搜索路径上的每一步都是单调的概率为 0.5 +e ,0 &lt; e ≤ 0.5(单调的概率大于0.5)。其中，当 SSG的α ≤ 30◦时 e=1(一定是单调的)。</li>
+<li>与同为MSNET图族的MRNG比较：<ul>
+<li>从定义来看SSG相对于MRNG的优势与α的大小有关：<ul>
+<li>当α = 60◦时，搜索路径中的任意一步违反单调性的概率小于0.5</li>
+<li>当α ≤ 30◦时，在数据库和非数据库查询的情况下，保证搜索路径一定是单调的。</li>
+<li>同时，对于SSG来说，α=60°比α≤30°稀疏很多。对于在非数据库上的查询来说，出度和单调性之间需要权衡（α大，出度小，单调性的概率下降）。不同分布的数据集，最合适的α不同。</li>
+<li>而MRNG以及它之前的准备工作中（例如生成kNN图），都没有角度约束，所以不具备以上属性。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><ol>
+<li>SSG可以通过α控制图的稀疏度，针对不同数据集，调节α，生成较为合适的图结构。</li>
+<li>在非数据库查询中，比MRNG更具有理论上的普遍性。</li>
+</ol>
+<h2 id="SSG的实用变体NSSG（-Navigating-SSG-）"><a href="#SSG的实用变体NSSG（-Navigating-SSG-）" class="headerlink" title="SSG的实用变体NSSG（ Navigating SSG ）"></a>SSG的实用变体NSSG（ Navigating SSG ）</h2><p>可导航卫星系图NSSG</p>
+<h3 id="生成索引主要步骤"><a href="#生成索引主要步骤" class="headerlink" title="生成索引主要步骤"></a>生成索引主要步骤</h3><ol>
+<li><p><strong>从少量候选集中选择点的邻居</strong>：首先建立kNN图。候选集从kNN图上对应点的邻居、邻居的邻居中产生。（NSG：使用贪婪搜索，选择起始点p到q之间搜索路径上的所有点加入候选集）</p>
+</li>
+<li><p>从候选集中选则边缘的时候使用SSG选边策略</p>
+<ul>
+<li>且仅仅在此步骤中应用SSG选边策略（参见，建立朴素SSG过程，满足SSG定义即可加入SSG图）</li>
+<li>在最终构成的图上，设置最大度，防止个别点的度特别大。</li>
+</ul>
+</li>
+<li><p>确保图的连通性</p>
+<p>：DFS扩展算法，添加少量的边，确保图单方向的连通性。（与NSG中此部分类似）</p>
+<ol>
+<li>随机选择m个导航点（NSG仅选择一个中心点作为导航点）-&gt;相比NSG更能适应不同分布的图</li>
+<li>从每一个导航点出发DFS，分别生成深度优先搜索树。当DFS搜索终止时，把没有链接到树的节点，链接到它们最近的邻居。（同NSG）</li>
+</ol>
+</li>
+</ol>
+<p><strong>P.s.虽然SSG的定义要求0°α60°，但是实际操作中可以将α的范围扩展到0°~90°</strong></p>
+<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><ul>
+<li>与其他基于图的搜索一样，使用贪婪搜索进行搜索。</li>
+<li>相比NSG的改动：将m个导航点按照与查询点q的距离从小到大排序，从距离查询点q最近的导航点开始查询。</li>
+</ul>
+<h2 id="实验分析"><a href="#实验分析" class="headerlink" title="实验分析"></a>实验分析</h2><h3 id="搜索性能对比"><a href="#搜索性能对比" class="headerlink" title="搜索性能对比"></a>搜索性能对比</h3><ul>
+<li><strong>在规模大的数据集上优势明显</strong><br>SSG对于数据规模不敏感，在高维度上与其他算法差距越来越大</li>
+<li>DPG(Diversiﬁed Proximity Graph)和SSG都是使用角度进行选边的算法，但是尤其是在数据规模大的情况下，DPG的性能远低于SSG。原因如下：<br>DPG不是MSNET<br>DPG太密集，存在过多无效边</li>
+<li>由于<strong>NSSG的选边策略为搜索路径带来了跟多有效边</strong>，虽然度变大了，但使得搜索路径中的跳数变少，进而使得NSSG的性能优于NSG和HNSW。</li>
+</ul>
+<h3 id="索引生成性能对比"><a href="#索引生成性能对比" class="headerlink" title="索引生成性能对比"></a>索引生成性能对比</h3><ul>
+<li><strong>索引尺寸：</strong><br>由于NSSG和NSG的最大度较小，所以索引尺寸是最小的。虽然HNSW的最大度与前者相同，但是由于HNSW是分层的，所以它的索引尺寸会很大。</li>
+<li><strong>建立索引的时间：</strong><br>NSSG建立索引的时间仅次于KGraph，因为KGraph用于建立NSSG的第一步：生成kNN图。但是NSSG的搜索性能远好于KGraph。</li>
+<li>最耗时的部分是建立kNN图。可以通过在GPU上生成索引或者使用其他更快的算法代替。</li>
+</ul>
+<h3 id="参数对性能的影响"><a href="#参数对性能的影响" class="headerlink" title="参数对性能的影响"></a>参数对性能的影响</h3><ul>
+<li>α=60°时，搜索性能最好</li>
+</ul>
+<p><img src="https://gulico.github.io//2019/08/12/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95SSG%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/parameter.png" alt="img"></p>
+<h2 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h2><p>近似最近邻SSG算子K阶图查询SSGQuery(G, p, q, l)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">* 参数：图G </span><br><span class="line">*      起始点p  </span><br><span class="line">*      查询点q </span><br><span class="line">*      候选池大小l   </span><br><span class="line">* 返回：k个距离查询点q最近的点 </span><br><span class="line">**/</span><br><span class="line"></span><br><span class="line">Require: graph G, start node p, query point q, candidate pool size l </span><br><span class="line">Ensure: k nearest neighbors of q </span><br><span class="line"></span><br><span class="line">i = <span class="number">0</span>, candidate pool S = ∅      //最初候选池S为空，候选池中元素索引序号i = <span class="number">0</span></span><br><span class="line">S.add(p)                                   //起始点加入候选池S</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> i &lt; l do                            //当候选池中点的索引序号i小于l</span><br><span class="line">	i = the index of the ﬁrst unchecked node <span class="keyword">in</span> S  //i = 候选池中首个未查询的点的索引序号</span><br><span class="line">	mark pi <span class="keyword">as</span> checked                                               //标记pi为查询过的点</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> all neighbor n of pi <span class="keyword">in</span> G do                           //将pi的所有邻居加入候选池</span><br><span class="line">		S.add(n)</span><br><span class="line">	end  </span><br><span class="line">	sort S <span class="keyword">in</span> ascending order of the distance to q //将候选池中的点，以与q点的距离为依据升序排列</span><br><span class="line">	</span><br><span class="line">	If S.size() &gt; l, S.resize(l)                                    //若S的大小大于l，则更新S的大小</span><br><span class="line">end <span class="keyword">while</span> </span><br><span class="line"><span class="keyword">return</span> the ﬁrst k nodes <span class="keyword">in</span> S</span><br></pre></td></tr></table></figure>
 
+<h3 id="建立SSG图索引SSGIndexing-D-l-r-s-α"><a href="#建立SSG图索引SSGIndexing-D-l-r-s-α" class="headerlink" title="建立SSG图索引SSGIndexing(D, l, r, s, α)"></a>建立SSG图索引SSGIndexing(D, l, r, s, α)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* 方法<span class="number">2</span>：SSGIndexing(D, l, r, s, α) </span><br><span class="line">* 功能：建立SSG索引</span><br><span class="line">* 传入参数：数据集D，</span><br><span class="line">*		  候选集大小L</span><br><span class="line">*		  最大度r</span><br><span class="line">*		  导航点的数量s</span><br><span class="line">*		  边之间的最小角度α</span><br><span class="line">* 返回：SSG图G</span><br><span class="line">**/</span><br><span class="line"></span><br><span class="line">Require: dataset D, candidate set size l, maximum outdegree r, number of navigating points s, minimum angle α.</span><br><span class="line"></span><br><span class="line">Ensure: an SSG G. </span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">* <span class="number">1.</span>建立近似kNN图：GkNN</span><br><span class="line">**/</span><br><span class="line"></span><br><span class="line">Build an approximate kNN graph Gknn. </span><br><span class="line">G = ∅. </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> all node i <span class="keyword">in</span> Gknn do //遍历Gknn图中的所有点i</span><br><span class="line">	P = ∅. //候选集P为空</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">* <span class="number">2.</span>候选集P从对应点的邻居和邻居的邻居中产生</span><br><span class="line">**/</span><br><span class="line">	<span class="keyword">for</span> all neighbor n of node i do //遍历i的所有邻居n，加入候选集P</span><br><span class="line">		P.add(n). </span><br><span class="line">		<span class="keyword">for</span> all neighbor n0 of node n do //遍历n的所有邻居n0，加入候选集P</span><br><span class="line">			P.add(n0). </span><br><span class="line">		end <span class="keyword">for</span> </span><br><span class="line">		remove the redundant nodes <span class="keyword">in</span> P. //移除P中多余的边</span><br><span class="line">		<span class="keyword">if</span> P.size() ≥ l then //若P的大小大于l，则跳出循环</span><br><span class="line">			<span class="keyword">break</span>. </span><br><span class="line">		end <span class="keyword">if</span> </span><br><span class="line">	end <span class="keyword">for</span> </span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">* <span class="number">3.</span>从候选集P中挑选符合SSG的i的邻居</span><br><span class="line">**/</span><br><span class="line">	sort P <span class="keyword">in</span> the ascending order of the distance to i. //对候选集中的点，按照与i的距离升序排序。</span><br><span class="line"></span><br><span class="line">	select neighbors <span class="keyword">from</span> P according to the deﬁnition of SSG. //根据SSG选编策略，从P中选择i的邻居</span><br><span class="line">end <span class="keyword">for</span> </span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">* <span class="number">4.</span>加强图的连通性</span><br><span class="line">**/</span><br><span class="line"></span><br><span class="line">Random select s points <span class="keyword">from</span> the datasets <span class="keyword">as</span> N. //随机选择s个导航点N</span><br><span class="line"><span class="keyword">for</span> all point n <span class="keyword">in</span> N do //遍历导航点</span><br><span class="line">	Strengthen the connectivity of the graph <span class="keyword">with</span> </span><br><span class="line">	DFS-expanding <span class="keyword">from</span> s. //利用深度优先扩展算法，加强图的连通性</span><br><span class="line">end <span class="keyword">for</span> <span class="number">23</span>: <span class="keyword">return</span> G.</span><br></pre></td></tr></table></figure>
 
         <hr>
         <!-- Pager -->
         <ul class="pager">
           
+          <li class="previous">
+            <a href="/2020/03/21/2_HNSW_NSG/" data-toggle="tooltip" data-placement="top" title="向量索引算法HNSW和NSG的比较">&larr; Previous Post</a>
+          </li>
+          
           
           <li class="next">
-            <a href="/2020/03/21/3_SSG/" data-toggle="tooltip" data-placement="top" title="近似最近邻算法SSG">Next Post &rarr;</a>
+            <a href="/2020/03/21/1_向量索引/" data-toggle="tooltip" data-placement="top" title="海量高维向量检索算法">Next Post &rarr;</a>
           </li>
           
         </ul>
@@ -478,7 +614,7 @@
       </a>
     </li>
     <li class="social-share-li">
-      <a target="_blank" class="social-share-icon" href="mailto:?subject=向量索引算法HNSW和NSG的比较&body=Hi,I found this website and thought you might like it https://LemonSqi.top/2020/03/21/2_HNSW_NSG/">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=近似最近邻算法SSG&body=Hi,I found this website and thought you might like it https://LemonSqi.top/2020/03/21/3_SSG/">
         <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
       </a>
     </li>
@@ -566,7 +702,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#向量检索：HNSW与NSG"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">向量检索：HNSW与NSG</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#近邻图-Proximity-Graph-：最朴素的图算法"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">近邻图(Proximity Graph)：最朴素的图算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#HNSW"><span class="toc-nav-number">1.1.1.</span> <span class="toc-nav-text">HNSW</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#NSG"><span class="toc-nav-number">1.1.2.</span> <span class="toc-nav-text">NSG</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#HNSW-和-NSG-的比较"><span class="toc-nav-number">1.1.3.</span> <span class="toc-nav-text">HNSW 和 NSG 的比较</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#ANNS近似最近邻搜索问题"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">ANNS近似最近邻搜索问题</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#ANNS的主要思想"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">ANNS的主要思想</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#ANNS的分类"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">ANNS的分类</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#相关研究"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">相关研究</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#单调搜索网络MSNET与单调相对领域图MRNG"><span class="toc-nav-number">1.3.1.</span> <span class="toc-nav-text">单调搜索网络MSNET与单调相对领域图MRNG</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#NSG存在的一些缺陷"><span class="toc-nav-number">1.3.2.</span> <span class="toc-nav-text">NSG存在的一些缺陷</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解决办法-SSG"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">解决办法-SSG</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#SSG的定义"><span class="toc-nav-number">1.4.1.</span> <span class="toc-nav-text">SSG的定义</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#构建朴素SSG索引"><span class="toc-nav-number">1.4.2.</span> <span class="toc-nav-text">构建朴素SSG索引</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#SSG的ANNS特性分析"><span class="toc-nav-number">1.4.3.</span> <span class="toc-nav-text">SSG的ANNS特性分析</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#数据库内查询和非数据库内查询"><span class="toc-nav-number">1.4.3.1.</span> <span class="toc-nav-text">数据库内查询和非数据库内查询</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#数据库内查询"><span class="toc-nav-number">1.4.3.2.</span> <span class="toc-nav-text">数据库内查询</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#非数据库内查询"><span class="toc-nav-number">1.4.3.3.</span> <span class="toc-nav-text">非数据库内查询</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#总结："><span class="toc-nav-number">1.4.4.</span> <span class="toc-nav-text">总结：</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#SSG的实用变体NSSG（-Navigating-SSG-）"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">SSG的实用变体NSSG（ Navigating SSG ）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#生成索引主要步骤"><span class="toc-nav-number">1.5.1.</span> <span class="toc-nav-text">生成索引主要步骤</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#搜索"><span class="toc-nav-number">1.5.2.</span> <span class="toc-nav-text">搜索</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实验分析"><span class="toc-nav-number">1.6.</span> <span class="toc-nav-text">实验分析</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#搜索性能对比"><span class="toc-nav-number">1.6.1.</span> <span class="toc-nav-text">搜索性能对比</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#索引生成性能对比"><span class="toc-nav-number">1.6.2.</span> <span class="toc-nav-text">索引生成性能对比</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#参数对性能的影响"><span class="toc-nav-number">1.6.3.</span> <span class="toc-nav-text">参数对性能的影响</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#核心代码"><span class="toc-nav-number">1.7.</span> <span class="toc-nav-text">核心代码</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#建立SSG图索引SSGIndexing-D-l-r-s-α"><span class="toc-nav-number">1.7.1.</span> <span class="toc-nav-text">建立SSG图索引SSGIndexing(D, l, r, s, α)</span></a></li></ol></li></ol></li></ol>
         
         </div>
       </aside>
@@ -590,8 +726,6 @@
             
             <a class="tag" href="/tags/#ANNS" title="ANNS">ANNS</a>
             
-            <a class="tag" href="/tags/#HNSW" title="HNSW">HNSW</a>
-            
             <a class="tag" href="/tags/#Python" title="Python">Python</a>
             
             <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
@@ -601,6 +735,10 @@
             <a class="tag" href="/tags/#大数据" title="大数据">大数据</a>
             
             <a class="tag" href="/tags/#NSG" title="NSG">NSG</a>
+            
+            <a class="tag" href="/tags/#SSG" title="SSG">SSG</a>
+            
+            <a class="tag" href="/tags/#NSSG" title="NSSG">NSSG</a>
             
           </div>
         </section>
