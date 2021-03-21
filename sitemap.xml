@@ -2,42 +2,49 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>2020/03/21/1_%E5%90%91%E9%87%8F%E7%B4%A2%E5%BC%95/</loc>
+    <loc>https://lemonsqi.top/2020/03/21/2_HNSW_NSG/</loc>
     
     <lastmod>2021-03-21</lastmod>
     
   </url>
   
   <url>
-    <loc>archive/index.html</loc>
+    <loc>https://lemonsqi.top/2020/03/21/1_%E5%90%91%E9%87%8F%E7%B4%A2%E5%BC%95/</loc>
     
     <lastmod>2021-03-21</lastmod>
     
   </url>
   
   <url>
-    <loc>tags/index.html</loc>
+    <loc>https://lemonsqi.top/archive/index.html</loc>
     
     <lastmod>2021-03-21</lastmod>
     
   </url>
   
   <url>
-    <loc>categories/index.html</loc>
+    <loc>https://lemonsqi.top/tags/index.html</loc>
     
     <lastmod>2021-03-21</lastmod>
     
   </url>
   
   <url>
-    <loc>about/index.html</loc>
+    <loc>https://lemonsqi.top/categories/index.html</loc>
     
     <lastmod>2021-03-21</lastmod>
     
   </url>
   
   <url>
-    <loc>404.html</loc>
+    <loc>https://lemonsqi.top/about/index.html</loc>
+    
+    <lastmod>2021-03-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://lemonsqi.top/404.html</loc>
     
     <lastmod>2021-03-20</lastmod>
     
@@ -45,7 +52,7 @@
   
 
   <url>
-    <loc>LemonSqi.top</loc>
+    <loc>https://lemonsqi.top/</loc>
     <lastmod>2021-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -53,56 +60,56 @@
 
   
   <url>
-    <loc>tags/ANNS/</loc>
+    <loc>https://lemonsqi.top/tags/ANNS/</loc>
     <lastmod>2021-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>tags/KD-Tree/</loc>
+    <loc>https://lemonsqi.top/tags/KD-Tree/</loc>
     <lastmod>2021-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>tags/SVM/</loc>
+    <loc>https://lemonsqi.top/tags/SVM/</loc>
     <lastmod>2021-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>tags/Annoy/</loc>
+    <loc>https://lemonsqi.top/tags/Annoy/</loc>
     <lastmod>2021-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>tags/LSH/</loc>
+    <loc>https://lemonsqi.top/tags/LSH/</loc>
     <lastmod>2021-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>tags/VQ/</loc>
+    <loc>https://lemonsqi.top/tags/VQ/</loc>
     <lastmod>2021-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>tags/HNSW/</loc>
+    <loc>https://lemonsqi.top/tags/HNSW/</loc>
     <lastmod>2021-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>tags/Python/</loc>
+    <loc>https://lemonsqi.top/tags/Python/</loc>
     <lastmod>2021-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -111,14 +118,14 @@
 
   
   <url>
-    <loc>categories/AI/</loc>
+    <loc>https://lemonsqi.top/categories/AI/</loc>
     <lastmod>2021-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>categories/AI/ANNS/</loc>
+    <loc>https://lemonsqi.top/categories/AI/ANNS/</loc>
     <lastmod>2021-03-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
