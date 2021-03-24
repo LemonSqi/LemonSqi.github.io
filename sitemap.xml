@@ -74,21 +74,14 @@
   </url>
   
   <url>
+    <loc>https://lemonsqi.top/tags/HNSW/</loc>
+    <lastmod>2021-03-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://lemonsqi.top/tags/NSG/</loc>
-    <lastmod>2021-03-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://lemonsqi.top/tags/SSG/</loc>
-    <lastmod>2021-03-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://lemonsqi.top/tags/NSSG/</loc>
     <lastmod>2021-03-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -117,6 +110,20 @@
   
   <url>
     <loc>https://lemonsqi.top/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2021-03-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lemonsqi.top/tags/SSG/</loc>
+    <lastmod>2021-03-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lemonsqi.top/tags/NSSG/</loc>
     <lastmod>2021-03-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -152,13 +159,6 @@
   
   <url>
     <loc>https://lemonsqi.top/tags/VQ/</loc>
-    <lastmod>2021-03-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://lemonsqi.top/tags/HNSW/</loc>
     <lastmod>2021-03-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
