@@ -210,13 +210,6 @@
 
           
           <li>
-            <a href="/archive/">Archives</a>
-          </li>
-          
-          
-
-          
-          <li>
             <a href="/categories/">Categories</a>
           </li>
           
@@ -224,14 +217,21 @@
 
           
           <li>
-            <a href="/tags/">Tags</a>
+            <a href="/about/">About</a>
           </li>
           
           
 
           
           <li>
-            <a href="/about/">About</a>
+            <a href="/archive/">Archives</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/tags/">Tags</a>
           </li>
           
           
@@ -287,10 +287,11 @@
 	<!-- Modified by Yu-Hsuan Yen -->
 <!-- Post Header -->
 
+  <!-- CDN: jsdelivr start -->
   <style type="text/css">
     header.intro-header {
        /*post*/
-        background-image: url('/img/blog/3.jpg');
+        background-image: url('https://cdn.jsdelivr.net/gh/LemonSqi/LemonSqi.github.io/img/blog/3.jpg');
       
     }
 
@@ -300,6 +301,7 @@
       }
     
   </style>
+  <!-- CDN: jsdelivr end -->
 
 
 
@@ -317,6 +319,14 @@
               
               <a class="tag" href="/tags/#ANNS" title="ANNS">ANNS</a>
               
+              <a class="tag" href="/tags/#Python" title="Python">Python</a>
+              
+              <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
+              
+              <a class="tag" href="/tags/#数据挖掘" title="数据挖掘">数据挖掘</a>
+              
+              <a class="tag" href="/tags/#大数据" title="大数据">大数据</a>
+              
               <a class="tag" href="/tags/#KD-Tree" title="KD-Tree">KD-Tree</a>
               
               <a class="tag" href="/tags/#SVM" title="SVM">SVM</a>
@@ -328,14 +338,6 @@
               <a class="tag" href="/tags/#VQ" title="VQ">VQ</a>
               
               <a class="tag" href="/tags/#HNSW" title="HNSW">HNSW</a>
-              
-              <a class="tag" href="/tags/#Python" title="Python">Python</a>
-              
-              <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
-              
-              <a class="tag" href="/tags/#数据挖掘" title="数据挖掘">数据挖掘</a>
-              
-              <a class="tag" href="/tags/#大数据" title="大数据">大数据</a>
               
             </div>
             <h1>海量高维向量检索算法</h1>
@@ -951,6 +953,14 @@
             
             <a class="tag" href="/tags/#ANNS" title="ANNS">ANNS</a>
             
+            <a class="tag" href="/tags/#Python" title="Python">Python</a>
+            
+            <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
+            
+            <a class="tag" href="/tags/#数据挖掘" title="数据挖掘">数据挖掘</a>
+            
+            <a class="tag" href="/tags/#大数据" title="大数据">大数据</a>
+            
             <a class="tag" href="/tags/#KD-Tree" title="KD-Tree">KD-Tree</a>
             
             <a class="tag" href="/tags/#SVM" title="SVM">SVM</a>
@@ -962,14 +972,6 @@
             <a class="tag" href="/tags/#VQ" title="VQ">VQ</a>
             
             <a class="tag" href="/tags/#HNSW" title="HNSW">HNSW</a>
-            
-            <a class="tag" href="/tags/#Python" title="Python">Python</a>
-            
-            <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
-            
-            <a class="tag" href="/tags/#数据挖掘" title="数据挖掘">数据挖掘</a>
-            
-            <a class="tag" href="/tags/#大数据" title="大数据">大数据</a>
             
           </div>
         </section>
@@ -1157,6 +1159,29 @@
   <!-- ThemeColor end -->
 
 
+
+  <!-- CDN: jsdelivr start -->
+  <script type="text/javascript">
+    let imgsUrl = document.getElementsByTagName("img");
+    let imgUrl = Array.from(imgsUrl);
+
+    let jsdelivr = "https://cdn.jsdelivr.net/gh/";
+    let gh = "LemonSqi";
+    let ghPages = gh + ".github.io";
+    let pagePath = "2020/03/21/1_向量索引/";
+    let jsdelivrurl;
+    if (pagePath.indexOf("index.html") != -1) {
+      jsdelivrurl = jsdelivr + gh + "/" + ghPages;
+    }else{
+      jsdelivrurl = jsdelivr + gh + "/" + ghPages + "/" + pagePath;
+    }
+    imgUrl.forEach(item => {
+      let oldUrl = item.getAttribute("src");
+      let newUrl = oldUrl.replace(oldUrl, jsdelivrurl + oldUrl).replace("..","");
+      item.setAttribute("src", newUrl);
+    });
+  </script>
+  <!-- CDN: jsdelivr end -->
 
 
 
