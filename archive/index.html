@@ -210,14 +210,14 @@
 
           
           <li>
-            <a href="/archive/">Archives</a>
+            <a href="/categories/">Categories</a>
           </li>
           
           
 
           
           <li>
-            <a href="/categories/">Categories</a>
+            <a href="/archive/">Archives</a>
           </li>
           
           
@@ -287,11 +287,10 @@
 	<!-- Modified by Yu-Hsuan Yen -->
 <!-- Post Header -->
 
-  <!-- CDN: jsdelivr start -->
   <style type="text/css">
     header.intro-header {
        /*page*/
-        background-image: url('https://cdn.jsdelivr.net/gh/LemonSqi/LemonSqi.github.io/img/header_img/6.jpg');
+        background-image: url('/img/header_img/6.jpg');
       
     }
 
@@ -301,7 +300,6 @@
       }
     
   </style>
-  <!-- CDN: jsdelivr end -->
 
 
 
@@ -545,6 +543,14 @@
     
     
     
+    <a href="/tags/#排序算法" title="排序算法" rel="1">排序算法</a>
+    
+    
+    
+    <a href="/tags/#内排序" title="内排序" rel="1">内排序</a>
+    
+    
+    
     <a href="/tags/#NSG" title="NSG" rel="2">NSG</a>
     
     
@@ -554,14 +560,6 @@
     
     
     <a href="/tags/#NSSG" title="NSSG" rel="1">NSSG</a>
-    
-    
-    
-    <a href="/tags/#排序算法" title="排序算法" rel="1">排序算法</a>
-    
-    
-    
-    <a href="/tags/#内排序" title="内排序" rel="1">内排序</a>
     
     
   </div>
@@ -835,29 +833,6 @@
   <!-- ThemeColor end -->
 
 
-
-  <!-- CDN: jsdelivr start -->
-  <script type="text/javascript">
-    let imgsUrl = document.getElementsByTagName("img");
-    let imgUrl = Array.from(imgsUrl);
-
-    let jsdelivr = "https://cdn.jsdelivr.net/gh/";
-    let gh = "LemonSqi";
-    let ghPages = gh + ".github.io";
-    let pagePath = "archive/index.html";
-    let jsdelivrurl;
-    if (pagePath.indexOf("index.html") != -1) {
-      jsdelivrurl = jsdelivr + gh + "/" + ghPages;
-    }else{
-      jsdelivrurl = jsdelivr + gh + "/" + ghPages + "/" + pagePath;
-    }
-    imgUrl.forEach(item => {
-      let oldUrl = item.getAttribute("src");
-      let newUrl = oldUrl.replace(oldUrl, jsdelivrurl + oldUrl).replace("..","");
-      item.setAttribute("src", newUrl);
-    });
-  </script>
-  <!-- CDN: jsdelivr end -->
 
 
 
