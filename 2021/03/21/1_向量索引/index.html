@@ -116,11 +116,12 @@
   
 
   
-  <!-- gitment start -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.css" />
-  <!-- gitment end -->
-  
 
+  
+  <!-- gitalk start -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css" />
+  <!-- gitalk end -->
   
 
   <!-- Custom Fonts -->
@@ -209,14 +210,14 @@
 
           
           <li>
-            <a href="/about/">About</a>
+            <a href="/archive/">Archives</a>
           </li>
           
           
 
           
           <li>
-            <a href="/archive/">Archives</a>
+            <a href="/about/">About</a>
           </li>
           
           
@@ -316,14 +317,6 @@
               
               <a class="tag" href="/tags/#ANNS" title="ANNS">ANNS</a>
               
-              <a class="tag" href="/tags/#HNSW" title="HNSW">HNSW</a>
-              
-              <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
-              
-              <a class="tag" href="/tags/#向量检索" title="向量检索">向量检索</a>
-              
-              <a class="tag" href="/tags/#算法" title="算法">算法</a>
-              
               <a class="tag" href="/tags/#KD-Tree" title="KD-Tree">KD-Tree</a>
               
               <a class="tag" href="/tags/#SVM" title="SVM">SVM</a>
@@ -333,6 +326,14 @@
               <a class="tag" href="/tags/#LSH" title="LSH">LSH</a>
               
               <a class="tag" href="/tags/#VQ" title="VQ">VQ</a>
+              
+              <a class="tag" href="/tags/#HNSW" title="HNSW">HNSW</a>
+              
+              <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
+              
+              <a class="tag" href="/tags/#向量检索" title="向量检索">向量检索</a>
+              
+              <a class="tag" href="/tags/#算法" title="算法">算法</a>
               
             </div>
             <h1>海量高维向量检索算法</h1>
@@ -857,64 +858,57 @@
 
 <!-- 1. gitalk comment -->
 
+<!-- gitalk start -->
+<!-- Docs:https://github.com/gitalk/gitalk/blob/master/readme-cn.md -->
+
+<div id="gitalk-container"></div>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.js"></script> -->
+<script src="/js/comment/gitalk.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'd50f15a1a53dcf7ec506',
+    clientSecret: 'bcf577b98b32973c3e363c83264395d715f5ee1d',
+    repo: 'gitalk-comment',
+    owner: 'LemonSqi',
+    admin: 'LemonSqi',
+    id: 'Sun Mar 21 2021 11:34:17 GMT+0800', // Ensure uniqueness and length less than 50
+    distractionFreeMode: false, // Facebook-like distraction free mode
+    perPage: 15 ,
+    pagerDirection: 'last',
+    createIssueManually: false ,
+    language: 'zh-CN',
+    proxy: 'http://github.com/gitalk/gitalk/issues/429'
+  });
+  gitalk.render('gitalk-container');
+
+  var gtFolded = () => {
+    setTimeout(function() {
+      let markdownBody = document.getElementsByClassName("markdown-body");
+      let list = Array.from(markdownBody);
+      list.forEach(item => {
+        if (item.clientHeight > 250) {
+          item.classList.add('gt-comment-body-folded');
+          item.style.maxHeight = '250px';
+          item.title = 'Click to Expand';
+          item.onclick = function() {
+            item.classList.remove('gt-comment-body-folded');
+            item.style.maxHeight = '';
+            item.title = '';
+            item.onclick = null;
+          };
+        }
+      })
+    }, 800);
+  }
+</script>
+
+<!-- gitalk end -->
+
 
 
 <!-- 2. gitment comment -->
-
-<!-- gitment start -->
-<!-- Docs:https://github.com/imsun/gitment -->
-
-<div id="blog_comments"></div>
-<!-- <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"> <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script> -->
-
-<script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.js"></script>
-
-<script>
-  const myTheme = {
-    render(state, instance) {
-      const container = document.createElement('div')
-      container.lang = "en-US"
-      container.className = 'gitment-container gitment-root-container'
-
-      // your custom component
-      container.appendChild(instance.renderSomething(state, instance))
-      container.appendChild(instance.renderHeader(state, instance))
-      container.appendChild(instance.renderEditor(state, instance))
-      container.appendChild(instance.renderComments(state, instance))
-      container.appendChild(instance.renderFooter(state, instance))
-      return container
-    },
-    renderSomething(state, instance) {
-      const container = document.createElement('div')
-      container.lang = "en-US"
-      container.className = 'hello_visitor'
-      if (state.user.login) {
-        container.innerText = `Hello ${state.user.login}, Welcome to comment system`
-      }
-      return container
-    }
-  }
-
-  const gitment = new Gitment({
-    id: 'Sun Mar 21 2021 11:34:17 GMT+0800', // optional
-    owner: 'LemonSqi',
-    repo: 'gitalk-comment',
-    oauth: {
-      client_id: 'd50f15a1a53dcf7ec506',
-      client_secret: 'bcf577b98b32973c3e363c83264395d715f5ee1d'
-    },
-    desc: '',
-    perPage: '10',
-    maxCommentHeight: '250',
-    theme: myTheme,
-    // ... For more available options, check out the documentation below
-  })
-
-  gitment.render('blog_comments')
-  // or gitment.render(document.getElementById('comments')) or document.body.appendChild(gitment.render())
-</script>
-
-<!-- gitment end -->
 
 
 
@@ -958,14 +952,6 @@
             
             <a class="tag" href="/tags/#ANNS" title="ANNS">ANNS</a>
             
-            <a class="tag" href="/tags/#HNSW" title="HNSW">HNSW</a>
-            
-            <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
-            
-            <a class="tag" href="/tags/#向量检索" title="向量检索">向量检索</a>
-            
-            <a class="tag" href="/tags/#算法" title="算法">算法</a>
-            
             <a class="tag" href="/tags/#KD-Tree" title="KD-Tree">KD-Tree</a>
             
             <a class="tag" href="/tags/#SVM" title="SVM">SVM</a>
@@ -975,6 +961,14 @@
             <a class="tag" href="/tags/#LSH" title="LSH">LSH</a>
             
             <a class="tag" href="/tags/#VQ" title="VQ">VQ</a>
+            
+            <a class="tag" href="/tags/#HNSW" title="HNSW">HNSW</a>
+            
+            <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
+            
+            <a class="tag" href="/tags/#向量检索" title="向量检索">向量检索</a>
+            
+            <a class="tag" href="/tags/#算法" title="算法">算法</a>
             
           </div>
         </section>
