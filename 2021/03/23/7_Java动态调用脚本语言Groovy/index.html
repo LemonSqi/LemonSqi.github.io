@@ -138,10 +138,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://LemonSqi.top/2021/03/21/3_SSG/">
+  <link rel="canonical" href="http://LemonSqi.top/2021/03/23/7_Java动态调用脚本语言Groovy/">
   <title>
     
-    近似最近邻算法SSG - LemonD.K.
+    Java动态调用脚本语言Groovy - LemonD.K.
     
   </title>
 <meta name="generator" content="Hexo 4.2.1"></head>
@@ -315,26 +315,18 @@
           <div class="post-heading">
             <div class="tags">
               
-              <a class="tag" href="/tags/#ANNS" title="ANNS">ANNS</a>
+              <a class="tag" href="/tags/#Groovy" title="Groovy">Groovy</a>
               
-              <a class="tag" href="/tags/#NSG" title="NSG">NSG</a>
+              <a class="tag" href="/tags/#java" title="java">java</a>
               
-              <a class="tag" href="/tags/#SSG" title="SSG">SSG</a>
-              
-              <a class="tag" href="/tags/#NSSG" title="NSSG">NSSG</a>
-              
-              <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
-              
-              <a class="tag" href="/tags/#向量检索" title="向量检索">向量检索</a>
-              
-              <a class="tag" href="/tags/#算法" title="算法">算法</a>
+              <a class="tag" href="/tags/#脚本语言" title="脚本语言">脚本语言</a>
               
             </div>
-            <h1>近似最近邻算法SSG</h1>
-            <h2 class="subheading">A algorithm SSG about approximate nearest neighbor domain</h2>
+            <h1>Java动态调用脚本语言Groovy</h1>
+            <h2 class="subheading">Java Dynamic calling script language groovy</h2>
             <span class="meta">
               Posted by sqwang on
-              2021-03-21
+              2021-03-23
             </span>
 
 
@@ -342,11 +334,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">12</span> Minutes
+              Estimated Reading Time <span class="post-count">4</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">3.3k</span> In Total
+              Words <span class="post-count">1k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -408,168 +400,61 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h1 id="ANNS近似最近邻搜索问题"><a href="#ANNS近似最近邻搜索问题" class="headerlink" title="ANNS近似最近邻搜索问题"></a>ANNS近似最近邻搜索问题</h1><h2 id="ANNS的主要思想"><a href="#ANNS的主要思想" class="headerlink" title="ANNS的主要思想"></a>ANNS的主要思想</h2><p>搜索可能是近邻的数据项而不再只局限于返回最可能的项目，在牺牲可接受范围内的精度的情况下提高检索效率。</p>
-<h2 id="ANNS的分类"><a href="#ANNS的分类" class="headerlink" title="ANNS的分类"></a>ANNS的分类</h2><ul>
-<li><p>基于树的方法（如图a）<br>随机KD树、R树</p>
-</li>
-<li><p>基于散列的方法（如图b）<br>局部敏感哈希（LSH）、光谱散列</p>
-</li>
-<li><p>基于量化的方法<br>产品量化、复合量化</p>
-</li>
-<li><p>基于图的方法（如图c）<br>NSW、HNSW、FANNG、NSG</p>
-<p><img src="https://gulico.github.io//2019/08/12/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95SSG%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/ANNS.png" alt="ANNS"></p>
-</li>
-</ul>
-<p>其中NSG与SSG都是由同一位作者提出的，两种图的主要思想和构建方法都非常类似，而且SSG的很多改进点都由NSG的缺点引出的。所以，了解NSG有利于SSG的理解。那么下面就来介绍以下NSG等相关知识。</p>
-<h2 id="相关研究"><a href="#相关研究" class="headerlink" title="相关研究"></a>相关研究</h2><h3 id="单调搜索网络MSNET与单调相对领域图MRNG"><a href="#单调搜索网络MSNET与单调相对领域图MRNG" class="headerlink" title="单调搜索网络MSNET与单调相对领域图MRNG"></a>单调搜索网络MSNET与单调相对领域图MRNG</h3><ul>
-<li><strong>单调路径Monotonic Path</strong><br>在给定空间的有限点集S中，p、q为在集合中的两点，且G为定义在S上的图。其中</li>
-</ul>
-<p>$$<br>v_1,v_2…v_k(v_1=p,v_k=q)<br>$$</p>
-<p> 为从点p到q的路径上的点，且∀i = 1,…,k−1,δ(,q) &gt; δ(+1,q)随着i的增大， 与q的距离越来越近。</p>
-<ul>
-<li><p><strong>单调搜索网络Monotonic Search Networks (MSNET)</strong><br>在给定空间的有限点集S中，任意两点p、q之间至少存在一条单调路径。<br><strong>特性：</strong><br>强连通图，确保图的连接性<br>不需要回溯，路径中每一步都更加接近终点q</p>
-</li>
-<li><p><strong>单调搜索网络MSNET与单调相对领域图MRNG</strong><br>相对邻域图 Relative Neighborhood Graph(RNG)<br>在给定空间的有限点集S中，当且仅当任意两点p、q的之间的区域 中不包含集合S中的任何点。<br>其中，<br>$$<br>lune_{pq}= B(p,δ(p,q)) ∩ B(q,δ(p,q))<br>$$</p>
-</li>
-<li><p><strong>单调相对邻域图Monotonic Relative Neighborhood Graph (MRNG)</strong><br><strong>定义：</strong>在给定空间的有限点集S中，满足：<br>任意两点p、q的区域中不包含集合S中的任何点。（RNG的定义）<br>或者，若区域中存在的点r，但不属于MRNG<br><strong>定理：</strong><br>在给定空间的有限点集S中，在 S 上定 义的 MRNG 是 MSNET 。</p>
-</li>
-<li><p>例子：</p>
-<p><img src="1.jpg" alt="3_SSG"></p>
-<p><img src="2.jpg" alt="3_SSG"></p>
-</li>
-</ul>
-<h3 id="NSG存在的一些缺陷"><a href="#NSG存在的一些缺陷" class="headerlink" title="NSG存在的一些缺陷"></a>NSG存在的一些缺陷</h3><ul>
-<li><p><strong>MSNET过于稀疏，导致搜索性能较差</strong><br>基于ANN的搜索复杂度主要取决于结点的出度、起点到终点的路径长度<br>(a)(b)(c)分别为MSNET图族的三种不同的图，且(a)-&gt;(c)：稀疏度降低<br>(a)(b)(c)图分别需要7、5、8次计算。<br><strong>结论：</strong>并不是图越稀疏、或者越稠密效率越高，而是存在“最优稀疏度</p>
-<p><strong>解决途径：</strong>图的理论定义-&gt;新的msnet图ssg</p>
-<p>利用参数描述边缘之间的最大角度，控制图的系数性，探索最佳出度。</p>
-<p><img src="https://gulico.github.io//2019/08/12/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95SSG%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/msnet_family.png" alt="稀疏度对MSNET图族搜索性能的影响"></p>
-</li>
-<li><p><strong>规模较大的实际应用中，nsg索引的复杂度依然很高，限制了它的扩展和搜索性能</strong></p>
-<p><strong>解决途径：</strong>索引算法的设计，产生近似ssg，具有较低的时间复杂度，有利于应用于大规模的项目。</p>
-</li>
-</ul>
-<h2 id="解决办法-SSG"><a href="#解决办法-SSG" class="headerlink" title="解决办法-SSG"></a>解决办法-SSG</h2><p>为了解决NSG的一些缺陷，作者提出了新的MSNET图SSG(Satellite System Graph卫星系图)。</p>
-<h3 id="SSG的定义"><a href="#SSG的定义" class="headerlink" title="SSG的定义"></a>SSG的定义</h3><p><img src="https://gulico.github.io//2019/08/12/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95SSG%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/ssg.png" alt="img"></p>
-<ul>
-<li><p>卫星系图Satellite System Graphs (SSG)<br>定义在有向边集S上，满足，对于任何$vec{pq} $， $vec{pq} $∈ SSG当且仅当Cone($vec{pq} $,α) ∩B(p,δ(p,q))∩S = ∅ 或者∀r ∈ Cone($vec{pq} $,α) ∩B(p,δ(p,q))∩S ≠ ∅，但 ∉SSG。(<strong>大白话</strong>： pq ∈ SSG当且仅当以pq为轴，α为角直径的圆锥和以p为圆心，pq为半径的球体和有向边集S的交集为空</p>
-<p>或者该交集中存在点r，但是有向边pr不属于ssg。)</p>
-</li>
-<li><p>δ(p,q)表示pq之间的距离</p>
-</li>
-<li><p>B(p,δ(p,q))表示一p为圆心，pq为半径的开球</p>
-</li>
-<li><p>α ≤ 60◦</p>
-</li>
-<li><p>Cone($vec{pq} $,α) 表示<br>在欧几里得空间中，对于任意，Cone(,α) 是以为轴，2α为角直径的圆锥。<br>δ：角直径<br>d：物体直径<br>D：物体距离</p>
-<p><img src="https://gulico.github.io//2019/08/12/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95SSG%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/cone.png" alt="cone"></p>
-</li>
-</ul>
-<h3 id="构建朴素SSG索引"><a href="#构建朴素SSG索引" class="headerlink" title="构建朴素SSG索引"></a>构建朴素SSG索引</h3><p>对于集合S中每一个 p ∈ S 执行以下过程:</p>
-<ol>
-<li>计算集合S中除p点以外的所有点q(q ∈ S−{p})和p的距离pq</li>
-<li>按照pq的距离，升序对集合q ∈ S−{p}进行排序，形成列表C</li>
-<li>按顺序检查是否满足SSG的定义，满足则可加入SSG</li>
-</ol>
-<ul>
-<li><p>例子：</p>
-<p>在2维空间中，首先计算与p点的距离，并升序排序。按顺序检查有向边是否可以加入SSG。</p>
-<ul>
-<li>首先看q点，Cone($vec{pq} $,α) ∩B(p,δ(p,q))∩S = ∅ ，所以有向边pq加入SSG。其他的以此类推。</li>
-<li>再看r点，检查它的顺序肯定在q之后，s之前。 q ∈ Cone($vec{pq} $α) ∩B(p,δ(p,r))∩S ≠ ∅ ，且SSG，所以不能加入SSG。</li>
-<li>看s点， r ∈ Cone(,α) ∩B(p,δ(p,s))∩S ≠ ∅ ，但，所以可以加入SSG。</li>
-</ul>
-</li>
-</ul>
-<h3 id="SSG的ANNS特性分析"><a href="#SSG的ANNS特性分析" class="headerlink" title="SSG的ANNS特性分析"></a>SSG的ANNS特性分析</h3><h4 id="数据库内查询和非数据库内查询"><a href="#数据库内查询和非数据库内查询" class="headerlink" title="数据库内查询和非数据库内查询"></a>数据库内查询和非数据库内查询</h4><ul>
-<li><p><strong>数据库内查询</strong><br>返回的是数据库中存在的数据</p>
-</li>
-<li><p><strong>非数据库内查询</strong><br>返回的是与查询点邻近的数据</p>
-</li>
-<li><p><strong>例子</strong><br>如上图，设黑点为起始点，红点为查询点。</p>
-<p>使用贪婪搜索从黑点开始搜索，下一跳应选择黑点的邻居中距离红点最近的点。图a中黑点斜上方的点距离红色查询点更近，而图b中黑点斜下方的点距离红色查询点更近。接着两张图上的查询沿着不同的路径（红色路径）得到了相同的返回结点（红色路径的终点）。</p>
-<p>所以，虽然起始点和最终得到的结果完全相同，但是由于查询点与当前点的距离不同，导致使用贪婪搜索，得到的搜索路径完全不同。</p>
-<h4 id="数据库内查询"><a href="#数据库内查询" class="headerlink" title="数据库内查询"></a>数据库内查询</h4></li>
-<li><p><strong>定理1</strong>：SSG属于MSNET图族</p>
-</li>
-<li><p><strong>与同为MSNET图族的MRNG比较</strong>：<br>图(a)为MRNG，图(b)为SSG</p>
-<ul>
-<li>实验显示MRNG的平均出度小于SSG，但平均搜索路径长于SSG。</li>
-<li>由于MRNG中三角形的最长边必须被移除，所以如图a虚线部分是空白的。而且根据MRNG的定义，对于确定的数据集S，MRNG是确定的，不能根据不同情况进行调节。</li>
-<li>SSG通过边之间的夹角进行裁边，使得边缘分布更加均匀，减少空白区域。通过改变边缘之间的最大夹角α可以控制图的稀疏程度，由此可以<strong>根据不同的数据分布调节α</strong>，并找到搜索路径长度和出度的平衡点。</li>
-</ul>
-<p><img src="https://gulico.github.io//2019/08/12/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95SSG%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/ANNS_of_SSG.png" alt="img"></p>
-</li>
-</ul>
-<h4 id="非数据库内查询"><a href="#非数据库内查询" class="headerlink" title="非数据库内查询"></a>非数据库内查询</h4><ul>
-<li><strong>定理3</strong>：对于随机分布在欧几里得空间上的有限集S，任意不属于S的查询q，搜索路径上的每一步都是单调的概率为 0.5 +e ,0 &lt; e ≤ 0.5(单调的概率大于0.5)。其中，当 SSG的α ≤ 30◦时 e=1(一定是单调的)。</li>
-<li>与同为MSNET图族的MRNG比较：<ul>
-<li>从定义来看SSG相对于MRNG的优势与α的大小有关：<ul>
-<li>当α = 60◦时，搜索路径中的任意一步违反单调性的概率小于0.5</li>
-<li>当α ≤ 30◦时，在数据库和非数据库查询的情况下，保证搜索路径一定是单调的。</li>
-<li>同时，对于SSG来说，α=60°比α≤30°稀疏很多。对于在非数据库上的查询来说，出度和单调性之间需要权衡（α大，出度小，单调性的概率下降）。不同分布的数据集，最合适的α不同。</li>
-<li>而MRNG以及它之前的准备工作中（例如生成kNN图），都没有角度约束，所以不具备以上属性。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><ol>
-<li>SSG可以通过α控制图的稀疏度，针对不同数据集，调节α，生成较为合适的图结构。</li>
-<li>在非数据库查询中，比MRNG更具有理论上的普遍性。</li>
-</ol>
-<h2 id="SSG的实用变体NSSG（-Navigating-SSG-）"><a href="#SSG的实用变体NSSG（-Navigating-SSG-）" class="headerlink" title="SSG的实用变体NSSG（ Navigating SSG ）"></a>SSG的实用变体NSSG（ Navigating SSG ）</h2><p>可导航卫星系图NSSG</p>
-<h3 id="生成索引主要步骤"><a href="#生成索引主要步骤" class="headerlink" title="生成索引主要步骤"></a>生成索引主要步骤</h3><ol>
-<li><p><strong>从少量候选集中选择点的邻居</strong>：首先建立kNN图。候选集从kNN图上对应点的邻居、邻居的邻居中产生。（NSG：使用贪婪搜索，选择起始点p到q之间搜索路径上的所有点加入候选集）</p>
-</li>
-<li><p>从候选集中选则边缘的时候使用SSG选边策略</p>
-<ul>
-<li>且仅仅在此步骤中应用SSG选边策略（参见，建立朴素SSG过程，满足SSG定义即可加入SSG图）</li>
-<li>在最终构成的图上，设置最大度，防止个别点的度特别大。</li>
-</ul>
-</li>
-<li><p>确保图的连通性</p>
-<p>：DFS扩展算法，添加少量的边，确保图单方向的连通性。（与NSG中此部分类似）</p>
-<ol>
-<li>随机选择m个导航点（NSG仅选择一个中心点作为导航点）-&gt;相比NSG更能适应不同分布的图</li>
-<li>从每一个导航点出发DFS，分别生成深度优先搜索树。当DFS搜索终止时，把没有链接到树的节点，链接到它们最近的邻居。（同NSG）</li>
-</ol>
-</li>
-</ol>
-<p><strong>P.s.虽然SSG的定义要求0°α60°，但是实际操作中可以将α的范围扩展到0°~90°</strong></p>
-<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><ul>
-<li>与其他基于图的搜索一样，使用贪婪搜索进行搜索。</li>
-<li>相比NSG的改动：将m个导航点按照与查询点q的距离从小到大排序，从距离查询点q最近的导航点开始查询。</li>
-</ul>
-<h2 id="实验分析"><a href="#实验分析" class="headerlink" title="实验分析"></a>实验分析</h2><h3 id="搜索性能对比"><a href="#搜索性能对比" class="headerlink" title="搜索性能对比"></a>搜索性能对比</h3><ul>
-<li><strong>在规模大的数据集上优势明显</strong><br>SSG对于数据规模不敏感，在高维度上与其他算法差距越来越大</li>
-<li>DPG(Diversiﬁed Proximity Graph)和SSG都是使用角度进行选边的算法，但是尤其是在数据规模大的情况下，DPG的性能远低于SSG。原因如下：<br>DPG不是MSNET<br>DPG太密集，存在过多无效边</li>
-<li>由于<strong>NSSG的选边策略为搜索路径带来了跟多有效边</strong>，虽然度变大了，但使得搜索路径中的跳数变少，进而使得NSSG的性能优于NSG和HNSW。</li>
-</ul>
-<h3 id="索引生成性能对比"><a href="#索引生成性能对比" class="headerlink" title="索引生成性能对比"></a>索引生成性能对比</h3><ul>
-<li><strong>索引尺寸：</strong><br>由于NSSG和NSG的最大度较小，所以索引尺寸是最小的。虽然HNSW的最大度与前者相同，但是由于HNSW是分层的，所以它的索引尺寸会很大。</li>
-<li><strong>建立索引的时间：</strong><br>NSSG建立索引的时间仅次于KGraph，因为KGraph用于建立NSSG的第一步：生成kNN图。但是NSSG的搜索性能远好于KGraph。</li>
-<li>最耗时的部分是建立kNN图。可以通过在GPU上生成索引或者使用其他更快的算法代替。</li>
-</ul>
-<h3 id="参数对性能的影响"><a href="#参数对性能的影响" class="headerlink" title="参数对性能的影响"></a>参数对性能的影响</h3><ul>
-<li>α=60°时，搜索性能最好</li>
-</ul>
-<p><img src="https://gulico.github.io//2019/08/12/%E8%BF%91%E4%BC%BC%E6%9C%80%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95SSG%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89%E4%BB%8B%E7%BB%8D/parameter.png" alt="img"></p>
-<h2 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h2><p>近似最近邻SSG算子K阶图查询SSGQuery(G, p, q, l)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">* 参数：图G </span><br><span class="line">*      起始点p  </span><br><span class="line">*      查询点q </span><br><span class="line">*      候选池大小l   </span><br><span class="line">* 返回：k个距离查询点q最近的点 </span><br><span class="line">**/</span><br><span class="line"></span><br><span class="line">Require: graph G, start node p, query point q, candidate pool size l </span><br><span class="line">Ensure: k nearest neighbors of q </span><br><span class="line"></span><br><span class="line">i = <span class="number">0</span>, candidate pool S = ∅      //最初候选池S为空，候选池中元素索引序号i = <span class="number">0</span></span><br><span class="line">S.add(p)                                   //起始点加入候选池S</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> i &lt; l do                            //当候选池中点的索引序号i小于l</span><br><span class="line">	i = the index of the ﬁrst unchecked node <span class="keyword">in</span> S  //i = 候选池中首个未查询的点的索引序号</span><br><span class="line">	mark pi <span class="keyword">as</span> checked                                               //标记pi为查询过的点</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> all neighbor n of pi <span class="keyword">in</span> G do                           //将pi的所有邻居加入候选池</span><br><span class="line">		S.add(n)</span><br><span class="line">	end  </span><br><span class="line">	sort S <span class="keyword">in</span> ascending order of the distance to q //将候选池中的点，以与q点的距离为依据升序排列</span><br><span class="line">	</span><br><span class="line">	If S.size() &gt; l, S.resize(l)                                    //若S的大小大于l，则更新S的大小</span><br><span class="line">end <span class="keyword">while</span> </span><br><span class="line"><span class="keyword">return</span> the ﬁrst k nodes <span class="keyword">in</span> S</span><br></pre></td></tr></table></figure>
+        <h2 id="0-pom-xml添加依赖"><a href="#0-pom-xml添加依赖" class="headerlink" title="0. pom.xml添加依赖"></a>0. pom.xml添加依赖</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.codehaus.groovy&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;groovy-all&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.5.6&lt;/version&gt;</span><br><span class="line">    &lt;type&gt;pom&lt;/type&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
 
-<h3 id="建立SSG图索引SSGIndexing-D-l-r-s-α"><a href="#建立SSG图索引SSGIndexing-D-l-r-s-α" class="headerlink" title="建立SSG图索引SSGIndexing(D, l, r, s, α)"></a>建立SSG图索引SSGIndexing(D, l, r, s, α)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* 方法<span class="number">2</span>：SSGIndexing(D, l, r, s, α) </span><br><span class="line">* 功能：建立SSG索引</span><br><span class="line">* 传入参数：数据集D，</span><br><span class="line">*		  候选集大小L</span><br><span class="line">*		  最大度r</span><br><span class="line">*		  导航点的数量s</span><br><span class="line">*		  边之间的最小角度α</span><br><span class="line">* 返回：SSG图G</span><br><span class="line">**/</span><br><span class="line"></span><br><span class="line">Require: dataset D, candidate set size l, maximum outdegree r, number of navigating points s, minimum angle α.</span><br><span class="line"></span><br><span class="line">Ensure: an SSG G. </span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">* <span class="number">1.</span>建立近似kNN图：GkNN</span><br><span class="line">**/</span><br><span class="line"></span><br><span class="line">Build an approximate kNN graph Gknn. </span><br><span class="line">G = ∅. </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> all node i <span class="keyword">in</span> Gknn do //遍历Gknn图中的所有点i</span><br><span class="line">	P = ∅. //候选集P为空</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">* <span class="number">2.</span>候选集P从对应点的邻居和邻居的邻居中产生</span><br><span class="line">**/</span><br><span class="line">	<span class="keyword">for</span> all neighbor n of node i do //遍历i的所有邻居n，加入候选集P</span><br><span class="line">		P.add(n). </span><br><span class="line">		<span class="keyword">for</span> all neighbor n0 of node n do //遍历n的所有邻居n0，加入候选集P</span><br><span class="line">			P.add(n0). </span><br><span class="line">		end <span class="keyword">for</span> </span><br><span class="line">		remove the redundant nodes <span class="keyword">in</span> P. //移除P中多余的边</span><br><span class="line">		<span class="keyword">if</span> P.size() ≥ l then //若P的大小大于l，则跳出循环</span><br><span class="line">			<span class="keyword">break</span>. </span><br><span class="line">		end <span class="keyword">if</span> </span><br><span class="line">	end <span class="keyword">for</span> </span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">* <span class="number">3.</span>从候选集P中挑选符合SSG的i的邻居</span><br><span class="line">**/</span><br><span class="line">	sort P <span class="keyword">in</span> the ascending order of the distance to i. //对候选集中的点，按照与i的距离升序排序。</span><br><span class="line"></span><br><span class="line">	select neighbors <span class="keyword">from</span> P according to the deﬁnition of SSG. //根据SSG选编策略，从P中选择i的邻居</span><br><span class="line">end <span class="keyword">for</span> </span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">* <span class="number">4.</span>加强图的连通性</span><br><span class="line">**/</span><br><span class="line"></span><br><span class="line">Random select s points <span class="keyword">from</span> the datasets <span class="keyword">as</span> N. //随机选择s个导航点N</span><br><span class="line"><span class="keyword">for</span> all point n <span class="keyword">in</span> N do //遍历导航点</span><br><span class="line">	Strengthen the connectivity of the graph <span class="keyword">with</span> </span><br><span class="line">	DFS-expanding <span class="keyword">from</span> s. //利用深度优先扩展算法，加强图的连通性</span><br><span class="line">end <span class="keyword">for</span> <span class="number">23</span>: <span class="keyword">return</span> G.</span><br></pre></td></tr></table></figure>
+<h2 id="1-使用GroovyShell计算表达式"><a href="#1-使用GroovyShell计算表达式" class="headerlink" title="1.使用GroovyShell计算表达式"></a>1.使用GroovyShell计算表达式</h2><p>使用Binding对象将变量传入表达式，并通过GroovyShell返回表达式的计算结果。</p>
+<p>GroovyShellExample.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> groovy.lang.Binding;</span><br><span class="line"><span class="keyword">import</span> groovy.lang.GroovyShell;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GroovyShellExample</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        Binding binding = <span class="keyword">new</span> Binding();</span><br><span class="line">        binding.setVariable(<span class="string">"x"</span>, <span class="number">10</span>);</span><br><span class="line">        binding.setVariable(<span class="string">"language"</span>, <span class="string">"Groovy"</span>);</span><br><span class="line"></span><br><span class="line">        GroovyShell shell = <span class="keyword">new</span> GroovyShell(binding);</span><br><span class="line">        Object value = shell.evaluate(<span class="string">"println \"Welcome to $language\"; y = x * 2; z = x * 3; return x "</span>);</span><br><span class="line"></span><br><span class="line">        System.err.println(value +<span class="string">", "</span> + value.equals(<span class="number">10</span>));</span><br><span class="line">        System.err.println(binding.getVariable(<span class="string">"y"</span>) +<span class="string">", "</span> + binding.getVariable(<span class="string">"y"</span>).equals(<span class="number">20</span>));</span><br><span class="line">        System.err.println(binding.getVariable(<span class="string">"z"</span>) +<span class="string">", "</span> + binding.getVariable(<span class="string">"z"</span>).equals(<span class="number">30</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Welcome to Groovy</span><br><span class="line"><span class="number">10</span>, <span class="keyword">true</span></span><br><span class="line"><span class="number">20</span>, <span class="keyword">true</span></span><br><span class="line"><span class="number">30</span>, <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2．使用GroovyScriptEngine脚本引擎加载Groovy脚本"><a href="#2．使用GroovyScriptEngine脚本引擎加载Groovy脚本" class="headerlink" title="2．使用GroovyScriptEngine脚本引擎加载Groovy脚本"></a>2．使用GroovyScriptEngine脚本引擎加载Groovy脚本</h2><p>GroovyScriptEngine从指定的位置（文件系统，URL，数据库等等）加载Groovy脚本，并且随着脚本变化可重新加载它们。和GroovyShell一样，GroovyScriptEngine也可以传进变量值返回脚本的计算结果。这样我们可以把一些可用的计算公式或计算条件写入Groovy脚本中来执行应用计算。当这些公式或计算条件变更时，我们可更方便地进行更改计算。</p>
+<p>GroovyScriptEngineExample.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> groovy.lang.Binding;</span><br><span class="line"><span class="keyword">import</span> groovy.util.GroovyScriptEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GroovyScriptEngineExample</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String[] roots = <span class="keyword">new</span>  String[]&#123;<span class="string">".\\src\\sample\\"</span>&#125; ;<span class="comment">//定义Groovy脚本引擎的根路径</span></span><br><span class="line">            GroovyScriptEngine engine = <span class="keyword">new</span> GroovyScriptEngine(roots);</span><br><span class="line">            Binding binding = <span class="keyword">new</span> Binding();</span><br><span class="line">            binding.setVariable(<span class="string">"language"</span>, <span class="string">"Groovy"</span>);</span><br><span class="line">            Object value = engine.run(<span class="string">"SimpleScript.groovy"</span>, binding);</span><br><span class="line">            <span class="keyword">assert</span> value.equals(<span class="string">"The End"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">SimpleScript.groovy</span><br><span class="line">println <span class="string">"Welcome to $language"</span></span><br><span class="line"><span class="keyword">return</span> <span class="string">"The End"</span></span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Welcome to Groovy</span><br></pre></td></tr></table></figure>
+
+<h2 id="3．使用GroovyClassLoader动态地载入Groovy的类"><a href="#3．使用GroovyClassLoader动态地载入Groovy的类" class="headerlink" title="3．使用GroovyClassLoader动态地载入Groovy的类"></a>3．使用GroovyClassLoader动态地载入Groovy的类</h2><p>下例现示如何使用GroovyClassLoader加载Groovy类并且调用该类的一个方法。</p>
+<p>GroovyClassLoaderExample.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> groovy.lang.GroovyClassLoader;</span><br><span class="line"><span class="keyword">import</span> groovy.lang.GroovyObject;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GroovyClassLoaderExample</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            GroovyClassLoader loader = <span class="keyword">new</span> GroovyClassLoader();</span><br><span class="line">            Class fileCreator = loader.parseClass(<span class="keyword">new</span> File(<span class="string">"src\\sample\\GroovySimpleFileCreator.groovy"</span>));</span><br><span class="line">            GroovyObject object = (GroovyObject) fileCreator.newInstance();</span><br><span class="line">            object.invokeMethod(<span class="string">"createFile"</span>, <span class="string">"D:\\temp\\emptyFile.txt"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>GroovySimpleFileCreator.groovy</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GroovySimpleFileCreator</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">createFile</span><span class="params">(String fileName)</span></span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(fileName);</span><br><span class="line">        file.createNewFile();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用GroovyClassLoader另一种情景便是：存在一个Java接口和一个实现该Java接口的Groovy类。此时，可以通过GroovyClassLoader加载Groovy实现类到应用中，这样就可以直接调用该接口的方法。</p>
+<p>IFoo.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IFoo</span> </span>&#123;</span><br><span class="line">    <span class="function">Object <span class="title">run</span><span class="params">(Object foo)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>InvokeGroovy.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> groovy.lang.GroovyClassLoader;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InvokeGroovy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ClassLoader cl = <span class="keyword">new</span> InvokeGroovy().getClass().getClassLoader();</span><br><span class="line">        GroovyClassLoader groovyCl = <span class="keyword">new</span> GroovyClassLoader(cl);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//从文件中读取，将实现IFoo接口的groovy类写在一个groovy文件中</span></span><br><span class="line">            <span class="comment">//Class groovyClass = groovyCl.parseClass(new File("./src/sample/Foo.groovy"));</span></span><br><span class="line">            <span class="comment">//直接使用Groovy字符串,也可以获得正确结果</span></span><br><span class="line">            Class groovyClass = groovyCl.parseClass(<span class="string">"class Foo implements IFoo &#123;public Object run(Object foo) &#123;return 2+2&gt;1&#125;&#125;"</span>);<span class="comment">//这个返回true</span></span><br><span class="line">            IFoo foo = (IFoo) groovyClass.newInstance();</span><br><span class="line">            System.out.println(foo.run(<span class="keyword">new</span> Integer(<span class="number">2</span>)));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4．使用JAVA脚本API"><a href="#4．使用JAVA脚本API" class="headerlink" title="4．使用JAVA脚本API"></a>4．使用JAVA脚本API</h2><p>Java SE 6 引入了对 Java Specification Request（JSR）223 的支持，JSR 223 旨在定义一个统一的规范，使得 Java 应用程序可以通过一套固定的接口与各种脚本引擎交互，从而达到在 Java 平台上调用各种脚本语言的目的。每一个脚本引擎就是一个脚本解释器，负责运行脚本，获取运行结果。ScriptEngine 接口提供了许多 eval 函数的变体用来运行脚本，这个函数的功能就是获取脚本输入，运行脚本，最后返回输出。</p>
+<p>GroovyJSR223Example.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.script.Invocable;</span><br><span class="line"><span class="keyword">import</span> javax.script.ScriptEngine;</span><br><span class="line"><span class="keyword">import</span> javax.script.ScriptEngineManager;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GroovyJSR223Example</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ScriptEngineManager factory = <span class="keyword">new</span> ScriptEngineManager();</span><br><span class="line">            ScriptEngine engine = factory.getEngineByName(<span class="string">"groovy"</span>);</span><br><span class="line">            String HelloLanguage = <span class="string">"def hello(language) &#123;return \"Hello $language\"&#125;"</span>;</span><br><span class="line">            engine.eval(HelloLanguage);</span><br><span class="line">            Invocable inv = (Invocable) engine;</span><br><span class="line">            Object[] params = &#123;<span class="keyword">new</span> String(<span class="string">"Groovy"</span>)&#125;;</span><br><span class="line">            Object result = inv.invokeFunction(<span class="string">"hello"</span>, params);</span><br><span class="line">            <span class="comment">//assert result.equals("Hello Groovy");</span></span><br><span class="line">            System.out.println(result);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Hello Groovy</span></span><br></pre></td></tr></table></figure>
+
+
+<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
 
         <hr>
         <!-- Pager -->
         <ul class="pager">
           
           <li class="previous">
-            <a href="/2021/03/23/7_Java动态调用脚本语言Groovy/" data-toggle="tooltip" data-placement="top" title="Java动态调用脚本语言Groovy">&larr; Previous Post</a>
+            <a href="/2021/03/25/4_经典排序算法/" data-toggle="tooltip" data-placement="top" title="经典排序算法总结">&larr; Previous Post</a>
           </li>
           
           
           <li class="next">
-            <a href="/2021/03/21/2_HNSW_NSG/" data-toggle="tooltip" data-placement="top" title="向量索引算法HNSW和NSG的比较">Next Post &rarr;</a>
+            <a href="/2021/03/21/3_SSG/" data-toggle="tooltip" data-placement="top" title="近似最近邻算法SSG">Next Post &rarr;</a>
           </li>
           
         </ul>
@@ -612,7 +497,7 @@
       </a>
     </li>
     <li class="social-share-li">
-      <a target="_blank" class="social-share-icon" href="mailto:?subject=近似最近邻算法SSG&body=Hi,I found this website and thought you might like it http://LemonSqi.top/2021/03/21/3_SSG/">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=Java动态调用脚本语言Groovy&body=Hi,I found this website and thought you might like it http://LemonSqi.top/2021/03/23/7_Java动态调用脚本语言Groovy/">
         <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
       </a>
     </li>
@@ -648,7 +533,7 @@
     repo: 'gitalk-comment',
     owner: 'LemonSqi',
     admin: 'LemonSqi',
-    id: 'Sun Mar 21 2021 21:41:12 GMT+0800', // Ensure uniqueness and length less than 50
+    id: 'Tue Mar 23 2021 01:21:32 GMT+0800', // Ensure uniqueness and length less than 50
     distractionFreeMode: false, // Facebook-like distraction free mode
     perPage: 15 ,
     pagerDirection: 'last',
@@ -703,7 +588,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#ANNS近似最近邻搜索问题"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">ANNS近似最近邻搜索问题</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#ANNS的主要思想"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">ANNS的主要思想</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#ANNS的分类"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">ANNS的分类</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#相关研究"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">相关研究</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#单调搜索网络MSNET与单调相对领域图MRNG"><span class="toc-nav-number">1.3.1.</span> <span class="toc-nav-text">单调搜索网络MSNET与单调相对领域图MRNG</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#NSG存在的一些缺陷"><span class="toc-nav-number">1.3.2.</span> <span class="toc-nav-text">NSG存在的一些缺陷</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解决办法-SSG"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">解决办法-SSG</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#SSG的定义"><span class="toc-nav-number">1.4.1.</span> <span class="toc-nav-text">SSG的定义</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#构建朴素SSG索引"><span class="toc-nav-number">1.4.2.</span> <span class="toc-nav-text">构建朴素SSG索引</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#SSG的ANNS特性分析"><span class="toc-nav-number">1.4.3.</span> <span class="toc-nav-text">SSG的ANNS特性分析</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#数据库内查询和非数据库内查询"><span class="toc-nav-number">1.4.3.1.</span> <span class="toc-nav-text">数据库内查询和非数据库内查询</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#数据库内查询"><span class="toc-nav-number">1.4.3.2.</span> <span class="toc-nav-text">数据库内查询</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#非数据库内查询"><span class="toc-nav-number">1.4.3.3.</span> <span class="toc-nav-text">非数据库内查询</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#总结："><span class="toc-nav-number">1.4.4.</span> <span class="toc-nav-text">总结：</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#SSG的实用变体NSSG（-Navigating-SSG-）"><span class="toc-nav-number">1.5.</span> <span class="toc-nav-text">SSG的实用变体NSSG（ Navigating SSG ）</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#生成索引主要步骤"><span class="toc-nav-number">1.5.1.</span> <span class="toc-nav-text">生成索引主要步骤</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#搜索"><span class="toc-nav-number">1.5.2.</span> <span class="toc-nav-text">搜索</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#实验分析"><span class="toc-nav-number">1.6.</span> <span class="toc-nav-text">实验分析</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#搜索性能对比"><span class="toc-nav-number">1.6.1.</span> <span class="toc-nav-text">搜索性能对比</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#索引生成性能对比"><span class="toc-nav-number">1.6.2.</span> <span class="toc-nav-text">索引生成性能对比</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#参数对性能的影响"><span class="toc-nav-number">1.6.3.</span> <span class="toc-nav-text">参数对性能的影响</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#核心代码"><span class="toc-nav-number">1.7.</span> <span class="toc-nav-text">核心代码</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#建立SSG图索引SSGIndexing-D-l-r-s-α"><span class="toc-nav-number">1.7.1.</span> <span class="toc-nav-text">建立SSG图索引SSGIndexing(D, l, r, s, α)</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#0-pom-xml添加依赖"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">0. pom.xml添加依赖</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-使用GroovyShell计算表达式"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">1.使用GroovyShell计算表达式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2．使用GroovyScriptEngine脚本引擎加载Groovy脚本"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">2．使用GroovyScriptEngine脚本引擎加载Groovy脚本</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3．使用GroovyClassLoader动态地载入Groovy的类"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">3．使用GroovyClassLoader动态地载入Groovy的类</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4．使用JAVA脚本API"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">4．使用JAVA脚本API</span></a></li></ol>
         
         </div>
       </aside>
@@ -725,19 +610,11 @@
           </h5>
           <div class="tags">
             
-            <a class="tag" href="/tags/#ANNS" title="ANNS">ANNS</a>
+            <a class="tag" href="/tags/#Groovy" title="Groovy">Groovy</a>
             
-            <a class="tag" href="/tags/#NSG" title="NSG">NSG</a>
+            <a class="tag" href="/tags/#java" title="java">java</a>
             
-            <a class="tag" href="/tags/#SSG" title="SSG">SSG</a>
-            
-            <a class="tag" href="/tags/#NSSG" title="NSSG">NSSG</a>
-            
-            <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
-            
-            <a class="tag" href="/tags/#向量检索" title="向量检索">向量检索</a>
-            
-            <a class="tag" href="/tags/#算法" title="算法">算法</a>
+            <a class="tag" href="/tags/#脚本语言" title="脚本语言">脚本语言</a>
             
           </div>
         </section>
