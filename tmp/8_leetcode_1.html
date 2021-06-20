@@ -70,12 +70,12 @@
 
   <!-- Pygments Highlight CSS -->
   
-<link rel="stylesheet" href="../../../../../css/highlight.css">
-<link rel="stylesheet" href="../../../../../css/widget.css">
-<link rel="stylesheet" href="../../../../../css/rocket.css">
-<link rel="stylesheet" href="../../../../../css/signature.css">
-<link rel="stylesheet" href="../../../../../css/catalog.css">
-<link rel="stylesheet" href="../../../../../css/livemylife.css">
+<link rel="stylesheet" href="../css/highlight.css">
+<link rel="stylesheet" href="../css/widget.css">
+<link rel="stylesheet" href="../css/rocket.css">
+<link rel="stylesheet" href="../css/signature.css">
+<link rel="stylesheet" href="../css/catalog.css">
+<link rel="stylesheet" href="../css/livemylife.css">
 
 
   
@@ -137,10 +137,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://lemonsqi.top/archives/2021/03/archives/2/">
+  <link rel="canonical" href="http://lemonsqi.top/tmp/8_leetcode_1.html">
   <title>
     
-    LemonD.K.
+    [LeetCode] 1. 两数之和 - LemonD.K.
     
   </title>
 <meta name="generator" content="Hexo 4.2.1"></head>
@@ -216,13 +216,6 @@
 
           
           <li>
-            <a href="/categories/">Categories</a>
-          </li>
-          
-          
-
-          
-          <li>
             <a href="/archive/">Archives</a>
           </li>
           
@@ -230,7 +223,56 @@
 
           
           <li>
+            <a href="/categories/">Categories</a>
+          </li>
+          
+          
+
+          
+          <li>
             <a href="/tags/">Tags</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/tmp/8_leetcode_1.html">[LeetCode] 1. 两数之和</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/tmp/8_leetcode_2.html">[LeetCode] 2. 两数相加</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/tmp/8_leetcode_3.html">[LeetCode] 3. 无重复字符的最长子串</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/tmp/8_leetcode_4.html">[LeetCode] 4. 寻找两个有序数组的中位数</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/tmp/8_leetcode_5.html">[LeetCode] 5. 最长回文子串</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/tmp/8_leetcode_6.html">[LeetCode] 6. Z 字形变换</a>
           </li>
           
           
@@ -289,7 +331,7 @@
   <style type="text/css">
     header.intro-header {
        /*page*/
-        background-image: url('/img/header_img/archive_bg2.jpg');
+        background-image: url('//img/blog/3.jpg');
       
     }
 
@@ -312,7 +354,7 @@
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
           
           <div class="site-heading">
-            <h1>Live My Life</h1>
+            <h1>[LeetCode] 1. 两数之和</h1>
             <!--<hr class="small">-->
             <span class="subheading">高山仰止、景行行止，虽不能至、心向往之</span>
           </div>
@@ -370,305 +412,39 @@
                 post-container
             ">
 
-      
-<!-- Main Content -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-0 col-md-10 col-md-offset-1">
-      <!-- 归档列表 -->
+      <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述:"></a>题目描述:</h2><p>给定一个整数数组 <code>nums</code> 和一个目标值 <code>target</code>，请你在该数组中找出和为目标值的那 <strong>两个</strong> 整数，并返回他们的数组下标。</p>
+<p>你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例:"></a><strong>示例:</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">给定 nums &#x3D; [2, 7, 11, 15], target &#x3D; 9</span><br><span class="line"></span><br><span class="line">因为 nums[0] + nums[1] &#x3D; 2 + 7 &#x3D; 9</span><br><span class="line">所以返回 [0, 1]</span><br></pre></td></tr></table></figure>
 
-      
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路:"></a>思路:</h2><p>我们应该首先想用暴力求解的话,怎么做?</p>
+<p>我们会遍历数组<code>a</code>,然后看除了<code>a</code>数组中有没有<code>target-a</code>的数,这样就能保证该数组有两个数和等于<code>target</code>;但是时间复杂度为 <img src="https://www.zhihu.com/equation?tex=O%28n%5E2%29" alt="[公式]"> ;</p>
+<p>接下来,想一想如何更快一点呢?</p>
+<p>对,我们可以借用哈希(python叫字典),我们遍历元素的时候,且记录元素的下标,当我们找<code>target-a</code>时候,只需要在字典找,就可以了,查找字典时间复杂度为 <img src="https://www.zhihu.com/equation?tex=O%281%29" alt="[公式]"></p>
+<p>所以,</p>
+<p>时间复杂度: <img src="https://www.zhihu.com/equation?tex=O%28n%29" alt="[公式]"></p>
+<p>空间复杂度: <img src="https://www.zhihu.com/equation?tex=O%28n%29" alt="[公式]"></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h2><p>Python版</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        n = len(nums)</span><br><span class="line">        lookup = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            tmp = target - nums[i]</span><br><span class="line">            <span class="keyword">if</span> tmp <span class="keyword">in</span> lookup:</span><br><span class="line">                <span class="keyword">return</span> [lookup[tmp], i]</span><br><span class="line">            lookup[nums[i]] = i</span><br></pre></td></tr></table></figure>
 
-      <!-- 归档列表 -->
+<p>C++ 版</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">twoSum</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; lookup;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> num_to_find = target - nums[i];</span><br><span class="line">            <span class="keyword">if</span>(lookup.find(num_to_find) != lookup.end()) </span><br><span class="line">            &#123;</span><br><span class="line">                res.push_back(lookup[num_to_find]);</span><br><span class="line">                res.push_back(i);</span><br><span class="line">                <span class="keyword">return</span> res ;     </span><br><span class="line">            &#125;</span><br><span class="line">            lookup[nums[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-      
-      <div class="one-tag-list">
-        <span class="fa fa-calendar-times-o listing-seperator" id="2021">
-          <span class="tag-text">2021</span>
-        </span>
-        <ul>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            06-20
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/06/20/12_GAN/" style="color: #0085a1">
-              <span>
-                生成对抗网络 – GAN
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            06-20
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/06/20/13_RL/" style="color: #0085a1">
-              <span>
-                强化学习 - RL
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            06-20
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/06/20/11_RNN/" style="color: #0085a1">
-              <span>
-                循环神经网络 – RNN
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            06-20
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/06/20/10_CNN/" style="color: #0085a1">
-              <span>
-                卷积神经网络 – CNN
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            05-31
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/05/31/9_深度学习/" style="color: #0085a1">
-              <span>
-                深度学习
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            04-11
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/04/11/8_leetcode_6/" style="color: #0085a1">
-              <span>
-                [LeetCode] 6. Z 字形变换
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-30
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/30/8_leetcode_5/" style="color: #0085a1">
-              <span>
-                [LeetCode] 5. 最长回文子串
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-30
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/30/8_leetcode_4/" style="color: #0085a1">
-              <span>
-                [LeetCode] 4. 寻找两个有序数组的中位数
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-30
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/30/8_leetcode_3/" style="color: #0085a1">
-              <span>
-                [LeetCode] 3. 无重复字符的最长子串
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-30
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/30/8_leetcode_2/" style="color: #0085a1">
-              <span>
-                [LeetCode] 2. 两数相加
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-30
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/30/8_leetcode_1/" style="color: #0085a1">
-              <span>
-                [LeetCode] 1. 两数之和
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-29
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/29/6_Groovy与Java集成常见的坑/" style="color: #0085a1">
-              <span>
-                Groovy与Java集成常见的坑
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-28
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/28/5_Groovy 语言快速入门/" style="color: #0085a1">
-              <span>
-                Groovy 语言快速入门
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-25
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/25/4_经典排序算法/" style="color: #0085a1">
-              <span>
-                经典排序算法总结
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-23
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/23/7_Java动态调用脚本语言Groovy/" style="color: #0085a1">
-              <span>
-                Java动态调用脚本语言Groovy
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-21
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/21/3_SSG/" style="color: #0085a1">
-              <span>
-                近似最近邻算法SSG
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-21
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/21/2_HNSW_NSG/" style="color: #0085a1">
-              <span>
-                向量索引算法HNSW和NSG的比较
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-21
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/21/1_向量索引/" style="color: #0085a1">
-              <span>
-                海量高维向量检索算法
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-        </ul>
-      </div>
-      
+<p>java版</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">        Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;Integer, Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(target - nums[i]))&#123;</span><br><span class="line">                result[<span class="number">1</span>] = i ;</span><br><span class="line">                result[<span class="number">0</span>] = map.get(target - nums[i]);</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125;</span><br><span class="line">            map.put(nums[i],i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-    </div>
-  </div>
-</div>
+
+
+<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 
 
       <!-- 如果开启评论功能 -->
+      
+      <hr>
+
+      
+
+      
       
     </div>
 
@@ -710,7 +486,7 @@
     
     
     
-    <a href="/tags/#CNN" title="CNN" rel="1">CNN</a>
+    <a href="/tags/#RNN" title="RNN" rel="1">RNN</a>
     
     
     
@@ -718,31 +494,19 @@
     
     
     
-    <a href="/tags/#RNN" title="RNN" rel="1">RNN</a>
+    <a href="/tags/#CNN" title="CNN" rel="1">CNN</a>
+    
+    
+    
+    <a href="/tags/#RL" title="RL" rel="1">RL</a>
+    
+    
+    
+    <a href="/tags/#GAN" title="GAN" rel="1">GAN</a>
     
     
     
     <a href="/tags/#ANNS" title="ANNS" rel="3">ANNS</a>
-    
-    
-    
-    <a href="/tags/#HNSW" title="HNSW" rel="2">HNSW</a>
-    
-    
-    
-    <a href="/tags/#NSG" title="NSG" rel="2">NSG</a>
-    
-    
-    
-    <a href="/tags/#机器学习" title="机器学习" rel="4">机器学习</a>
-    
-    
-    
-    <a href="/tags/#向量检索" title="向量检索" rel="3">向量检索</a>
-    
-    
-    
-    <a href="/tags/#算法" title="算法" rel="4">算法</a>
     
     
     
@@ -766,19 +530,19 @@
     
     
     
-    <a href="/tags/#RL" title="RL" rel="1">RL</a>
+    <a href="/tags/#HNSW" title="HNSW" rel="2">HNSW</a>
     
     
     
-    <a href="/tags/#SSG" title="SSG" rel="1">SSG</a>
+    <a href="/tags/#机器学习" title="机器学习" rel="4">机器学习</a>
     
     
     
-    <a href="/tags/#NSSG" title="NSSG" rel="1">NSSG</a>
+    <a href="/tags/#向量检索" title="向量检索" rel="3">向量检索</a>
     
     
     
-    <a href="/tags/#GAN" title="GAN" rel="1">GAN</a>
+    <a href="/tags/#算法" title="算法" rel="4">算法</a>
     
     
     
@@ -787,6 +551,18 @@
     
     
     <a href="/tags/#内排序" title="内排序" rel="1">内排序</a>
+    
+    
+    
+    <a href="/tags/#NSG" title="NSG" rel="2">NSG</a>
+    
+    
+    
+    <a href="/tags/#SSG" title="SSG" rel="1">SSG</a>
+    
+    
+    
+    <a href="/tags/#NSSG" title="NSSG" rel="1">NSSG</a>
     
     
     
@@ -799,10 +575,6 @@
     
     
     <a href="/tags/#脚本语言" title="脚本语言" rel="3">脚本语言</a>
-    
-    
-    
-    <a href="/tags/#leetcode" title="leetcode" rel="6">leetcode</a>
     
     
     
@@ -896,23 +668,23 @@
 <div class="widget">
   <ul>
     
-    <a href="../../../../../2021/06/20/10_CNN/">
-      <li>卷积神经网络 – CNN</li>
-    </a>
-    
-    <a href="../../../../../2021/06/20/11_RNN/">
+    <a href="../2021/06/20/11_RNN/">
       <li>循环神经网络 – RNN</li>
     </a>
     
-    <a href="../../../../../2021/06/20/13_RL/">
+    <a href="../2021/06/20/10_CNN/">
+      <li>卷积神经网络 – CNN</li>
+    </a>
+    
+    <a href="../2021/06/20/13_RL/">
       <li>强化学习 - RL</li>
     </a>
     
-    <a href="../../../../../2021/06/20/12_GAN/">
+    <a href="../2021/06/20/12_GAN/">
       <li>生成对抗网络 – GAN</li>
     </a>
     
-    <a href="../../../../../2021/05/31/9_%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+    <a href="../2021/05/31/9_%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
       <li>深度学习</li>
     </a>
     
@@ -941,7 +713,7 @@
     <!-- <h5>ARCHIVES</h5> -->
     <h5><a href="/archives/">ARCHIVES</a></h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../../06/">六月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../../04/">四月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../">三月 2021</a><span class="archive-list-count">12</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/06/">六月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/03/">三月 2021</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
 
@@ -956,10 +728,6 @@
     
     <a href="/categories/#技术栈">
       <li>技术栈</li>
-    </a>
-    
-    <a href="/categories/#面试角">
-      <li>面试角</li>
     </a>
     
   </ul>

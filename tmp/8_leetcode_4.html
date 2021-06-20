@@ -70,12 +70,12 @@
 
   <!-- Pygments Highlight CSS -->
   
-<link rel="stylesheet" href="../../css/highlight.css">
-<link rel="stylesheet" href="../../css/widget.css">
-<link rel="stylesheet" href="../../css/rocket.css">
-<link rel="stylesheet" href="../../css/signature.css">
-<link rel="stylesheet" href="../../css/catalog.css">
-<link rel="stylesheet" href="../../css/livemylife.css">
+<link rel="stylesheet" href="../css/highlight.css">
+<link rel="stylesheet" href="../css/widget.css">
+<link rel="stylesheet" href="../css/rocket.css">
+<link rel="stylesheet" href="../css/signature.css">
+<link rel="stylesheet" href="../css/catalog.css">
+<link rel="stylesheet" href="../css/livemylife.css">
 
 
   
@@ -137,10 +137,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://lemonsqi.top/tags/leetcode/">
+  <link rel="canonical" href="http://lemonsqi.top/tmp/8_leetcode_4.html">
   <title>
     
-    LemonD.K.
+    [LeetCode] 4. 寻找两个有序数组的中位数 - LemonD.K.
     
   </title>
 <meta name="generator" content="Hexo 4.2.1"></head>
@@ -216,13 +216,6 @@
 
           
           <li>
-            <a href="/categories/">Categories</a>
-          </li>
-          
-          
-
-          
-          <li>
             <a href="/archive/">Archives</a>
           </li>
           
@@ -230,7 +223,56 @@
 
           
           <li>
+            <a href="/categories/">Categories</a>
+          </li>
+          
+          
+
+          
+          <li>
             <a href="/tags/">Tags</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/tmp/8_leetcode_1.html">[LeetCode] 1. 两数之和</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/tmp/8_leetcode_2.html">[LeetCode] 2. 两数相加</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/tmp/8_leetcode_3.html">[LeetCode] 3. 无重复字符的最长子串</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/tmp/8_leetcode_4.html">[LeetCode] 4. 寻找两个有序数组的中位数</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/tmp/8_leetcode_5.html">[LeetCode] 5. 最长回文子串</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/tmp/8_leetcode_6.html">[LeetCode] 6. Z 字形变换</a>
           </li>
           
           
@@ -289,7 +331,7 @@
   <style type="text/css">
     header.intro-header {
        /*page*/
-        background-image: url('/img/header_img/archive_bg2.jpg');
+        background-image: url('//img/blog/3.jpg');
       
     }
 
@@ -312,7 +354,7 @@
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
           
           <div class="site-heading">
-            <h1>Live My Life</h1>
+            <h1>[LeetCode] 4. 寻找两个有序数组的中位数</h1>
             <!--<hr class="small">-->
             <span class="subheading">高山仰止、景行行止，虽不能至、心向往之</span>
           </div>
@@ -370,305 +412,56 @@
                 post-container
             ">
 
-      
-<!-- Main Content -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-0 col-md-10 col-md-offset-1">
-      <!-- 归档列表 -->
+      <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述:"></a>题目描述:</h2><p>给定两个大小为 m 和 n 的有序数组 <code>nums1</code> 和 <code>nums2</code>。</p>
+<p>请你找出这两个有序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。</p>
+<p>你可以假设 <code>nums1</code> 和 <code>nums2</code> 不会同时为空。</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例:"></a>示例:</h2><p><strong>示例 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 &#x3D; [1, 3]</span><br><span class="line">nums2 &#x3D; [2]</span><br><span class="line"></span><br><span class="line">则中位数是 2.0</span><br></pre></td></tr></table></figure>
 
-      
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 &#x3D; [1, 2]</span><br><span class="line">nums2 &#x3D; [3, 4]</span><br><span class="line"></span><br><span class="line">则中位数是 (2 + 3)&#x2F;2 &#x3D; 2.5</span><br></pre></td></tr></table></figure>
 
-      <!-- 归档列表 -->
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路:"></a>思路:</h2><p>这道题如果时间复杂度没有限定在 <img src="https://www.zhihu.com/equation?tex=O%28log%28m%2Bn%29%29" alt="[公式]"> ,我们可以用 <img src="https://www.zhihu.com/equation?tex=O%28m%2Bn%29%E2%80%8B" alt="[公式]"> 的算法解决,用两个指针分别指向两个数组,比较指针下的元素大小,一共移动次数为<code>(m+n + 1)/2</code>,便是中位数.</p>
+<p>首先,我们理解到底什么是中位数,指的是该数左右两边数字的个数相等.</p>
+<p>比如: <code>odd : [1,| 2 |,3]</code>,<code>2</code>就是这个数组的中位数,左右两边都只要1位;</p>
+<p><code>even: [1,| 2, 3 |,4]</code>,<code>2,3</code>就是这个数组的中位数,左右两边1位;</p>
+<p>那么,现在我们有两个数组:</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">num1: <span class="comment">[a1,a2,a3,...an]</span></span><br><span class="line">nums2: <span class="comment">[b1,b2,b3,...bn]</span></span><br><span class="line"><span class="comment">[nums1<span class="comment">[:left1]</span>,nums2<span class="comment">[:left2]</span> | nums1<span class="comment">[left1:]</span>, nums2<span class="comment">[left2:]</span>]</span></span><br></pre></td></tr></table></figure>
 
-      
-      <div class="one-tag-list">
-        <span class="fa fa-calendar-times-o listing-seperator" id="2021">
-          <span class="tag-text">2021</span>
-        </span>
-        <ul>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            06-20
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/06/20/12_GAN/" style="color: #0085a1">
-              <span>
-                生成对抗网络 – GAN
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            06-20
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/06/20/13_RL/" style="color: #0085a1">
-              <span>
-                强化学习 - RL
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            06-20
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/06/20/11_RNN/" style="color: #0085a1">
-              <span>
-                循环神经网络 – RNN
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            06-20
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/06/20/10_CNN/" style="color: #0085a1">
-              <span>
-                卷积神经网络 – CNN
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            05-31
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/05/31/9_深度学习/" style="color: #0085a1">
-              <span>
-                深度学习
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            04-11
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/04/11/8_leetcode_6/" style="color: #0085a1">
-              <span>
-                [LeetCode] 6. Z 字形变换
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-30
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/30/8_leetcode_5/" style="color: #0085a1">
-              <span>
-                [LeetCode] 5. 最长回文子串
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-30
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/30/8_leetcode_4/" style="color: #0085a1">
-              <span>
-                [LeetCode] 4. 寻找两个有序数组的中位数
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-30
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/30/8_leetcode_3/" style="color: #0085a1">
-              <span>
-                [LeetCode] 3. 无重复字符的最长子串
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-30
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/30/8_leetcode_2/" style="color: #0085a1">
-              <span>
-                [LeetCode] 2. 两数相加
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-30
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/30/8_leetcode_1/" style="color: #0085a1">
-              <span>
-                [LeetCode] 1. 两数之和
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-29
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/29/6_Groovy与Java集成常见的坑/" style="color: #0085a1">
-              <span>
-                Groovy与Java集成常见的坑
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-28
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/28/5_Groovy 语言快速入门/" style="color: #0085a1">
-              <span>
-                Groovy 语言快速入门
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-25
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/25/4_经典排序算法/" style="color: #0085a1">
-              <span>
-                经典排序算法总结
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-23
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/23/7_Java动态调用脚本语言Groovy/" style="color: #0085a1">
-              <span>
-                Java动态调用脚本语言Groovy
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-21
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/21/3_SSG/" style="color: #0085a1">
-              <span>
-                近似最近邻算法SSG
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-21
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/21/2_HNSW_NSG/" style="color: #0085a1">
-              <span>
-                向量索引算法HNSW和NSG的比较
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-21
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/21/1_向量索引/" style="color: #0085a1">
-              <span>
-                海量高维向量检索算法
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-        </ul>
-      </div>
-      
+<p>只要保证左右两边<strong>个数</strong>相同,中位数就在<code>|</code>这个边界旁边产生.</p>
+<p>如何找边界值,我们可以用二分法,我们先确定<code>num1</code>取<code>m1</code>左半边,那么<code>num2</code>取<code>m2 = (m+n+1)/2 - m1</code>的左半边,找到合适的<code>m1</code>,就用二分法找,关于我的二分法总结,见<a href="https://zhuanlan.zhihu.com/p/50851757" target="_blank" rel="noopener">另一篇文章</a>.</p>
+<p>当 <code>[ [a1],[b1,b2,b3] | [a2,..an],[b4,...bn] ]</code></p>
+<p>我们只需要比较 <code>b3</code>和<code>a2</code>的关系的大小,就可以知道这种分法是不是准确的!</p>
+<p>例如:我们令:</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [<span class="number">-1</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>]</span><br><span class="line">nums2 =[<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">10</span>,<span class="number">12</span>,<span class="number">14</span>,<span class="number">16</span>]</span><br></pre></td></tr></table></figure>
+
+<p>当<code>m1 = 4,m2 = 3</code></p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">median = (num1<span class="comment">[m1]</span> + num2<span class="comment">[m2]</span>)/2</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度: <img src="https://www.zhihu.com/equation?tex=O%28log%28min%28m%2Cn%29%29%29" alt="[公式]"></p>
+<p>对于代码中边界情况,大家需要自己琢磨.</p>
+<p>感觉对自己有用,就点个赞吧,并关注我的知乎专栏,嘻嘻!</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码:"></a>代码:</h2><p>python版</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -&gt; float:</span><br><span class="line">        n1 &#x3D; len(nums1)</span><br><span class="line">        n2 &#x3D; len(nums2)</span><br><span class="line">        if n1 &gt; n2:</span><br><span class="line">            return self.findMedianSortedArrays(nums2,nums1)</span><br><span class="line">        k &#x3D; (n1 + n2 + 1)&#x2F;&#x2F;2</span><br><span class="line">        left &#x3D; 0</span><br><span class="line">        right &#x3D; n1</span><br><span class="line">        while left &lt; right :</span><br><span class="line">            m1 &#x3D; left +(right - left)&#x2F;&#x2F;2</span><br><span class="line">            m2 &#x3D; k - m1</span><br><span class="line">            if nums1[m1] &lt; nums2[m2-1]:</span><br><span class="line">                left &#x3D; m1 + 1</span><br><span class="line">            else:</span><br><span class="line">                right &#x3D; m1</span><br><span class="line">        m1 &#x3D; left</span><br><span class="line">        m2 &#x3D; k - m1 </span><br><span class="line">        c1 &#x3D; max(nums1[m1-1] if m1 &gt; 0 else float(&quot;-inf&quot;), nums2[m2-1] if m2 &gt; 0 else float(&quot;-inf&quot;) )</span><br><span class="line">        if (n1 + n2) % 2 &#x3D;&#x3D; 1:</span><br><span class="line">            return c1</span><br><span class="line">        c2 &#x3D; min(nums1[m1] if m1 &lt; n1 else float(&quot;inf&quot;), nums2[m2] if m2 &lt;n2 else float(&quot;inf&quot;))</span><br><span class="line">        return (c1 + c2) &#x2F; 2</span><br></pre></td></tr></table></figure>
+
+<p>c++版</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> n1 = nums1.size();</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> n2 = nums2.size();</span><br><span class="line">        <span class="keyword">if</span>(n1&gt;n2) <span class="keyword">return</span> findMedianSortedArrays(nums2, nums1);</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> k = (n1 + n2 + <span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = n1;</span><br><span class="line">        <span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">int</span> m1 = left + (right - left)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">int</span> m2 = k - m1;</span><br><span class="line">            <span class="keyword">if</span>(nums1[m1]&lt;nums2[m2<span class="number">-1</span>])</span><br><span class="line">                left = m1 + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                right = m1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> m1 = left;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> m2 = k - left;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> c1 = max(m1 &lt;= <span class="number">0</span> ? INT_MIN:nums1[m1<span class="number">-1</span>],</span><br><span class="line">                          m2 &lt;= <span class="number">0</span> ? INT_MIN:nums2[m2<span class="number">-1</span>]);</span><br><span class="line">        <span class="keyword">if</span>((n1 + n2)%<span class="number">2</span> == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> c1;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> c2 = min(m1 &gt;= n1 ? INT_MAX: nums1[m1],</span><br><span class="line">                      m2 &gt;= n2 ? INT_MAX : nums2[m2]);</span><br><span class="line">        <span class="keyword">return</span> (c1 + c2) * <span class="number">0.5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>java版</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n1 = nums1.length;</span><br><span class="line">        <span class="keyword">int</span> n2 = nums2.length;</span><br><span class="line">        <span class="keyword">if</span> (n1&gt;n2)</span><br><span class="line">            <span class="keyword">return</span> findMedianSortedArrays(nums2, nums1);</span><br><span class="line">        <span class="keyword">int</span> k = (n1 + n2 + <span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = n1;</span><br><span class="line">        <span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">            <span class="keyword">int</span> m1 = left +(right - left)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">int</span> m2 = k - m1;</span><br><span class="line">            <span class="keyword">if</span> (nums1[m1] &lt; nums2[m2-<span class="number">1</span>])</span><br><span class="line">                left = m1 + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                right = m1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> m1 = left;</span><br><span class="line">        <span class="keyword">int</span> m2 = k - left;</span><br><span class="line">        <span class="keyword">int</span> c1 = Math.max(m1 &lt;= <span class="number">0</span> ? Integer.MIN_VALUE : nums1[m1-<span class="number">1</span>],</span><br><span class="line">                         m2 &lt;= <span class="number">0</span> ? Integer.MIN_VALUE : nums2[m2-<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">if</span> ((n1 + n2) % <span class="number">2</span> == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> c1;</span><br><span class="line">        <span class="keyword">int</span> c2 = Math.min( m1 &gt;= n1 ? Integer.MAX_VALUE :nums1[m1],</span><br><span class="line">                         m2 &gt;= n2 ? Integer.MAX_VALUE : nums2[m2]);</span><br><span class="line">        <span class="keyword">return</span> (c1 + c2) * <span class="number">0.5</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
-    </div>
-  </div>
-</div>
+
+<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 
 
       <!-- 如果开启评论功能 -->
+      
+      <hr>
+
+      
+
+      
       
     </div>
 
@@ -710,7 +503,7 @@
     
     
     
-    <a href="/tags/#CNN" title="CNN" rel="1">CNN</a>
+    <a href="/tags/#RNN" title="RNN" rel="1">RNN</a>
     
     
     
@@ -718,31 +511,19 @@
     
     
     
-    <a href="/tags/#RNN" title="RNN" rel="1">RNN</a>
+    <a href="/tags/#CNN" title="CNN" rel="1">CNN</a>
+    
+    
+    
+    <a href="/tags/#RL" title="RL" rel="1">RL</a>
+    
+    
+    
+    <a href="/tags/#GAN" title="GAN" rel="1">GAN</a>
     
     
     
     <a href="/tags/#ANNS" title="ANNS" rel="3">ANNS</a>
-    
-    
-    
-    <a href="/tags/#HNSW" title="HNSW" rel="2">HNSW</a>
-    
-    
-    
-    <a href="/tags/#NSG" title="NSG" rel="2">NSG</a>
-    
-    
-    
-    <a href="/tags/#机器学习" title="机器学习" rel="4">机器学习</a>
-    
-    
-    
-    <a href="/tags/#向量检索" title="向量检索" rel="3">向量检索</a>
-    
-    
-    
-    <a href="/tags/#算法" title="算法" rel="4">算法</a>
     
     
     
@@ -766,19 +547,19 @@
     
     
     
-    <a href="/tags/#RL" title="RL" rel="1">RL</a>
+    <a href="/tags/#HNSW" title="HNSW" rel="2">HNSW</a>
     
     
     
-    <a href="/tags/#SSG" title="SSG" rel="1">SSG</a>
+    <a href="/tags/#机器学习" title="机器学习" rel="4">机器学习</a>
     
     
     
-    <a href="/tags/#NSSG" title="NSSG" rel="1">NSSG</a>
+    <a href="/tags/#向量检索" title="向量检索" rel="3">向量检索</a>
     
     
     
-    <a href="/tags/#GAN" title="GAN" rel="1">GAN</a>
+    <a href="/tags/#算法" title="算法" rel="4">算法</a>
     
     
     
@@ -787,6 +568,18 @@
     
     
     <a href="/tags/#内排序" title="内排序" rel="1">内排序</a>
+    
+    
+    
+    <a href="/tags/#NSG" title="NSG" rel="2">NSG</a>
+    
+    
+    
+    <a href="/tags/#SSG" title="SSG" rel="1">SSG</a>
+    
+    
+    
+    <a href="/tags/#NSSG" title="NSSG" rel="1">NSSG</a>
     
     
     
@@ -799,10 +592,6 @@
     
     
     <a href="/tags/#脚本语言" title="脚本语言" rel="3">脚本语言</a>
-    
-    
-    
-    <a href="/tags/#leetcode" title="leetcode" rel="6">leetcode</a>
     
     
     
@@ -896,23 +685,23 @@
 <div class="widget">
   <ul>
     
-    <a href="../../2021/06/20/10_CNN/">
-      <li>卷积神经网络 – CNN</li>
-    </a>
-    
-    <a href="../../2021/06/20/11_RNN/">
+    <a href="../2021/06/20/11_RNN/">
       <li>循环神经网络 – RNN</li>
     </a>
     
-    <a href="../../2021/06/20/13_RL/">
+    <a href="../2021/06/20/10_CNN/">
+      <li>卷积神经网络 – CNN</li>
+    </a>
+    
+    <a href="../2021/06/20/13_RL/">
       <li>强化学习 - RL</li>
     </a>
     
-    <a href="../../2021/06/20/12_GAN/">
+    <a href="../2021/06/20/12_GAN/">
       <li>生成对抗网络 – GAN</li>
     </a>
     
-    <a href="../../2021/05/31/9_%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+    <a href="../2021/05/31/9_%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
       <li>深度学习</li>
     </a>
     
@@ -941,7 +730,7 @@
     <!-- <h5>ARCHIVES</h5> -->
     <h5><a href="/archives/">ARCHIVES</a></h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/06/">六月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/04/">四月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2021/03/">三月 2021</a><span class="archive-list-count">12</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/06/">六月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../archives/2021/03/">三月 2021</a><span class="archive-list-count">7</span></li></ul>
     </div>
 
 
@@ -956,10 +745,6 @@
     
     <a href="/categories/#技术栈">
       <li>技术栈</li>
-    </a>
-    
-    <a href="/categories/#面试角">
-      <li>面试角</li>
     </a>
     
   </ul>
