@@ -2,14 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://lemonsqi.top/2021/06/20/10_%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_CNN/</loc>
+    <loc>http://lemonsqi.top/2021/06/20/13_RL/</loc>
     
     <lastmod>2021-06-20</lastmod>
     
   </url>
   
   <url>
-    <loc>http://lemonsqi.top/2021/06/20/11_%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_RNN/</loc>
+    <loc>http://lemonsqi.top/2021/06/20/12_GAN/</loc>
+    
+    <lastmod>2021-06-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lemonsqi.top/2021/06/20/11_RNN/</loc>
+    
+    <lastmod>2021-06-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lemonsqi.top/2021/06/20/10_CNN/</loc>
+    
+    <lastmod>2021-06-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://lemonsqi.top/2021/06/20/10_%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0_CNN/</loc>
     
     <lastmod>2021-06-20</lastmod>
     
@@ -313,6 +334,27 @@
   
   <url>
     <loc>http://lemonsqi.top/tags/CNN/</loc>
+    <lastmod>2021-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://lemonsqi.top/tags/RNN/</loc>
+    <lastmod>2021-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://lemonsqi.top/tags/GAN/</loc>
+    <lastmod>2021-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://lemonsqi.top/tags/RL/</loc>
     <lastmod>2021-06-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
