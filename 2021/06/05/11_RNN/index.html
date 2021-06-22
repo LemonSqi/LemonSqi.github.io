@@ -209,6 +209,13 @@
 
           
           <li>
+            <a href="/categories/">Categories</a>
+          </li>
+          
+          
+
+          
+          <li>
             <a href="/archive/">Archives</a>
           </li>
           
@@ -217,13 +224,6 @@
           
           <li>
             <a href="/about/">About</a>
-          </li>
-          
-          
-
-          
-          <li>
-            <a href="/categories/">Categories</a>
           </li>
           
           
@@ -320,6 +320,8 @@
               
               <a class="tag" href="/tags/#RNN" title="RNN">RNN</a>
               
+              <a class="tag" href="/tags/#LSTM" title="LSTM">LSTM</a>
+              
             </div>
             <h1>循环神经网络 – RNN</h1>
             <h2 class="subheading">Recurrent neural network</h2>
@@ -333,11 +335,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">4</span> Minutes
+              Estimated Reading Time <span class="post-count">6</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">1.4k</span> In Total
+              Words <span class="post-count">2k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -441,25 +443,36 @@
 <li>训练 RNN 需要投入极大的成本</li>
 </ol>
 <p>由于 RNN 的短期记忆问题，后来又出现了基于 RNN 的优化算法，下面给大家简单介绍一下。</p>
-<h2 id="RNN-的优化算法"><a href="#RNN-的优化算法" class="headerlink" title="RNN 的优化算法"></a>RNN 的优化算法</h2><h3 id="RNN-到-LSTM-–-长短期记忆网络"><a href="#RNN-到-LSTM-–-长短期记忆网络" class="headerlink" title="RNN 到 LSTM – 长短期记忆网络"></a>RNN 到 LSTM – 长短期记忆网络</h3><p>RNN 是一种死板的逻辑，越晚的输入影响越大，越早的输入影响越小，且无法改变这个逻辑。</p>
-<p>LSTM做的最大的改变就是打破了这个死板的逻辑，而改用了一套灵活的逻辑——只保留重要的信息。</p>
-<p><strong>简单说就是：抓重点！</strong></p>
+<h2 id="RNN-的优化算法"><a href="#RNN-的优化算法" class="headerlink" title="RNN 的优化算法"></a>RNN 的优化算法</h2><h3 id="LSTM-–-长短期记忆网络"><a href="#LSTM-–-长短期记忆网络" class="headerlink" title="LSTM – 长短期记忆网络"></a>LSTM – 长短期记忆网络</h3><p>一种特殊的 RNN，能够学习长期依赖性。由 Hochreiter 和 Schmidhuber（1997）提出的，并且在接下来的工作中被许多人改进和推广。LSTM 在各种各样的问题上表现非常出色，现在被广泛使用。</p>
+<p>LSTM 做的最大的改变就是打破了这个死板的逻辑，而改用了一套灵活的逻辑——只保留重要的信息，它被明确设计用来避免长期依赖性问题。长时间记住信息实际上是 LSTM 的默认行为，而不是需要努力学习的东西！</p>
+<p>相较于RNN 死板的逻辑，越晚的输入影响越大，越早的输入影响越小，且无法改变这个逻辑。</p>
+<p>LSTM 却可以保留较长序列数据中的「重要信息」，忽略不重要的信息**。这样就解决了 RNN 短期记忆的问题。</p>
+<h4 id="LSTM相较于传统RNN网络的差异："><a href="#LSTM相较于传统RNN网络的差异：" class="headerlink" title="LSTM相较于传统RNN网络的差异："></a>LSTM相较于传统RNN网络的差异：</h4><p>我们知道，所有递归神经网络都具有神经网络的链式重复模块。在标准的 RNN 中，这个重复模块具有非常简单的结构，例如只有单个 tanh 层。</p>
 <p><img src="10.png" alt="11_RNN"></p>
-<p>举个例子，我们先快速的阅读下面这段话：</p>
+<p>LSTM 也具有这种类似的链式结构，但重复模块具有不同的结构。不是一个单独的神经网络层，而是四个，并且以非常特殊的方式进行交互。</p>
 <p><img src="11.png" alt="11_RNN"></p>
-<p>当我们快速阅读完之后，可能只会记住下面几个重点：</p>
+<p>不要担心细节。稍后我们将逐步浏览 LSTM 的图解。现在，让我们试着去熟悉我们将使用的符号。</p>
 <p><img src="12.png" alt="11_RNN"></p>
-<p>LSTM 类似上面的划重点，<strong>他可以保留较长序列数据中的「重要信息」，忽略不重要的信息</strong>。这样就解决了 RNN 短期记忆的问题。</p>
-<h3 id="从-LSTM-到-GRU"><a href="#从-LSTM-到-GRU" class="headerlink" title="从 LSTM 到 GRU"></a>从 LSTM 到 GRU</h3><p>Gated Recurrent Unit – GRU 是 LSTM 的一个变体。他保留了 LSTM 划重点，遗忘不重要信息的特点，在long-term 传播的时候也不会被丢失。</p>
+<p>在上面的图中，每行包含一个完整的向量，从一个节点的输出到其他节点的输入。粉色圆圈表示逐点运算，如向量加法；而黄色框表示学习的神经网络层。行合并表示串联，而分支表示其内容正在被复制，并且副本将转到不同的位置。</p>
+<h4 id="LSTM的核心思路"><a href="#LSTM的核心思路" class="headerlink" title="LSTM的核心思路"></a>LSTM的核心思路</h4><p>LSTM 的关键是细胞状态，即图中上方的水平线。</p>
+<p>细胞状态有点像传送带。它贯穿整个链条，只有一些次要的线性交互作用。信息很容易以不变的方式流过。</p>
 <p><img src="13.png" alt="11_RNN"></p>
+<p>LSTM 可以通过所谓“门”的精细结构向细胞状态添加或移除信息。</p>
+<p>门可以选择性地以让信息通过。它们由 S 形神经网络层和逐点乘法运算组成。</p>
+<p><img src="14.png" alt="11_RNN"></p>
+<p>S 形网络的输出值介于 0 和 1 之间，表示有多大比例的信息通过。0 值表示“没有信息通过”，1 值表示“所有信息通过”。</p>
+<p>一个 LSTM 有三种这样的门用来保持和控制细胞状态。</p>
+<p>如果对详细的技术原理感兴趣，可以看看这篇文章《<a href="https://towardsdatascience.com/illustrated-guide-to-lstms-and-gru-s-a-step-by-step-explanation-44e9eb85bf21" target="_blank" rel="noopener">Illustrated Guide to LSTM’s and GRU’s: A step by step explanation</a>》</p>
+<h3 id="从-LSTM-到-GRU"><a href="#从-LSTM-到-GRU" class="headerlink" title="从 LSTM 到 GRU"></a>从 LSTM 到 GRU</h3><p>Gated Recurrent Unit – GRU 是 LSTM 的一个变体。他保留了 LSTM 划重点，遗忘不重要信息的特点，在long-term 传播的时候也不会被丢失。</p>
+<p><img src="15.png" alt="11_RNN"></p>
 <p>GRU 主要是在 LSTM 的模型上做了一些简化和调整，在训练数据集比较大的情况下可以节省很多时间。</p>
 <h2 id="RNN-的应用和使用场景"><a href="#RNN-的应用和使用场景" class="headerlink" title="RNN 的应用和使用场景"></a>RNN 的应用和使用场景</h2><p>只要涉及到序列数据的处理问题，都可以使用到，NLP 就是一个典型的应用场景。</p>
-<p><img src="14.png" alt="11_RNN"></p>
+<p><img src="16.png" alt="11_RNN"></p>
 <p><strong>文本生成</strong>：类似上面的填空题，给出前后文，然后预测空格中的词是什么。</p>
 <p><strong>机器翻译</strong>：翻译工作也是典型的序列问题，词的顺序直接影响了翻译的结果。</p>
 <p><strong>语音识别</strong>：根据输入音频判断对应的文字是什么。</p>
 <p><strong>生成图像描述</strong>：类似看图说话，给一张图，能够描述出图片中的内容。这个往往是 RNN 和 CNN 的结合。</p>
-<p><img src="15.png" alt="11_RNN"></p>
+<p><img src="17.png" alt="11_RNN"></p>
 <p><strong>视频标记</strong>：他将视频分解为图片，然后用图像描述来描述图片内容。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>RNN的独特价值在于：它能有效的处理序列数据。比如：文章内容、语音音频、股票价格走势…</p>
 <p>之所以他能处理序列数据，是因为在序列中前面的输入也会影响到后面的输出，相当于有了“记忆功能”。但是 RNN 存在严重的短期记忆问题，长期的数据影响很小（哪怕他是重要的信息）。</p>
@@ -623,7 +636,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#为什么需要-RNN-？独特价值是什么？"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">为什么需要 RNN ？独特价值是什么？</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#RNN-的基本原理"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">RNN 的基本原理</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#RNN-的优化算法"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">RNN 的优化算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#RNN-到-LSTM-–-长短期记忆网络"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">RNN 到 LSTM – 长短期记忆网络</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#从-LSTM-到-GRU"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">从 LSTM 到 GRU</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#RNN-的应用和使用场景"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">RNN 的应用和使用场景</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#总结"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">总结</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#为什么需要-RNN-？独特价值是什么？"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">为什么需要 RNN ？独特价值是什么？</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#RNN-的基本原理"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">RNN 的基本原理</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#RNN-的优化算法"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">RNN 的优化算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#LSTM-–-长短期记忆网络"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">LSTM – 长短期记忆网络</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#LSTM相较于传统RNN网络的差异："><span class="toc-nav-number">3.1.1.</span> <span class="toc-nav-text">LSTM相较于传统RNN网络的差异：</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#LSTM的核心思路"><span class="toc-nav-number">3.1.2.</span> <span class="toc-nav-text">LSTM的核心思路</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#从-LSTM-到-GRU"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">从 LSTM 到 GRU</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#RNN-的应用和使用场景"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">RNN 的应用和使用场景</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#总结"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">总结</span></a></li></ol>
         
         </div>
       </aside>
@@ -650,6 +663,8 @@
             <a class="tag" href="/tags/#人工智能" title="人工智能">人工智能</a>
             
             <a class="tag" href="/tags/#RNN" title="RNN">RNN</a>
+            
+            <a class="tag" href="/tags/#LSTM" title="LSTM">LSTM</a>
             
           </div>
         </section>
