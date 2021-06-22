@@ -70,12 +70,12 @@
 
   <!-- Pygments Highlight CSS -->
   
-<link rel="stylesheet" href="../../../css/highlight.css">
-<link rel="stylesheet" href="../../../css/widget.css">
-<link rel="stylesheet" href="../../../css/rocket.css">
-<link rel="stylesheet" href="../../../css/signature.css">
-<link rel="stylesheet" href="../../../css/catalog.css">
-<link rel="stylesheet" href="../../../css/livemylife.css">
+<link rel="stylesheet" href="../../../../css/highlight.css">
+<link rel="stylesheet" href="../../../../css/widget.css">
+<link rel="stylesheet" href="../../../../css/rocket.css">
+<link rel="stylesheet" href="../../../../css/signature.css">
+<link rel="stylesheet" href="../../../../css/catalog.css">
+<link rel="stylesheet" href="../../../../css/livemylife.css">
 
 
   
@@ -137,10 +137,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://lemonsqi.top/archives/2021/05/">
+  <link rel="canonical" href="http://lemonsqi.top/2021/06/22/14_DevOps/">
   <title>
     
-    LemonD.K.
+    DevOps - LemonD.K.
     
   </title>
 <meta name="generator" content="Hexo 4.2.1"></head>
@@ -288,8 +288,8 @@
 
   <style type="text/css">
     header.intro-header {
-       /*page*/
-        background-image: url('/img/header_img/archive_bg2.jpg');
+       /*post*/
+        background-image: url('/img/tech/devops.jpg');
       
     }
 
@@ -311,10 +311,46 @@
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
           
-          <div class="site-heading">
-            <h1>Live My Life</h1>
-            <!--<hr class="small">-->
-            <span class="subheading">高山仰止、景行行止，虽不能至、心向往之</span>
+          <div class="post-heading">
+            <div class="tags">
+              
+              <a class="tag" href="/tags/#敏捷开发" title="敏捷开发">敏捷开发</a>
+              
+              <a class="tag" href="/tags/#自动化" title="自动化">自动化</a>
+              
+              <a class="tag" href="/tags/#软件生命周期" title="软件生命周期">软件生命周期</a>
+              
+            </div>
+            <h1>DevOps</h1>
+            <h2 class="subheading">Development Operations</h2>
+            <span class="meta">
+              Posted by sqwang on
+              2021-06-22
+            </span>
+
+
+            
+            <!-- WordCount start -->
+            <div class="blank_box"></div>
+            <span class="meta">
+              Estimated Reading Time <span class="post-count">9</span> Minutes
+            </span>
+            <div class="blank_box"></div>
+            <span class="meta">
+              Words <span class="post-count">2.7k</span> In Total
+            </span>
+            <div class="blank_box"></div>
+            <!-- WordCount end -->
+            
+            
+            <!-- 不蒜子统计 start -->
+            <span class="meta" id="busuanzi_container_page_pv">
+              Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> Times
+            </span>
+            <!-- 不蒜子统计 end -->
+            
+
+
           </div>
           
         </div>
@@ -355,557 +391,347 @@
 	Friends Blog、
 	anchorjs、
 	) -->
-	<!-- Main Content -->
-<div class="container">
-  <div class="row">
-    
+	<!-- Modify by Yu-Hsuan Yen -->
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <!-- Post Container -->
+      <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-    <!-- USE SIDEBAR -->
-    <!-- Post Container -->
-    <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
+        <blockquote>
+<p>提到DevOps这个词，我相信很多人一定不会陌生。</p>
+<p>作为一个热门的概念，DevOps近年来频频出现在各大技术社区和媒体的文章中，备受行业大咖的追捧，也吸引了很多吃瓜群众的围观。</p>
+</blockquote>
+<h2 id="DevOps的起源"><a href="#DevOps的起源" class="headerlink" title="DevOps的起源"></a>DevOps的起源</h2><p>上个世纪40年代，世界上第一台计算机诞生。从诞生之日起，它就离不开程序（Program）的驱动。而负责编写程序的人，就被称为“程序员”（Programmer）。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-483ac0c7564ac4ea33b26d6a85e46905_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>程序员是计算机的驾驭者，也是极其稀缺的人才。那个时候，只有高学历、名校出身的人，才有资格成为程序员，操控计算机。</p>
+<p>随着人类科技的不断发展，PC和Internet陆续问世，我们进入了全民拥抱信息化的时代。越来越多的企业开始将计算机作为办公用的工具，用以提升生产力。而普通个人用户也开始将计算机作为娱乐工具，用以改善生活品质。</p>
+<p>于是，计算机的程序，开始变成了一门生意。程序，逐步演进为“软件（software）”，变成了最赚钱的产品之一。</p>
+<p>在软件产业里，程序员有了更专业的称谓，叫做“软件开发工程师（Software Development Engineer）”，也就是我们常说的“码农”。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-f0f7e36eabe93fa6540553c9fc224715_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>我们知道，一个软件从零开始到最终交付，大概包括以下几个阶段：规划、编码、构建、测试、发布、部署和维护。</p>
+<p><img src="https://pic4.zhimg.com/50/v2-348e4330b324fc431ebc040b744de12c_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>最初，程序比较简单，工作量不大，程序员一个人可以完成所有阶段的工作。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-c64ce0bf122abdf8b2d04a49f8ed84ae_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>随着软件产业的日益发展壮大，软件的规模也在逐渐变得庞大。软件的复杂度不断攀升。一个人已经hold不住了，就开始出现了精细化分工。</p>
+<p>码农的队伍扩大，工种增加。除了软件开发工程师之外，又有了软件测试工程师，软件运维工程师。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-839c51fe42cd3b0c4526d1ca8c2e0237_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>分工之后，传统的软件开发流程是这样的：</p>
+<p>软件开发人员花费数周和数月编写代码，然后将代码交给QA（质量保障）团队进行测试，然后将最终的发布版交给运维团队去布署。所有的这三个阶段，即开发，测试，布署。</p>
+<p>早期所采用的软件交付模型，称之为“瀑布（Waterfall）模型”。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-428e22138781efde87a587f57ef1372f_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>瀑布模型，简而言之，就是等一个阶段所有工作完成之后，再进入下一个阶段。</p>
+<p>这种模型适合条件比较理想化（用户需求非常明确、开发时间非常充足）的项目。大家按部就班，轮流执行自己的职责即可。</p>
+<p>但是，项目不可能是单向运作的。客户也是有需求的。产品也是会有问题的，需要改进的。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-8ce245a16b9ccce074eb32d90d16b7b1_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>随着时间推移，用户对系统的需求不断增加，与此同时，用户给的时间周期却越来越少。在这个情况下，大家发现，笨重迟缓的瀑布式开发已经不合时宜了。</p>
+<p>于是，软件开发团队引入了一个新的概念，那就是大名鼎鼎的——“敏捷开发（Agile Development）”。</p>
+<p>敏捷开发在2000年左右开始被世人所关注，是一种能应对快速变化需求的软件开发能力。其实简单来说，就是把大项目变成小项目，把大时间点变成小时间点，然后这样：</p>
+<p>有两个词经常会伴随着DevOps出现，那就是CI和CD。CI是Continuous Integration（持续集成），而CD对应多个英文，Continuous Delivery（持续交付）或Continuous Deployment（持续部署）。</p>
+<p>美其名曰：“持续（Continuous）”，其实就是“加速——反复——加速——反复……”，这样子。</p>
+<p>画个图大家可能更明白一点：</p>
+<p><img src="https://pic4.zhimg.com/50/v2-5cd9ecccba40329ae2e6f42fa9a2a24a_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>敏捷开发大幅提高了开发团队的工作效率，让版本的更新速度变得更快。</p>
+<p>很多人可能会觉得，“更新版本的速度快了，风险不是更大了吗？”</p>
+<p>其实，事实并非如此。</p>
+<p>敏捷开发可以帮助更快地发现问题，产品被更快地交付到用户手中，团队可以更快地得到用户的反馈，从而进行更快地响应。而且，DevOps小步快跑的形式带来的版本变化是比较小的，风险会更小（如下图所示）。即使出现问题，修复起来也会相对容易一些。</p>
+<p><img src="https://pic4.zhimg.com/50/v2-33bdcf1035f61d73490bcac0acdc3068_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>虽然敏捷开发大幅提升了软件开发的效率和版本更新的速度，但是它的效果仅限于开发环节。研发们发现，运维那边，依旧是铁板一块，成为了新的瓶颈。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-4c07fc48dcedd097cb92b280a02798a4_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>运维工程师，和开发工程师有着完全不同的思维逻辑。运维团队的座右铭，很简单，就是“稳定压倒一切”。运维的核心诉求，就是不出问题。</p>
+<p>什么情况下最容易出问题？发生改变的时候最容易出问题。所以说，运维非常排斥“改变”。</p>
+<p>于是乎，矛盾就在两者之间集中爆发了。</p>
+<p>这个时候，我们的DevOps，隆重登场了。</p>
+<h2 id="DevOps到底是什么"><a href="#DevOps到底是什么" class="headerlink" title="DevOps到底是什么"></a>DevOps到底是什么</h2><p>DevOps这个词，其实就是Development和Operations两个词的组合。它的英文发音是 /de’vɒps/，类似于“迪沃普斯”。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-e17fc763c5db7ec686d8f4f8ae2d5aeb_hd.jpg?source=1940ef5c" alt="img"></p>
+<h3 id="DevOps的维基百科定义是这样的："><a href="#DevOps的维基百科定义是这样的：" class="headerlink" title="DevOps的维基百科定义是这样的："></a>DevOps的维基百科定义是这样的：</h3><p>DevOps是一组过程、方法与系统的统称，用于促进开发、技术运营和质量保障（QA）部门之间的沟通、协作与整合。</p>
+<p><img src="https://pic4.zhimg.com/50/v2-f2f0e075c942ca3ba16729eb43f7d349_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>这个定位稍微有点抽象，但是并不难理解。反正它不是某一个特定软件、工具或平台的名字。</p>
+<p>从目标来看，DevOps就是让开发人员和运维人员更好地沟通合作，通过自动化流程来使得软件整体过程更加快捷和可靠。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-34d2eacdb8c2abb84254b30b7cb5b1e0_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>很多人可能觉得，所谓DevOps，不就是Dev+Ops嘛，把两个团队合并，或者将运维划归开发，不就完事了嘛，简单粗暴。</p>
+<p>注意，这个观点是不对的。这也是DevOps这些年一直难以落地的主要原因。</p>
+<p>想要将DevOps真正落地，首先第一点，是思维转变，也就是“洗脑”。不仅是运维的要洗，开发的也要洗。员工要洗，领导更要洗。</p>
+<p>DevOps并不仅仅是组织架构变革，更是企业文化和思想观念的变革。如果不能改变观念，即使将员工放在一起，也不会产生火花。</p>
+<p>除了洗脑之外，就是根据DevOps思想重新梳理全流程的规范和标准。</p>
+<p>在DevOps的流程下，运维人员会在项目开发期间就介入到开发过程中，了解开发人员使用的系统架构和技术路线，从而制定适当的运维方案。而开发人员也会在运维的初期参与到系统部署中，并提供系统部署的优化建议。</p>
+<p>DevOps的实施，促进开发和运维人员的沟通，增进彼此的理（gan）解（qing）。</p>
+<p>在思维和流程改变的同时，想要充分落地DevOps，当然离不开软件和平台的支持。</p>
+<p>目前支持DevOps的软件实在是太多了。限于篇幅，就不一一介绍了。话说回来，现在DevOps之所以被吹得天花乱坠，也有这些软件和平台的功劳，可以趁机卖钱啊。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-8ba508ea0cec41248213a12cb019aa09_hd.jpg?source=1940ef5c" alt="img"></p>
+<h3 id="DevOps生态圈中令人眼花缭乱的工具"><a href="#DevOps生态圈中令人眼花缭乱的工具" class="headerlink" title="DevOps生态圈中令人眼花缭乱的工具"></a>DevOps生态圈中令人眼花缭乱的工具</h3><p>上述这些关键要素里面，技术（工具和平台）是最容易实现的，流程次之，思维转变反而最困难。</p>
+<p>换言之，DevOps考验的不仅是一家企业的技术，更是管理水平和企业文化。</p>
+<p>对比前面所说的瀑布式开发和敏捷开发，我们可以明显看出，DevOps贯穿了软件全生命周期，而不仅限于开发阶段。</p>
+<p><img src="https://pic4.zhimg.com/50/v2-ca86e6211e0e8f5ea55b51bc8bce32b0_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>下面这张图，更明显地说明了DevOps所处的位置，还有它的价值：</p>
+<p><img src="https://pic2.zhimg.com/50/v2-bbda507be6823c2c28d5fd1ebc519f7a_hd.jpg?source=1940ef5c" alt="img"></p>
+<h2 id="DevOps的发展现状"><a href="#DevOps的发展现状" class="headerlink" title="DevOps的发展现状"></a>DevOps的发展现状</h2><p>DevOps这个词来源于2009年在比利时根特市举办的首届DevOpsDays大会，为了在Twitter上更方便的传播，由DevOpsDays缩写为DevOps。</p>
+<p>目前，DevOps处于高速增长的阶段。尤其是在大企业中，DevOps受到了广泛的欢迎。</p>
+<p>根据2018年的调查发现，74%的受访者已经接受了DevOps，而前一年这一比例为66%。</p>
+<p>越大的企业，越喜欢DevOps。包括Adobe、Amazon、Apple、Airbnb、Ebay、Etsy、Facebook、linkedIn、Netflix、NASA、Starbucks、Walmart、Sony等公司，都在采用DevOps。</p>
+<p>如今，DevOps几乎已经成为了软件工程的代名词。</p>
+<p>DevOps的认证目前最受欢迎的就是EXIN DevOps Master和EXIN DevOps Professional。这些认证的培训费用不低，但是仍然吸引了很多人踊跃报名。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-9b66129bc9c771d1df08a8f7197f70d3_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>​                                                                                        EXIN DevOps认证体系</p>
+<h2 id="DevOps与虚拟化、容器、微服务"><a href="#DevOps与虚拟化、容器、微服务" class="headerlink" title="DevOps与虚拟化、容器、微服务"></a>DevOps与虚拟化、容器、微服务</h2><p>这几年云计算技术突飞猛进，大家应该对虚拟化、容器、微服务这些概念并不陌生。当我们提到这些概念的时候，也会偶尔提及DevOps。</p>
+<p>它们之间有什么联系呢？</p>
+<p>其实很简单。</p>
+<p>大家可以设想一下，如果要对一项工作进行精细化分工，我们是对一个大铁疙瘩进行加工方便？还是拆成一块一块进行加工更加方便？</p>
+<p>显然是拆分之后会更加方便。</p>
+<p>所谓“微服务”，就是将原来黑盒化的一个整体产品进行拆分（解耦），从一个提供多种服务的整体，拆成各自提供不同服务的多个个体。如下图所示：</p>
+<p><img src="https://pic2.zhimg.com/50/v2-cd634bf27301c4b6518775f7f72f4488_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>​                                                                体式架构（Monolithic）→ 微服务架构（Microservices）</p>
+<p>微服务架构下，不同的工程师可以对各自负责的模块进行处理，例如开发、测试、部署、迭代。</p>
+<p>而虚拟化，其实就是一种敏捷的<a href="https://link.zhihu.com/?target=https%3A//www.ucloud.cn/site/product/uhost.html">云计算</a>服务。它从硬件上，将一个系统“划分”为多个系统，系统之间相互隔离，为微服务提供便利。</p>
+<p>容器就更彻底了，不是划分为不同的操作系统，而是在操作系统上划分为不同的“运行环境”（Container），占用资源更少，部署速度更快。</p>
+<p><img src="https://pic3.zhimg.com/50/v2-8f8aa50bd1d86088f4a5fd63df128a8e_hd.jpg?source=1940ef5c" alt="img"></p>
+<p>虚拟化和容器，其实为DevOps提供了很好的前提条件。开发环境和部署环境都可以更好地隔离了，减小了相互之间的影响。</p>
+<p>这也是DevOps为什么2009年时不火，现在越来越火的一个主要原因之一。</p>
+<p>​                                                                                                                                        <strong><em>高山仰止 景行行止 虽不能至 心向往之</em></strong></p>
 
-      
-<!-- Main Content -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-0 col-md-10 col-md-offset-1">
-      <!-- 归档列表 -->
 
-      
-
-      <!-- 归档列表 -->
-
-      
-      <div class="one-tag-list">
-        <span class="fa fa-calendar-times-o listing-seperator" id="2021">
-          <span class="tag-text">2021</span>
-        </span>
-        <ul>
+        <hr>
+        <!-- Pager -->
+        <ul class="pager">
           
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            06-22
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/06/22/14_DevOps/" style="color: #0085a1">
-              <span>
-                DevOps
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
           
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            06-20
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/06/20/13_RL/" style="color: #0085a1">
-              <span>
-                强化学习 - RL
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            06-14
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/06/14/12_GAN/" style="color: #0085a1">
-              <span>
-                生成对抗网络 – GAN
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            06-05
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/06/05/11_RNN/" style="color: #0085a1">
-              <span>
-                循环神经网络 – RNN
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            06-03
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/06/03/10_CNN/" style="color: #0085a1">
-              <span>
-                卷积神经网络 – CNN
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            05-31
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/05/31/9_深度学习/" style="color: #0085a1">
-              <span>
-                深度学习
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-29
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/29/6_Groovy与Java集成常见的坑/" style="color: #0085a1">
-              <span>
-                Groovy与Java集成常见的坑
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-28
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/28/5_Groovy 语言快速入门/" style="color: #0085a1">
-              <span>
-                Groovy 语言快速入门
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-25
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/25/4_经典排序算法/" style="color: #0085a1">
-              <span>
-                经典排序算法总结
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-23
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/23/7_Java动态调用脚本语言Groovy/" style="color: #0085a1">
-              <span>
-                Java动态调用脚本语言Groovy
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-21
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/21/3_SSG/" style="color: #0085a1">
-              <span>
-                近似最近邻算法SSG
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-21
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/21/2_HNSW_NSG/" style="color: #0085a1">
-              <span>
-                向量索引算法HNSW和NSG的比较
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-          </li>
-          
-          <!-- <li class="listing-item">
-                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-                  </li> -->
-          <li>
-            03-21
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2021/03/21/1_向量索引/" style="color: #0085a1">
-              <span>
-                海量高维向量检索算法
-              </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+          <li class="next">
+            <a href="/2021/06/20/13_RL/" data-toggle="tooltip" data-placement="top" title="强化学习 - RL">Next Post &rarr;</a>
           </li>
           
         </ul>
+
+        
+        <!-- tip start -->
+        <div class="tip">
+          <p>
+            If you like this blog or find it useful for you, you are welcome to comment on it. You are also welcome to share this blog, so that more people can participate in it!
+          </p>
+        </div>
+        <!-- tip end -->
+        
+
+        
+        <!-- Sharing Srtart -->
+        <!-- Social Social Share Post -->
+<!-- Docs:https://github.com/overtrue/share.js -->
+
+<div class="social-share" data-initialized="true" data-disabled="tencent ,douban ,qzone ,linkedin ,facebook ,google ,diandian" data-wechat-qrcode-helper="" align="center">
+  <ul class="list-inline text-center social-share-ul">
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-twitter">
+        <i class="fa fa-twitter fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a class="social-share-icon icon-wechat">
+        <i class="fa fa-weixin fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-weibo">
+        <i class="fa fa-weibo fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon icon-qq">
+        <i class="fa fa-qq fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li class="social-share-li">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=DevOps&body=Hi,I found this website and thought you might like it http://lemonsqi.top/2021/06/22/14_DevOps/">
+        <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- css & js -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css"> -->
+<script defer="defer" async="true" src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+
+        <!-- Sharing End -->
+        
+        <hr>
+
+        <!-- comments start -->
+        <!-- 0. valine comment -->
+
+
+<!-- 1. gitalk comment -->
+
+<!-- gitalk start -->
+<!-- Docs:https://github.com/gitalk/gitalk/blob/master/readme-cn.md -->
+
+<div id="gitalk-container"></div>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.js"></script> -->
+<script src="/js/comment/gitalk.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'd50f15a1a53dcf7ec506',
+    clientSecret: 'bcf577b98b32973c3e363c83264395d715f5ee1d',
+    repo: 'gitalk-comment',
+    owner: 'LemonSqi',
+    admin: 'LemonSqi',
+    id: 'Tue Jun 22 2021 22:35:37 GMT+0800', // Ensure uniqueness and length less than 50
+    distractionFreeMode: false, // Facebook-like distraction free mode
+    perPage: 15 ,
+    pagerDirection: 'last',
+    createIssueManually: false ,
+    language: 'zh-CN',
+    proxy: 'https://shielded-brushlands-08810.herokuapp.com/https://github.com/login/oauth/access_token'
+  });
+  gitalk.render('gitalk-container');
+
+  var gtFolded = () => {
+    setTimeout(function() {
+      let markdownBody = document.getElementsByClassName("markdown-body");
+      let list = Array.from(markdownBody);
+      list.forEach(item => {
+        if (item.clientHeight > 250) {
+          item.classList.add('gt-comment-body-folded');
+          item.style.maxHeight = '250px';
+          item.title = 'Click to Expand';
+          item.onclick = function() {
+            item.classList.remove('gt-comment-body-folded');
+            item.style.maxHeight = '';
+            item.title = '';
+            item.onclick = null;
+          };
+        }
+      })
+    }, 800);
+  }
+</script>
+
+<!-- gitalk end -->
+
+
+
+<!-- 2. gitment comment -->
+
+
+
+<!-- 3. disqus comment -->
+
+
+        <!-- comments end -->
+        <hr>
+
       </div>
-      
 
+      <!-- Catalog: Tabe of Content -->
+      <!-- Table of Contents -->
 
-    </div>
-  </div>
-</div>
-
-
-      <!-- 如果开启评论功能 -->
-      
-    </div>
-
-    <!-- Sidebar Container -->
-<div class="
-    col-lg-3 col-lg-offset-0
-    col-md-3 col-md-offset-0
-    col-sm-12
-    col-xs-12
-    sidebar-container
-">
     
-        <!--   -->
-<h5><a href="/">VISITORS</a></h5>
-
-<div class="widget">
-  <span>
-    Viewed <b><i><span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Times
-  </span>
-  <br />
-  <span>
-    <b><i><span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Visitors In Total
-  </span>
-</div>
-
-<!--   -->
-
-        <hr>
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#DevOps的起源"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">DevOps的起源</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#DevOps到底是什么"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">DevOps到底是什么</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#DevOps的维基百科定义是这样的："><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">DevOps的维基百科定义是这样的：</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#DevOps生态圈中令人眼花缭乱的工具"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">DevOps生态圈中令人眼花缭乱的工具</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#DevOps的发展现状"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">DevOps的发展现状</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#DevOps与虚拟化、容器、微服务"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">DevOps与虚拟化、容器、微服务</span></a></li></ol>
+        
+        </div>
+      </aside>
     
+
+
+      <!-- Sidebar Container -->
+      <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
         <!-- Featured Tags -->
-
-<section>
-  <!-- no hr -->
-  <h5><a href="/tags/">FEATURED TAGS</a></h5>
-  <div class="tags">
-    
-    
-    <a href="/tags/#深度学习" title="深度学习" rel="5">深度学习</a>
-    
-    
-    
-    <a href="/tags/#CNN" title="CNN" rel="1">CNN</a>
-    
-    
-    
-    <a href="/tags/#人工智能" title="人工智能" rel="5">人工智能</a>
-    
-    
-    
-    <a href="/tags/#RL" title="RL" rel="1">RL</a>
-    
-    
-    
-    <a href="/tags/#RNN" title="RNN" rel="1">RNN</a>
-    
-    
-    
-    <a href="/tags/#LSTM" title="LSTM" rel="1">LSTM</a>
-    
-    
-    
-    <a href="/tags/#敏捷开发" title="敏捷开发" rel="1">敏捷开发</a>
-    
-    
-    
-    <a href="/tags/#自动化" title="自动化" rel="1">自动化</a>
-    
-    
-    
-    <a href="/tags/#软件生命周期" title="软件生命周期" rel="1">软件生命周期</a>
-    
-    
-    
-    <a href="/tags/#GAN" title="GAN" rel="1">GAN</a>
-    
-    
-    
-    <a href="/tags/#ANNS" title="ANNS" rel="3">ANNS</a>
-    
-    
-    
-    <a href="/tags/#HNSW" title="HNSW" rel="2">HNSW</a>
-    
-    
-    
-    <a href="/tags/#NSG" title="NSG" rel="2">NSG</a>
-    
-    
-    
-    <a href="/tags/#机器学习" title="机器学习" rel="4">机器学习</a>
-    
-    
-    
-    <a href="/tags/#向量检索" title="向量检索" rel="3">向量检索</a>
-    
-    
-    
-    <a href="/tags/#算法" title="算法" rel="4">算法</a>
-    
-    
-    
-    <a href="/tags/#排序算法" title="排序算法" rel="1">排序算法</a>
-    
-    
-    
-    <a href="/tags/#内排序" title="内排序" rel="1">内排序</a>
-    
-    
-    
-    <a href="/tags/#KD-Tree" title="KD-Tree" rel="1">KD-Tree</a>
-    
-    
-    
-    <a href="/tags/#SVM" title="SVM" rel="1">SVM</a>
-    
-    
-    
-    <a href="/tags/#Annoy" title="Annoy" rel="1">Annoy</a>
-    
-    
-    
-    <a href="/tags/#LSH" title="LSH" rel="1">LSH</a>
-    
-    
-    
-    <a href="/tags/#VQ" title="VQ" rel="1">VQ</a>
-    
-    
-    
-    <a href="/tags/#SSG" title="SSG" rel="1">SSG</a>
-    
-    
-    
-    <a href="/tags/#NSSG" title="NSSG" rel="1">NSSG</a>
-    
-    
-    
-    <a href="/tags/#Groovy" title="Groovy" rel="3">Groovy</a>
-    
-    
-    
-    <a href="/tags/#java" title="java" rel="3">java</a>
-    
-    
-    
-    <a href="/tags/#脚本语言" title="脚本语言" rel="3">脚本语言</a>
-    
-    
-    
-    <a href="/tags/#神经网络" title="神经网络" rel="1">神经网络</a>
-    
-    
-  </div>
-</section>
-
-
-        <hr>
-    
-        <!-- Short About -->
-<section class="visible-md visible-lg">
-  <h5><a href="/about/">ABOUT ME</a></h5>
-  <div class="short-about">
-
-    
-    <img id="avatar_pic" src="/img/avatar/pretty.jpg" alt="avatar_pic" style="box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);
-    -moz-box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);
-    -webkit-box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);" />
-    
-
-    
-    <p>Excellence is a habit, either work hard or move forward...</p>
-    
-
-    <!-- SNS Link -->
-    <ul class="list-inline">
-      
-
-      
-      <li>
-        <a target="_blank" href="https://github.com/LemonSqi">
-          <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-          </span>
-        </a>
-      </li>
-      
-
-      
-      <li>
-        <a target="_blank" href="https://twitter.com/LemonSqi">
-          <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-          </span>
-        </a>
-      </li>
-      
-
-      
-      <li>
-        <a target="_blank" href="https://www.instagram.com/LemonSqi">
-          <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-          </span>
-        </a>
-      </li>
-      
-
-      
-
-      
-
-      
-
-      
-      <li>
-        <a target="_blank" href="http://weibo.com/LemonSqi">
-          <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
-          </span>
-        </a>
-      </li>
-      
-
-    </ul>
-  </div>
-</section>
-
-        <hr>
-    
         
-<!-- <h5>RECENT POSTS</h5> -->
-<h5><a href="/">RECENT POSTS</a></h5>
-<div class="widget">
-  <ul>
-    
-    <a href="../../../2021/06/22/14_DevOps/">
-      <li>DevOps</li>
-    </a>
-    
-    <a href="../../../2021/06/20/13_RL/">
-      <li>强化学习 - RL</li>
-    </a>
-    
-    <a href="../../../2021/06/14/12_GAN/">
-      <li>生成对抗网络 – GAN</li>
-    </a>
-    
-    <a href="../../../2021/06/05/11_RNN/">
-      <li>循环神经网络 – RNN</li>
-    </a>
-    
-    <a href="../../../2021/06/03/10_CNN/">
-      <li>卷积神经网络 – CNN</li>
-    </a>
-    
-  </ul>
-</div>
+        <section>
+          <!-- no hr -->
+          <h5>
+            <a href="/tags/">FEATURED TAGS</a>
+          </h5>
+          <div class="tags">
+            
+            <a class="tag" href="/tags/#敏捷开发" title="敏捷开发">敏捷开发</a>
+            
+            <a class="tag" href="/tags/#自动化" title="自动化">自动化</a>
+            
+            <a class="tag" href="/tags/#软件生命周期" title="软件生命周期">软件生命周期</a>
+            
+          </div>
+        </section>
+        
 
-
-        <hr>
-    
         <!-- Friends Blog -->
-
-<!-- <h5>FRIENDS</h5> -->
-<h5><a href="/">FRIENDS</a></h5>
-<ul class="list-inline">
-  
-  <li><a href="http://cuijiahua.com/" target="_blank">Jack Cui</a></li>
-  
-  <li><a href="http://github.com/WinterFu" target="_blank">Winter Fu</a></li>
-  
-</ul>
-
-
-        <hr>
-    
         
-    <!-- <h5>ARCHIVES</h5> -->
-    <h5><a href="/archives/">ARCHIVES</a></h5>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../06/">六月 2021</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../03/">三月 2021</a><span class="archive-list-count">7</span></li></ul>
+        <hr>
+        <h5>FRIENDS</h5>
+        <ul class="list-inline">
+
+          
+          <li>
+            <a href="http://cuijiahua.com/" target="_blank">Jack Cui</a>
+          </li>
+          
+          <li>
+            <a href="http://github.com/WinterFu" target="_blank">Winter Fu</a>
+          </li>
+          
+        </ul>
+        
+      </div>
     </div>
-
-
-        <hr>
-    
-        <!-- Categories -->
-
-<!-- <h5>categories</h5> -->
-<h5><a href="/categories/">CATEGORIES</a></h5>
-<div class="widget">
-  <ul>
-    
-    <a href="/categories/#技术栈">
-      <li>技术栈</li>
-    </a>
-    
-  </ul>
-</div>
-
-
-        <hr>
-    
-</div>
-
-    
   </div>
-</div>
+</article>
+
+
+
+<!-- anchorjs start -->
+<!-- async load function -->
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script type="text/javascript">
+  // async load function
+  function async (u, c) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) {
+      o.addEventListener('load', function(e) {
+        c(null, e);
+      }, false);
+    }
+    s.parentNode.insertBefore(o, s);
+  };
+</script>
+<script type="text/javascript">
+  //anchor-js, Doc:http://bryanbraun.github.io/anchorjs/
+  async ("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js", function() {
+    anchors.options = {
+      visible: 'hover',
+      placement: 'left',
+      // icon: 'ℬ'
+      icon: '❡'
+    };
+    anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+  });
+</script>
+<style>
+  /* place left on bigger screen */
+  @media all and (min-width: 800px) {
+    .anchorjs-link {
+      position: absolute;
+      left: -0.75em;
+      font-size: 1.1em;
+      margin-top: -0.1em;
+    }
+  }
+</style>
+
+<!-- anchorjs end -->
+
 
 
 	<!-- Footer (contains ThemeColor、viewer) -->
