@@ -137,10 +137,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://lemonsqi.top/2021/03/29/6_Groovy与Java集成常见的坑/">
+  <link rel="canonical" href="http://lemonsqi.top/2021/05/25/10_CNN/">
   <title>
     
-    Groovy与Java集成常见的坑 - LemonD.K.
+    卷积神经网络 – CNN - LemonD.K.
     
   </title>
 <meta name="generator" content="Hexo 4.2.1"></head>
@@ -209,13 +209,6 @@
 
           
           <li>
-            <a href="/about/">About</a>
-          </li>
-          
-          
-
-          
-          <li>
             <a href="/archive/">Archives</a>
           </li>
           
@@ -224,6 +217,13 @@
           
           <li>
             <a href="/categories/">Categories</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/about/">About</a>
           </li>
           
           
@@ -314,18 +314,18 @@
           <div class="post-heading">
             <div class="tags">
               
-              <a class="tag" href="/tags/#Groovy" title="Groovy">Groovy</a>
+              <a class="tag" href="/tags/#深度学习" title="深度学习">深度学习</a>
               
-              <a class="tag" href="/tags/#java" title="java">java</a>
+              <a class="tag" href="/tags/#人工智能" title="人工智能">人工智能</a>
               
-              <a class="tag" href="/tags/#脚本语言" title="脚本语言">脚本语言</a>
+              <a class="tag" href="/tags/#CNN" title="CNN">CNN</a>
               
             </div>
-            <h1>Groovy与Java集成常见的坑</h1>
-            <h2 class="subheading">Integration of groovy and Java</h2>
+            <h1>卷积神经网络 – CNN</h1>
+            <h2 class="subheading">Convolutional neural network</h2>
             <span class="meta">
               Posted by sqwang on
-              2021-03-29
+              2021-05-25
             </span>
 
 
@@ -337,7 +337,7 @@
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">2.3k</span> In Total
+              Words <span class="post-count">2.4k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -399,72 +399,114 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <p><strong>简介：</strong> groovy特性 Groovy是一门基于JVM的动态语言，同时也是一门面向对象的语言，语法上和Java非常相似。它结合了Python、Ruby和Smalltalk的许多强大的特性，Groovy 代码能够与 Java 代码很好地结合，也能用于扩展现有代码。 Java作为一种通用、静态类型的编译型语</p>
-<h2 id="groovy特性"><a href="#groovy特性" class="headerlink" title="groovy特性"></a>groovy特性</h2><p>Groovy是一门基于JVM的动态语言，同时也是一门面向对象的语言，语法上和Java非常相似。它结合了Python、Ruby和Smalltalk的许多强大的特性，Groovy 代码能够与 Java 代码很好地结合，也能用于扩展现有代码。</p>
-<p>Java作为一种通用、静态类型的编译型语言有很多优势，但同样存在一些负担：</p>
-<ul>
-<li>重新编译太费工；</li>
-<li>静态类型不够灵活，重构起来时间可能比较长；</li>
-<li>部署的动静太大；</li>
-<li>java的语法天然不适用生产dsl；</li>
-</ul>
-<p>相对于Java，它在编写代码的灵活性上有非常明显的提升，对于一个长期使用Java的开发者来说，使用Groovy时能够明显地感受到负身上的“枷锁”轻了。Groovy是动态编译语言，广泛用作脚本语言和快速原型语言，主要优势之一就是它的生产力。Groovy 代码通常要比 Java 代码更容易编写，而且编写起来也更快，这使得它有足够的资格成为开发工作包中的一个附件。</p>
-<p>Java不是解决动态层问题的理想语言，这些动态层问题包括原型设计、脚本处理等。可以把Groovy看作给Java静态世界补充动态能力的语言，同时Groovy已经实现了java不具备的语言特性：</p>
-<ul>
-<li>函数字面值；</li>
-<li>对集合的一等支持；</li>
-<li>对正则表达式的一等支持；</li>
-<li>对xml的一等支持；</li>
-</ul>
-<h2 id="groovy与java集成的方式"><a href="#groovy与java集成的方式" class="headerlink" title="groovy与java集成的方式"></a>groovy与java集成的方式</h2><p>重温下Groovy调用Java方式，包括使用GroovyClassLoader、GroovyShell和GroovyScriptEngine。</p>
-<h3 id="GroovyClassLoader"><a href="#GroovyClassLoader" class="headerlink" title="GroovyClassLoader"></a>GroovyClassLoader</h3><p>用 Groovy 的 GroovyClassLoader ，动态地加载一个脚本并执行它的行为。GroovyClassLoader是一个定制的类装载器，负责解释加载Java类中用到的Groovy类。</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GroovyClassLoader loader = <span class="keyword">new</span> <span class="constructor">GroovyClassLoader()</span>;</span><br><span class="line">Class groovyClass = loader.parse<span class="constructor">Class(<span class="params">new</span> File(<span class="params">groovyFileName</span>)</span>);</span><br><span class="line">GroovyObject groovyObject = (GroovyObject) groovyClass.<span class="keyword">new</span><span class="constructor">Instance()</span>;</span><br><span class="line">groovyObject.invoke<span class="constructor">Method(<span class="string">"run"</span>, <span class="string">"helloworld"</span>)</span>;</span><br></pre></td></tr></table></figure>
-
-<h3 id="GroovyShell"><a href="#GroovyShell" class="headerlink" title="GroovyShell"></a>GroovyShell</h3><p>GroovyShell允许在Java类中（甚至Groovy类）求任意Groovy表达式的值。您可使用Binding对象输入参数给表达式，并最终通过GroovyShell返回Groovy表达式的计算结果。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GroovyShell shell = new GroovyShell();</span><br><span class="line">Script groovyScript = shell.parse(new File(groovyFileName));</span><br><span class="line">Object[] args = &#123;&#125;;</span><br><span class="line">groovyScript.invokeMethod(<span class="string">"run"</span>, args);</span><br></pre></td></tr></table></figure>
-
-<h3 id="GroovyScriptEngine"><a href="#GroovyScriptEngine" class="headerlink" title="GroovyScriptEngine"></a>GroovyScriptEngine</h3><p>GroovyShell多用于推求对立的脚本或表达式，如果换成相互关联的多个脚本，使用GroovyScriptEngine会更好些。GroovyScriptEngine从您指定的位置（文件系统，URL，数据库，等等）加载Groovy脚本，并且随着脚本变化而重新加载它们。如同GroovyShell一样，GroovyScriptEngine也允许您传入参数值，并能返回脚本的值。</p>
-<h2 id="Groovy代码文件与class文件的对应关系"><a href="#Groovy代码文件与class文件的对应关系" class="headerlink" title="Groovy代码文件与class文件的对应关系"></a>Groovy代码文件与class文件的对应关系</h2><p>而作为基于JVM的语言，Groovy可以非常容易的和Java进行互操作，但也需要编译成class文件后才能运行，所以了解Groovy代码文件和class文件的对应关系，有助于更好地理解Groovy的运行方式和结构。</p>
-<h3 id="对于没有任何类定义"><a href="#对于没有任何类定义" class="headerlink" title="对于没有任何类定义"></a>对于没有任何类定义</h3><p>如果Groovy脚本文件里只有执行代码，没有定义任何类（class），则编译器会生成一个Script的子类，类名和脚本文件的文件名一样，而脚本的代码会被包含在一个名为run的方法中，同时还会生成一个main方法，作为整个脚本的入口。</p>
-<h3 id="对于仅有一个类"><a href="#对于仅有一个类" class="headerlink" title="对于仅有一个类"></a>对于仅有一个类</h3><p>如果Groovy脚本文件里仅含有一个类，而这个类的名字又和脚本文件的名字一致，这种情况下就和Java是一样的，即生成与所定义的类一致的class文件。</p>
-<h3 id="对于多个类"><a href="#对于多个类" class="headerlink" title="对于多个类"></a>对于多个类</h3><p>如果Groovy脚本文件含有多个类，groovy编译器会很乐意地为每个类生成一个对应的class文件。如果想直接执行这个脚本，则脚本里的第一个类必须有一个static的main方法。</p>
-<h2 id="groovy与java集成中经常出现的问题"><a href="#groovy与java集成中经常出现的问题" class="headerlink" title="groovy与java集成中经常出现的问题"></a>groovy与java集成中经常出现的问题</h2><h3 id="使用GroovyShell的parse方法导致perm区爆满的问题"><a href="#使用GroovyShell的parse方法导致perm区爆满的问题" class="headerlink" title="使用GroovyShell的parse方法导致perm区爆满的问题"></a>使用GroovyShell的parse方法导致perm区爆满的问题</h3><p>如果应用中内嵌Groovy引擎，会动态执行传入的表达式并返回执行结果，而Groovy每执行一次脚本，都会生成一个脚本对应的class对象，并new一个InnerLoader去加载这个对象，而InnerLoader和脚本对象都无法在gc的时候被回收运行一段时间后将perm占满，一直触发fullgc。</p>
-<ul>
-<li>为什么Groovy每执行一次脚本，都会生成一个脚本对应的class对象？</li>
-</ul>
-<p>一个ClassLoader对于同一个名字的类只能加载一次，都由GroovyClassLoader加载，那么当一个脚本里定义了C这个类之后，另外一个脚本再定义一个C类的话，GroovyClassLoader就无法加载了。为什么这里会每次执行都会加载？</p>
-<p>这是因为对于同一个groovy脚本，groovy执行引擎都会不同的命名，且命名与时间戳有关系。当传入text时，class对象的命名规则为：<code>&quot;script&quot; + System.currentTimeMillis() + Math.abs(text.hashCode()) + &quot;.groovy&quot;</code>。这就导致就算groovy脚本未发生任何变化，每次执行parse方法都会新生成一个脚本对应的class对象，且由GroovyClassLoader进行加载，不断增大perm区。</p>
-<ul>
-<li>为什么InnerLoader加载的对应无法通过gc清理掉？</li>
-</ul>
-<p>大家都知道，JVM中的Class只有满足以下三个条件，才能被GC回收，也就是该Class被卸载：1. 该类所有的实例都已经被GC，也就是JVM中不存在该Class的任何实例；2. 加载该类的ClassLoader已经被GC；3. 该类的java.lang.Class对象没有在任何地方被引用，如不能在任何地方通过反射访问该类的方法。</p>
-<p>在GroovyClassLoader代码中有一个class对象的缓存，进一步跟下去，发现每次编译脚本时都会在Map中缓存这个对象，即：setClassCacheEntry(clazz)。每次groovy编译脚本后，都会缓存该脚本的Class对象，下次编译该脚本时，会优先从缓存中读取，这样节省掉编译的时间。这个缓存的Map由GroovyClassLoader持有，key是脚本的类名，这就导致每个脚本对应的class对象都存在引用，无法被gc清理掉。</p>
-<ul>
-<li>如何解决？</li>
-</ul>
-<p>请参考：<a href="http://xiongzheng.me/question/2015/01/02/groovy-permgen-out/" target="_blank" rel="noopener">Groovy引发的PermGen区爆满问题定位与解决</a>。</p>
-<p>如需更深入的理解GroovyClassLoader体系，请参考下面这篇文章<a href="http://johnnyjian.iteye.com/blog/1847151" target="_blank" rel="noopener">Groovy深入探索——Groovy的ClassLoader体系</a></p>
-<h3 id="使用GroovyClassLoader加载机制导致频繁gc问题"><a href="#使用GroovyClassLoader加载机制导致频繁gc问题" class="headerlink" title="使用GroovyClassLoader加载机制导致频繁gc问题"></a>使用GroovyClassLoader加载机制导致频繁gc问题</h3><p>通常使用如下代码在Java 中执行 Groovy 脚本：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GroovyClassLoader groovyLoader = new GroovyClassLoader();</span><br><span class="line">Class&lt;Script&gt; groovyClass = (Class&lt;Script&gt;) groovyLoader.parseClass(groovyScript);</span><br><span class="line">Script groovyScript = groovyClass.newInstance();</span><br></pre></td></tr></table></figure>
-
-<p>每次执行groovyLoader.parseClass(groovyScript)，Groovy 为了保证每次执行的都是新的脚本内容，会每次生成一个新名字的Class文件，这个点已经在前文中说明过。当对同一段脚本每次都执行这个方法时，会导致的现象就是装载的Class会越来越多，从而导致PermGen被用满。<br>同时这里也存在性能瓶颈问题，如果去分析这段代码会发现90%的耗时占用在Class</p>
-<p>为了避免这一问题通常做法是缓存Script对象，从而避免以上2个问题。在这过程中通常又会引入新的问题：</p>
-<ul>
-<li>高并发情况下，binding对象混乱导致计算出错</li>
-</ul>
-<p>在高并发的情况下，在执行赋值binding对象后，真正执行run操作时，拿到的binding对象可能是其它线程赋值的对象，所以出现数据计算混乱的情况</p>
-<ul>
-<li>长时间运行仍然出现oom，无法解决Class</li>
-</ul>
-<p>这点在上文中已经提到，由于groovyClassLoader会缓存每次编译groovy脚本的Class对象，下次编译该脚本时，会优先从缓存中读取，这样节省掉编译的时间。导致被加载的Class对象因为存在引用而无法被卸载，虽然通过缓存避免了短时间内大量生成新的class对象，但如果长时间运营仍然会存在问题。</p>
-<p>比较好的做法是：</p>
-<ul>
-<li>每个 script 都 new 一个 GroovyClassLoader 来装载；</li>
-<li>对于 parseClass 后生成的 Class 对象进行cache，key 为 groovyScript 脚本的md5值。</li>
-</ul>
-<h3 id="CodeCache用满，导致JIT禁用问题"><a href="#CodeCache用满，导致JIT禁用问题" class="headerlink" title="CodeCache用满，导致JIT禁用问题"></a>CodeCache用满，导致JIT禁用问题</h3><p>对于大量使用Groovy的应用，尤其是 Groovy 脚本还会经常更新的应用，由于这些Groovy脚本在执行了很多次后都会被JVM编译为 native 进行优化，会占据一些 CodeCache 空间，而如果这样的脚本很多的话，可能会导致 CodeCache 被用满，而 CodeCache 一旦被用满，JVM 的 Compiler 就会被禁用，那性能下降的就不是一点点了</p>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a href="http://xiongzheng.me/question/2015/01/02/groovy-permgen-out/" target="_blank" rel="noopener">Groovy引发的PermGen区爆满问题定位与解决</a><br><a href="http://www.bubuko.com/infodetail-670047.html" target="_blank" rel="noopener">groovy脚本导致的FullGC问题</a><br><a href="http://www.zgxue.com/120/1204001.html" target="_blank" rel="noopener">Groovy的classloader加载机制唤起的频繁GC</a></p>
-<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+        <blockquote>
+<p>卷积神经网络 – CNN 最擅长的就是图片的处理。它受到人类视觉神经系统的启发。</p>
+<p>CNN 有2大特点：</p>
+<ol>
+<li>能够有效的将大数据量的图片降维成小数据量</li>
+<li>能够有效的保留图片特征，符合图片处理的原则</li>
+</ol>
+<p>目前 CNN 已经得到了广泛的应用，比如：人脸识别、自动驾驶、美图秀秀、安防等很多领域。</p>
+</blockquote>
+<h2 id="CNN-解决了什么问题？"><a href="#CNN-解决了什么问题？" class="headerlink" title="CNN 解决了什么问题？"></a>CNN 解决了什么问题？</h2><p>在 CNN 出现之前，图像对于人工智能来说是一个难题，有2个原因：</p>
+<ol>
+<li>图像需要处理的数据量太大，导致成本很高，效率很低</li>
+<li>图像在数字化的过程中很难保留原有的特征，导致图像处理的准确率不高</li>
+</ol>
+<p>下面就详细说明一下这2个问题：</p>
+<h3 id="需要处理的数据量太大"><a href="#需要处理的数据量太大" class="headerlink" title="需要处理的数据量太大"></a>需要处理的数据量太大</h3><p>图像是由像素构成的，每个像素又是由颜色构成的。</p>
+<p><img src="1.png" alt="10_深度学习_CNN"></p>
+<p>现在随随便便一张图片都是 1000×1000 像素以上的， 每个像素都有RGB 3个参数来表示颜色信息。</p>
+<p>假如我们处理一张 1000×1000 像素的图片，我们就需要处理3百万个参数！</p>
+<p>1000×1000×3=3,000,000</p>
+<p>这么大量的数据处理起来是非常消耗资源的，而且这只是一张不算太大的图片！</p>
+<p><strong>卷积神经网络 – CNN 解决的第一个问题就是「将复杂问题简化」，把大量参数降维成少量参数，再做处理。</strong></p>
+<p><strong>更重要的是：我们在大部分场景下，降维并不会影响结果。比如1000像素的图片缩小成200像素，并不影响肉眼认出来图片中是一只猫还是一只狗，机器也是如此。</strong></p>
+<h3 id="保留图像特征"><a href="#保留图像特征" class="headerlink" title="保留图像特征"></a>保留图像特征</h3><p>图片数字化的传统方式我们简化一下，就类似下图的过程：</p>
+<p><img src="2.png" alt="10_深度学习_CNN"></p>
+<p>假如有圆形是1，没有圆形是0，那么圆形的位置不同就会产生完全不同的数据表达。但是从视觉的角度来看，<strong>图像的内容（本质）并没有发生变化，只是位置发生了变化</strong>。</p>
+<p>所以当我们移动图像中的物体，用传统的方式的得出来的参数会差异很大！这是不符合图像处理的要求的。</p>
+<p><strong>而 CNN 解决了这个问题，他用类似视觉的方式保留了图像的特征，当图像做翻转，旋转或者变换位置时，它也能有效的识别出来是类似的图像。</strong></p>
+<p>那么卷积神经网络是如何实现的呢？在我们了解 CNN 原理之前，先来看看人类的视觉原理是什么？</p>
+<h2 id="人类的视觉原理"><a href="#人类的视觉原理" class="headerlink" title="人类的视觉原理"></a>人类的视觉原理</h2><p>深度学习的许多研究成果，离不开对大脑认知原理的研究，尤其是视觉原理的研究。</p>
+<p>1981 年的诺贝尔医学奖，颁发给了 David Hubel（出生于加拿大的美国神经生物学家） 和TorstenWiesel，以及 Roger Sperry。前两位的主要贡献，是“<strong>发现了视觉系统的信息处理</strong>”，可视皮层是分级的。</p>
+<p>人类的视觉原理如下：从原始信号摄入开始（瞳孔摄入像素 Pixels），接着做初步处理（大脑皮层某些细胞发现边缘和方向），然后抽象（大脑判定，眼前的物体的形状，是圆形的），然后进一步抽象（大脑进一步判定该物体是只气球）。下面是人脑进行人脸识别的一个示例：</p>
+<p><img src="3.png" alt="10_深度学习_CNN"></p>
+<p>对于不同的物体，人类视觉也是通过这样逐层分级，来进行认知的：</p>
+<p><img src="4.jpg" alt="10_深度学习_CNN"></p>
+<p>我们可以看到，在最底层特征基本上是类似的，就是各种边缘，越往上，越能提取出此类物体的一些特征（轮子、眼睛、躯干等），到最上层，不同的高级特征最终组合成相应的图像，从而能够让人类准确的区分不同的物体。</p>
+<p>那么我们可以很自然的想到：可以不可以模仿人类大脑的这个特点，构造多层的神经网络，较低层的识别初级的图像特征，若干底层特征组成更上一层特征，最终通过多个层级的组合，最终在顶层做出分类呢？</p>
+<p><strong>答案是肯定的，这也是许多深度学习算法（包括CNN）的灵感来源。</strong></p>
+<h2 id="卷积神经网络-CNN-的基本原理"><a href="#卷积神经网络-CNN-的基本原理" class="headerlink" title="卷积神经网络-CNN 的基本原理"></a>卷积神经网络-CNN 的基本原理</h2><p>典型的 CNN 由3个部分构成：</p>
+<ol>
+<li>卷积层</li>
+<li>池化层</li>
+<li>全连接层</li>
+</ol>
+<p>如果简单来描述的话：</p>
+<p>卷积层负责提取图像中的局部特征；池化层用来大幅降低参数量级(降维)；全连接层类似传统神经网络的部分，用来输出想要的结果。</p>
+<p><img src="5.png" alt="10_深度学习_CNN"></p>
+<h3 id="卷积——提取特征"><a href="#卷积——提取特征" class="headerlink" title="卷积——提取特征"></a>卷积——提取特征</h3><p>卷积层的运算过程如下图，用一个卷积核扫完整张图片：</p>
+<p><img src="6.gif" alt="10_深度学习_CNN"></p>
+<p>这个过程我们可以理解为我们使用一个过滤器（卷积核）来过滤图像的各个小区域，从而得到这些小区域的特征值。</p>
+<p>在具体应用中，往往有多个卷积核，可以认为，每个卷积核代表了一种图像模式，如果某个图像块与此卷积核卷积出的值大，则认为此图像块十分接近于此卷积核。如果我们设计了6个卷积核，可以理解：我们认为这个图像上有6种底层纹理模式，也就是我们用6中基础模式就能描绘出一副图像。以下就是25种不同的卷积核的示例：</p>
+<p><img src="7.jpg" alt="10_深度学习_CNN"></p>
+<p><strong>总结：卷积层的通过卷积核的过滤提取出图片中局部的特征，跟上面提到的人类视觉的特征提取类似。</strong></p>
+<h3 id="池化层（下采样）——数据降维，避免过拟合"><a href="#池化层（下采样）——数据降维，避免过拟合" class="headerlink" title="池化层（下采样）——数据降维，避免过拟合"></a>池化层（下采样）——数据降维，避免过拟合</h3><p>池化层简单说就是下采样，他可以大大降低数据的维度。其过程如下：</p>
+<p><img src="8.gif" alt="10_深度学习_CNN"></p>
+<p>上图中，我们可以看到，原始图片是20×20的，我们对其进行下采样，采样窗口为10×10，最终将其下采样成为一个2×2大小的特征图。</p>
+<p>之所以这么做的原因，是因为即使做完了卷积，图像仍然很大（因为卷积核比较小），所以为了降低数据维度，就进行下采样。</p>
+<p><strong>总结：池化层相比卷积层可以更有效的降低数据维度，这么做不但可以大大减少运算量，还可以有效的避免过拟合。</strong></p>
+<h3 id="全连接层——输出结果"><a href="#全连接层——输出结果" class="headerlink" title="全连接层——输出结果"></a>全连接层——输出结果</h3><p>这个部分就是最后一步了，经过卷积层和池化层处理过的数据输入到全连接层，得到最终想要的结果。</p>
+<p>经过卷积层和池化层降维过的数据，全连接层才能”跑得动”，不然数据量太大，计算成本高，效率低下。</p>
+<p><img src="9.png" alt="10_深度学习_CNN"></p>
+<p>典型的 CNN 并非只是上面提到的3层结构，而是多层结构，例如 LeNet-5 的结构就如下图所示：</p>
+<p><strong>卷积层 – 池化层- 卷积层 – 池化层 – 卷积层 – 全连接层</strong></p>
+<p><strong><img src="10.png" alt="10_深度学习_CNN"></strong></p>
+<p>在了解了 CNN 的基本原理后，重点说一下 CNN 的实际应用有哪些。</p>
+<h2 id="CNN-有哪些实际应用？"><a href="#CNN-有哪些实际应用？" class="headerlink" title="CNN 有哪些实际应用？"></a>CNN 有哪些实际应用？</h2><p>卷积神经网络 – CNN 很擅长处理图像。而视频是图像的叠加，所以同样擅长处理视频内容。下面给大家列一些比较成熟的应用：</p>
+<p><strong>图像分类、检索</strong></p>
+<p>图像分类是比较基础的应用，他可以节省大量的人工成本，将图像进行有效的分类。对于一些特定领域的图片，分类的准确率可以达到 95%+，已经算是一个可用性很高的应用了。</p>
+<p>典型场景：图像搜索…</p>
+<p><img src="11.png" alt="10_深度学习_CNN"></p>
+<p><strong>目标定位检测</strong></p>
+<p>可以在图像中定位目标，并确定目标的位置及大小。</p>
+<p>典型场景：自动驾驶、安防、医疗…</p>
+<p><img src="12.png" alt="10_深度学习_CNN"></p>
+<p><strong>目标分割</strong></p>
+<p>简单理解就是一个像素级的分类。</p>
+<p>他可以对前景和背景进行像素级的区分、再高级一点还可以识别出目标并且对目标进行分类。</p>
+<p>典型场景：美图秀秀、视频后期加工、图像生成…</p>
+<p><img src="13.png" alt="10_深度学习_CNN"></p>
+<p><strong>人脸识别</strong></p>
+<p>人脸识别已经是一个非常普及的应用了，在很多领域都有广泛的应用。</p>
+<p>典型场景：安防、金融、生活…</p>
+<p><img src="14.png" alt="10_深度学习_CNN"></p>
+<p><strong>骨骼识别</strong></p>
+<p>骨骼识别是可以识别身体的关键骨骼，以及追踪骨骼的动作。</p>
+<p>典型场景：安防、电影、图像视频生成、游戏…</p>
+<p><img src="15.png" alt="10_深度学习_CNN"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>上面介绍了 CNN 的价值、基本原理和应用场景，简单总结如下：</p>
+<p><strong>CNN 的价值：</strong></p>
+<ol>
+<li>能够将大数据量的图片有效的降维成小数据量(并不影响结果)</li>
+<li>能够保留图片的特征，类似人类的视觉原理</li>
+</ol>
+<p><strong>CNN 的基本原理：</strong></p>
+<ol>
+<li>卷积层 – 主要作用是保留图片的特征</li>
+<li>池化层 – 主要作用是把数据降维，可以有效的避免过拟合</li>
+<li>全连接层 – 根据不同任务输出我们想要的结果</li>
+</ol>
+<p><strong>CNN 的实际应用：</strong></p>
+<ol>
+<li>图片分类、检索</li>
+<li>目标定位检测</li>
+<li>目标分割</li>
+<li>人脸识别</li>
+<li>骨骼识别</li>
+</ol>
+<p>​                                                                                                                                        <strong><em>高山仰止 景行行止 虽不能至 心向往之</em></strong></p>
 
 
         <hr>
@@ -472,12 +514,12 @@
         <ul class="pager">
           
           <li class="previous">
-            <a href="/2021/05/31/9_深度学习/" data-toggle="tooltip" data-placement="top" title="深度学习">&larr; Previous Post</a>
+            <a href="/2021/06/03/11_RNN/" data-toggle="tooltip" data-placement="top" title="循环神经网络 – RNN">&larr; Previous Post</a>
           </li>
           
           
           <li class="next">
-            <a href="/2021/03/28/5_Groovy 语言快速入门/" data-toggle="tooltip" data-placement="top" title="Groovy 语言快速入门">Next Post &rarr;</a>
+            <a href="/2021/05/18/9_深度学习/" data-toggle="tooltip" data-placement="top" title="深度学习">Next Post &rarr;</a>
           </li>
           
         </ul>
@@ -520,7 +562,7 @@
       </a>
     </li>
     <li class="social-share-li">
-      <a target="_blank" class="social-share-icon" href="mailto:?subject=Groovy与Java集成常见的坑&body=Hi,I found this website and thought you might like it http://lemonsqi.top/2021/03/29/6_Groovy与Java集成常见的坑/">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=卷积神经网络 – CNN&body=Hi,I found this website and thought you might like it http://lemonsqi.top/2021/05/25/10_CNN/">
         <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
       </a>
     </li>
@@ -556,7 +598,7 @@
     repo: 'gitalk-comment',
     owner: 'LemonSqi',
     admin: 'LemonSqi',
-    id: 'Mon Mar 29 2021 01:07:32 GMT+0800', // Ensure uniqueness and length less than 50
+    id: 'Tue May 25 2021 22:15:47 GMT+0800', // Ensure uniqueness and length less than 50
     distractionFreeMode: false, // Facebook-like distraction free mode
     perPage: 15 ,
     pagerDirection: 'last',
@@ -611,7 +653,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#groovy特性"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">groovy特性</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#groovy与java集成的方式"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">groovy与java集成的方式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#GroovyClassLoader"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">GroovyClassLoader</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#GroovyShell"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">GroovyShell</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#GroovyScriptEngine"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">GroovyScriptEngine</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Groovy代码文件与class文件的对应关系"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Groovy代码文件与class文件的对应关系</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#对于没有任何类定义"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">对于没有任何类定义</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#对于仅有一个类"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">对于仅有一个类</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#对于多个类"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">对于多个类</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#groovy与java集成中经常出现的问题"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">groovy与java集成中经常出现的问题</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#使用GroovyShell的parse方法导致perm区爆满的问题"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">使用GroovyShell的parse方法导致perm区爆满的问题</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#使用GroovyClassLoader加载机制导致频繁gc问题"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">使用GroovyClassLoader加载机制导致频繁gc问题</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#CodeCache用满，导致JIT禁用问题"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">CodeCache用满，导致JIT禁用问题</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#参考文献"><span class="toc-nav-number">4.4.</span> <span class="toc-nav-text">参考文献</span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#CNN-解决了什么问题？"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">CNN 解决了什么问题？</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#需要处理的数据量太大"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">需要处理的数据量太大</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#保留图像特征"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">保留图像特征</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#人类的视觉原理"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">人类的视觉原理</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#卷积神经网络-CNN-的基本原理"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">卷积神经网络-CNN 的基本原理</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#卷积——提取特征"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">卷积——提取特征</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#池化层（下采样）——数据降维，避免过拟合"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">池化层（下采样）——数据降维，避免过拟合</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#全连接层——输出结果"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">全连接层——输出结果</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#CNN-有哪些实际应用？"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">CNN 有哪些实际应用？</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#总结"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">总结</span></a></li></ol>
         
         </div>
       </aside>
@@ -633,11 +675,11 @@
           </h5>
           <div class="tags">
             
-            <a class="tag" href="/tags/#Groovy" title="Groovy">Groovy</a>
+            <a class="tag" href="/tags/#深度学习" title="深度学习">深度学习</a>
             
-            <a class="tag" href="/tags/#java" title="java">java</a>
+            <a class="tag" href="/tags/#人工智能" title="人工智能">人工智能</a>
             
-            <a class="tag" href="/tags/#脚本语言" title="脚本语言">脚本语言</a>
+            <a class="tag" href="/tags/#CNN" title="CNN">CNN</a>
             
           </div>
         </section>

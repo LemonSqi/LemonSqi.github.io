@@ -137,10 +137,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://lemonsqi.top/2021/03/21/2_HNSW_NSG/">
+  <link rel="canonical" href="http://lemonsqi.top/2021/05/18/9_深度学习/">
   <title>
     
-    向量索引算法HNSW和NSG的比较 - LemonD.K.
+    深度学习 - LemonD.K.
     
   </title>
 <meta name="generator" content="Hexo 4.2.1"></head>
@@ -209,13 +209,6 @@
 
           
           <li>
-            <a href="/about/">About</a>
-          </li>
-          
-          
-
-          
-          <li>
             <a href="/archive/">Archives</a>
           </li>
           
@@ -224,6 +217,13 @@
           
           <li>
             <a href="/categories/">Categories</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/about/">About</a>
           </li>
           
           
@@ -314,24 +314,20 @@
           <div class="post-heading">
             <div class="tags">
               
-              <a class="tag" href="/tags/#ANNS" title="ANNS">ANNS</a>
+              <a class="tag" href="/tags/#深度学习" title="深度学习">深度学习</a>
               
-              <a class="tag" href="/tags/#HNSW" title="HNSW">HNSW</a>
-              
-              <a class="tag" href="/tags/#NSG" title="NSG">NSG</a>
+              <a class="tag" href="/tags/#人工智能" title="人工智能">人工智能</a>
               
               <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
               
-              <a class="tag" href="/tags/#向量检索" title="向量检索">向量检索</a>
-              
-              <a class="tag" href="/tags/#算法" title="算法">算法</a>
+              <a class="tag" href="/tags/#神经网络" title="神经网络">神经网络</a>
               
             </div>
-            <h1>向量索引算法HNSW和NSG的比较</h1>
-            <h2 class="subheading">Comparison of high dimensional vector retrieval algorithm HNSW and NSG</h2>
+            <h1>深度学习</h1>
+            <h2 class="subheading">Deep learning | DL</h2>
             <span class="meta">
               Posted by sqwang on
-              2021-03-21
+              2021-05-18
             </span>
 
 
@@ -339,11 +335,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">7</span> Minutes
+              Estimated Reading Time <span class="post-count">14</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">2.2k</span> In Total
+              Words <span class="post-count">4.2k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -405,25 +401,177 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h1 id="向量检索：HNSW与NSG"><a href="#向量检索：HNSW与NSG" class="headerlink" title="向量检索：HNSW与NSG"></a>向量检索：HNSW与NSG</h1><p>上篇中，已经介绍过现在常用的向量索引类型以及它们的局限性。首先是基于树的算法，这里举例较为经典的 <a href="https://zhuanlan.zhihu.com/p/53826008" target="_blank" rel="noopener">KD-tree</a>。这种索引类型在向量维度稍大一些的情况下 (d&gt;10)，索引性能会急剧下降甚至不如暴力搜索。再说说基于 <a href="https://blog.csdn.net/guoziqing506/article/details/53019049" target="_blank" rel="noopener">LSH</a> (locality-sensitive hashing) 的索引，如果想要取得高召回率，LSH算法必须要建立大量的Hash表，这会使得索引大小膨胀数倍。不仅如此，树和LSH都属于空间切分类算法，此类算法有一个无法避免的缺陷，即为了提高搜索精度，只能增大搜索空间。图1-A描述了基于树的切分搜索，每个虚线分割出的区域是一个子树，如果搜索向量在子树的边缘时，算法需要搜索多个子树来获取结果。图1-B描述了基于 Hash 的切分搜索，虚线描述了每个独立的hash表，搜索面临的问题与基于树的搜索算法类似。所以空间切分类算法在最坏的情况下需要扫描几乎整个数据集，这在很多场景下显然是无法接受的。</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X2pwZy9NcWdBOFlsZ2VoN2ljWGVqQUtIMXVjN3Q3VWVKQUJOYnlEVlVuVnJWaER6bGhwNXd0VHZPeU1acEpqNGlhZExyQ1JLbUVtR2dHYWx4R3lDQlRmNDBob0tBLzY0MA?x-oss-process=image/format,png" alt="img"></p>
-<p>由于图数据结构有天生近邻关系的特性，在图上做最近邻搜索看来是一种不错的思路，所以近年来基于图的向量搜索算法也是一个研究热点。</p>
-<h2 id="近邻图-Proximity-Graph-：最朴素的图算法"><a href="#近邻图-Proximity-Graph-：最朴素的图算法" class="headerlink" title="近邻图(Proximity Graph)：最朴素的图算法"></a><strong>近邻图(Proximity Graph)：最朴素的图算法</strong></h2><p>近邻图的特性可以粗略理解成：构建一张图，每一个顶点连接着最近的N个顶点。它的搜索过程可见下图，Target是待查询的向量。在搜索时，由于无法知道该从图的哪个区域开始搜索，所以我们选择任意一个顶点S出发。首先遍历S的邻居，找到距离与 Target 最近的A节点，将A设置为起始节点，再从A节点出发进行遍历，反复迭代，不断逼近，最后找到与 Target 距离最近的节点A``时搜索结束。</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X2pwZy9NcWdBOFlsZ2VoN2ljWGVqQUtIMXVjN3Q3VWVKQUJOYnkyeHlSaWFmRVJ1OGVZSXRPaWJ4aWI0eGp2ejNwNW44a3pqUXUyTEFvbzBWZ2YwTVVNWEFFQzZ5ZkEvNjQw?x-oss-process=image/format,png" alt="img"></p>
-<p>尽管思路很棒，但是基础的近邻图存在着非常多的问题，最为关键的就是搜索复杂度无法确定，孤岛效应难以解决，以及构建图的开销太高，复杂度达到了指数级别。由于这些原因，学术界在基础的近邻图上，对图的构建、度数的限制、边的裁选、图的连通性、节点的导向性等方面都做了许多改进。这里我们简单介绍下近年来较为热门的算法：HNSW 和 NSG。</p>
-<h3 id="HNSW"><a href="#HNSW" class="headerlink" title="HNSW"></a><strong>HNSW</strong></h3><p> HNSW 的前身是 NSW (Navigable-Small-World-Graph)。NSW 通过设计出一个具有导航性的图来解决近邻图发散搜索的问题，但其搜索复杂度仍然过高，达到多重对数的级别，并且整体性能极易被图的大小所影响。HNSW 则是着力于解决这个问题。作者借鉴了 <a href="https://blog.csdn.net/weixin_41462047/article/details/81253106" target="_blank" rel="noopener">SkipList</a> 的思想，提出了 Hierarchical-NSW 的设想。简单来说，按照一定的规则把一张的图分成多张，越接近上层的图，平均度数越低，节点之间的距离越远；越接近下层的图平均度数越高，节点之间的距离也就越近（见下图）。</p>
-<p>搜索从最上层开始，找到本层距离最近的节点之后进入下一层。下一层搜索的起始节点即是上一层的最近节点，往复循环，直至找到结果（见下图）。由于越是上层的图，节点越是稀少，平均度数也低，距离也远，所以可以通过非常小的代价提供了良好的搜索方向，通过这种方式减少大量没有价值的计算，减少了搜索算法复杂度。更进一步，如果把 HNSW 中节点的最大度数设为常数，这样可以获得一张搜索复杂度仅为 log(n) 的图。 </p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X2pwZy9NcWdBOFlsZ2VoN2ljWGVqQUtIMXVjN3Q3VWVKQUJOYnlZcmdXWHhEV2ZtYjlucHFTQlI1RlN0UmtXTmRjeUo0Y3ZLNDdISHltOVdQWkY4NndxZW5MSVEvNjQw?x-oss-process=image/format,png" alt="img"></p>
-<p>HNSW 利用多层图的优势，天生保证了图的连通性。并且由于每个新节点的加入都会被随机到任意一层中，这样做一定程度上避免了由于数据输入顺序从而改变图的分布，最后影响搜索路径的情况。</p>
-<p>让我们来看看插入操作。新节点在插入到图中任意位置后，会建立 candidate pool，它用来保存所有搜索过的节点。首先将插入位置附近的节点加入到 pool 中，从 pool 中挑选出距离最近的节点，再从它出发寻找更近的节点，找到后将其加入到 pool 中（下图2-A到2-B)，如果此节点都已搜索完毕，则挑选 pool 中的下一个节点进行搜索，不断循环N次，直至搜索到了 pool 的尾部，此时算法结束。在此过程中，如果pool满了但却发现了更近的节点，那么将它插入到 pool 中，剔除最远的节点，并且从新插入的位置处重新开始搜索（下图2-B到2-C）。这样减少了边的数量，改善了局部图的导航性。</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X2pwZy9NcWdBOFlsZ2VoN2ljWGVqQUtIMXVjN3Q3VWVKQUJOYnl3MEM3a1l1OEFGV2VaMUVVR2t5cUk3WXRzNE8wMXY4cjRpYjN6TUhYeXZzRFk0aWNoWUNYemJwdy82NDA?x-oss-process=image/format,png" alt="img"></p>
-<h3 id="NSG"><a href="#NSG" class="headerlink" title="NSG"></a><strong>NSG</strong></h3><p>NSG 全写为 Navigating Spreading-out Graph。NSG围绕四个方向来改进：图的连通性，减少出度，缩短搜索路径，缩减图的大小。具体是通过建立导航点 (Navigation Point)，特殊的选边策略,  深度遍历收回离散节点（Deep Traversal）等方法。</p>
-<p>首先是 Navigation Point，在建图时，首先需要一张预先建立的 K-nearest-neighbor-graph (KNNG) 作为构图基准。随机选择一个点作为 Navigation Point，后续所有新插入的节点在选边时都会将Navigation Point加入候选。在建图过程中，逐渐会将子图都和 Navigation point 相连接，这样其他的节点只需保持很少的边即可，从而减少了图的大小。每次搜索从 Navigation Point 出发能够指向具体的子图，从而减少无效搜索，获得更好搜索性能。</p>
-<p>NSG 使用的择边策略与 HNSW 类似，但是不同于 HNSW 只选择最短边为有效边，NSG 使用的择边策略如下图。以点r为例，当r与p建立连接时，以r和p为圆心，r和p的距离为半径，分别做圆，如果两个圆的交集内没有其他与p相连接的点，则r与p相连（见图3-B）。在连接点s时，由于以s和p距离为半径的交集圆内，已有点r与p相连，所以s和p不相连（见图3-C）。下图中最终与点p相连的点只有r, t 和 q（见图3-A）。</p>
-<p>NSG 这样做的原因是考虑到由于边数一多，整个图就会变得稠密，最后在搜索时会浪费大量算力。但是减少边的数量，带来的坏处也比较明显，最后的图会是一张稀疏图，会使得有些节点难以被搜索到。不仅如此，NSG 的边还是单向边。在如此激进的策略下，图的连通性就会产生问题，这时 NSG 选择使用深度遍历来将离群的节点收回到图中。通过以上步骤，图的建立就完成了。</p>
-<p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9tbWJpei5xcGljLmNuL21tYml6X2pwZy9NcWdBOFlsZ2VoN2ljWGVqQUtIMXVjN3Q3VWVKQUJOYnl4aWI2d05UZGJDWjlUQU5jRGgyUUhpY1pPVFpRYlNvQmN4OWpQTWNuUUI5aWJzVWxTcHVnazdUaWF3LzY0MA?x-oss-process=image/format,png" alt="img"></p>
-<h3 id="HNSW-和-NSG-的比较"><a href="#HNSW-和-NSG-的比较" class="headerlink" title="HNSW 和 NSG 的比较"></a><strong>HNSW 和 NSG 的比较</strong></h3><p>至此，我们大致了解了 HNSW 以及 NSG 两种算法的基本思路。HNSW 从结构入手，利用分层图提高图的导航性减少无效计算从而降低搜索时间，达到优化的目的。而 NSG 选择将图的整体度数控制在尽可能小的情况下，提高导航性，缩短搜索路径来提高搜索效率。</p>
-<p>下面我们从内存占用，搜索速度，精度等方面来比较 HNSW 和 NSG。HNSW 由于多层图的结构以及连边策略，导致搜索时内存占用量会大于 NSG，在内存受限场景下选择 NSG 会更好。但是 NSG 在建图过程中无论内存占用还是耗时都大于 HNSW。此外 HNSW 还拥有目前 NSG 不支持的特性，即增量索引，虽然耗时巨大。对比其他的索引类型，无论 NSG 还是 HNSW 在搜索时间和精度两个方面，都有巨大优势。目前在Milvus内部已经实现了 NSG 算法，并将 KNNG 计算放到了 GPU 上进行从而极大地加快了 NSG 图的构建。未来 Milvus 还会集成 HNSW，以适配更广泛的场景。</p>
+        <blockquote>
+<p>深度学习有很好的表现，引领了第三次人工智能的浪潮。目前大部分表现优异的应用都用到了深度学习，大红大紫的 AlphaGo 就使用到了深度学习。</p>
+<p>本文是我个人对深度学习的理解与拙见，在此分享出来，和大家相互交流学习，共勉，文中涉及内容若有纰漏，还请指教。</p>
+</blockquote>
+<h2 id="深度学习、神经网络、机器学习、人工智能的关系"><a href="#深度学习、神经网络、机器学习、人工智能的关系" class="headerlink" title="深度学习、神经网络、机器学习、人工智能的关系"></a>深度学习、神经网络、机器学习、人工智能的关系</h2><p><strong>深度学习、机器学习、人工智能</strong></p>
+<p>简单来说：</p>
+<ol>
+<li>深度学习是机器学习的一个分支(最重要的分支)</li>
+<li>机器学习是人工智能的一个分支</li>
+</ol>
+<p><img src="2.png" alt="9_深度学习"></p>
+<p>目前表现最好的一些应用大部分都是深度学习，正是因为深度学习的突出表现，引发了人工智能的第三次浪潮。</p>
+<ol>
+<li><p>第一次浪潮（非智能对话机器人）- 20世纪50年代到60年代</p>
+<p>1950年10月，图灵提出了人工智能（AI）的概念，同时提出了图灵测试来测试 AI。</p>
+<p>图灵测试提出没有几年，人们就看到了计算机通过图灵测试的“曙光”。</p>
+<p>1966年，心理治疗机器人 ELIZA 诞生</p>
+<p>那个年代的人对他评价很高，有些病人甚至喜欢跟机器人聊天。但是他的实现逻辑非常简单，就是一个有限的对话库，当病人说出某个关键词时，机器人就回复特定的话。</p>
+<p><strong>第一次浪潮并没有使用什么全新的技术，而是用一些技巧让计算机看上去像是真人，计算机本身并没有智能。</strong></p>
+</li>
+</ol>
+<ol start="2">
+<li><p>第二次浪潮（语音识别）- 20世纪80年代到90年代</p>
+<p>在第二次浪潮中，语音识别是最具代表性的几项突破之一。核心突破原因就是放弃了符号学派的思路，改为了统计思路解决实际问题。</p>
+<p>在《人工智能》一书中，李开复详细介绍了这个过程，他也是参与其中的重要人物之一。</p>
+<p><strong>第二次浪潮最大的突破是改变了思路，摒弃了符号学派的思路，转而使用了统计学思路解决问题。</strong></p>
+</li>
+</ol>
+<ol start="3">
+<li><p>第三次浪潮（深度学习+大数据）- 21世纪初</p>
+<p>2006年是深度学习发展史的分水岭。杰弗里辛顿在这一年发表了《一种深度置信网络的快速学习算法》，其他重要的深度学习学术文章也在这一年被发布，在基本理论层面取得了若干重大突破。</p>
+<p>之所以第三次浪潮会来主要是2个条件已经成熟：</p>
+<p>2000年后互联网行业飞速发展形成了海量数据。同时数据存储的成本也快速下降。使得海量数据的存储和分析成为了可能。</p>
+<p>GPU 的不断成熟提供了必要的算力支持，提高了算法的可用性，降低了算力的成本。</p>
+<p><img src="15.png" alt="9_深度学习"></p>
+<p>在各种条件成熟后，深度学习发挥出了强大的能力。在语音识别、图像识别、<a href="https://easyai.tech/ai-definition/nlp/" target="_blank" rel="noopener">NLP</a>等领域不断刷新纪录。让 AI 产品真正达到了可用（例如语音识别的错误率只有6%，人脸识别的准确率超过人类，BERT 在11项表现中超过人类阶段。</p>
+<p><strong>第三次浪潮来袭，主要是因为大数据和算力条件具备，这样深度学习可以发挥出巨大的威力，并且 AI 的表现已经超越人类，可以达到“可用”的阶段，而不只是科学研究。</strong></p>
+</li>
+</ol>
+<p><strong>深度学习、神经网络</strong></p>
+<p>深度学习的概念源于人工神经网络的研究，但是并不完全等于传统神经网络。</p>
+<p>不过在叫法上，很多深度学习算法中都会包含”神经网络”这个词，比如：卷积神经网络、循环神经网络。</p>
+<p><strong>所以，深度学习可以说是在传统神经网络基础上的升级，约等于神经网络。</strong></p>
+<p><img src="3.png" alt="9_深度学习"></p>
+<h2 id="解释深度学习"><a href="#解释深度学习" class="headerlink" title="解释深度学习"></a>解释深度学习</h2><p>看了很多版本的解释，发现李开复在《人工智能》一书中讲的是最容易理解的，所以下面直接引用他的解释：</p>
+<p>我们以识别图片中的汉字为例。</p>
+<p>假设深度学习要处理的信息是“水流”，而处理数据的深度学习网络是一个由管道和阀门组成的巨大水管网络。网络的入口是若干管道开口，网络的出口也是若干管道开口。这个水管网络有许多层，每一层由许多个可以控制水流流向与流量的调节阀。根据不同任务的需要，水管网络的层数、每层的调节阀数量可以有不同的变化组合。对复杂任务来说，调节阀的总数可以成千上万甚至更多。水管网络中，每一层的每个调节阀都通过水管与下一层的所有调节阀连接起来，组成一个从前到后，逐层完全连通的水流系统。</p>
+<p><img src="4.png" alt="9_深度学习"></p>
+<p>那么，计算机该如何使用这个庞大的水管网络来学习识字呢？</p>
+<p>比如，当计算机看到一张写有“田”字的图片，就简单将组成这张图片的所有数字（在计算机里，图片的每个颜色点都是用“0”和“1”组成的数字来表示的）全都变成信息的水流，从入口灌进水管网络。</p>
+<p><img src="5.png" alt="9_深度学习"></p>
+<p>我们预先在水管网络的每个出口都插一块字牌，对应于每一个我们想让计算机认识的汉字。这时，因为输入的是“田”这个汉字，等水流流过整个水管网络，计算机就会跑到管道出口位置去看一看，是不是标记由“田”字的管道出口流出来的水流最多。如果是这样，就说明这个管道网络符合要求。如果不是这样，就调节水管网络里的每一个流量调节阀，让“田”字出口“流出”的水最多。</p>
+<p>这下，计算机要忙一阵了，要调节那么多阀门！好在计算机的速度快，暴力的计算加上算法的优化，总是可以很快给出一个解决方案，调好所有阀门，让出口处的流量符合要求。</p>
+<p><img src="6.png" alt="9_深度学习"></p>
+<p>下一步，学习“申”字时，我们就用类似的方法，把每一张写有“申”字的图片变成一大堆数字组成的水流，灌进水管网络，看一看，是不是写有“申”字的那个管道出口流水最多，如果不是，我们还得再调整所有的阀门。这一次，要既保证刚才学过的“田”字不受影响，也要保证新的“申”字可以被正确处理。</p>
+<p><img src="7.png" alt="9_深度学习"></p>
+<p>如此反复进行，知道所有汉字对应的水流都可以按照期望的方式流过整个水管网络。这时，我们就说，这个水管网络是一个训练好的深度学习模型了。当大量汉字被这个管道网络处理，所有阀门都调节到位后，整套水管网络就可以用来识别汉字了。这时，我们可以把调节好的所有阀门都“焊死”，静候新的水流到来。</p>
+<p><img src="8.png" alt="9_深度学习"></p>
+<p>与训练时做的事情类似，未知的图片会被计算机转变成数据的水流，灌入训练好的水管网络。这时，计算机只要观察一下，哪个出水口流出来的水流最多，这张图片写的就是哪个字。</p>
+<p><strong>深度学习大致就是这么一个用人类的数学知识与计算机算法构建起来的整体架构，再结合尽可能多的训练数据以及计算机的大规模运算能力去调节内部参数，尽可能逼近问题目标的半理论、半经验的建模方式。</strong></p>
+<h2 id="传统机器学习-VS-深度学习"><a href="#传统机器学习-VS-深度学习" class="headerlink" title="传统机器学习 VS 深度学习"></a>传统机器学习 VS 深度学习</h2><p><strong>传统机器学习和深度学习的相似点</strong></p>
+<p><img src="9.png" alt="9_深度学习"></p>
+<p>在数据准备和预处理方面，两者是很相似的。</p>
+<p>他们都可能对数据进行一些操作：</p>
+<ul>
+<li>数据清洗</li>
+<li>数据标签</li>
+<li>归一化</li>
+<li>去噪</li>
+<li>降维</li>
+</ul>
+<p><strong>传统机器学习和深度学习的核心区别</strong></p>
+<p><img src="10.png" alt="9_深度学习"></p>
+<p>传统机器学习的特征提取主要依赖人工，针对特定简单任务的时候人工提取特征会简单有效，但是并不能通用。</p>
+<p>深度学习的特征提取并不依靠人工，而是机器自动提取的。这也是为什么大家都说深度学习的可解释性很差，因为有时候深度学习虽然能有好的表现，但是我们并不知道他的原理是什么。</p>
+<h2 id="深度学习的优缺点"><a href="#深度学习的优缺点" class="headerlink" title="深度学习的优缺点"></a>深度学习的优缺点</h2><p><img src="11.png" alt="9_深度学习"></p>
+<p><strong>优点1：学习能力强</strong></p>
+<p>从结果来看，深度学习的表现非常好，他的学习能力非常强。</p>
+<p><strong>优点2：覆盖范围广，适应性好</strong></p>
+<p>深度学习的神经网络层数很多，宽度很广，理论上可以映射到任意函数，所以能解决很复杂的问题。</p>
+<p><strong>优点3：数据驱动，上限高</strong></p>
+<p>深度学习高度依赖数据，数据量越大，他的表现就越好。在图像识别、面部识别、NLP等部分任务甚至已经超过了人类的表现。同时还可以通过调参进一步提高他的上限。</p>
+<p><strong>优点4：可移植性好</strong></p>
+<p>由于深度学习的优异表现，有很多框架可以使用，例如 Caffe、TensorFlow、Pytorch、Keras、Paddle。这些框架可以兼容很多平台。</p>
+<p>目前Google官方已经推出TensorFlow2.0版本，新版本在实际使用方面的便利性较初代框架有巨大提升，同时，还将Keras集成其中，建议使用。</p>
+<p><strong>缺点1：计算量大，便携性差</strong></p>
+<p>深度学习需要大量的数据很大量的算力，所以成本很高。并且现在很多应用还不适合在移动设备上使用。目前已经有很多公司和团队在研发针对便携设备的芯片。这个问题未来会得到解决。</p>
+<p><strong>缺点2：硬件需求高</strong></p>
+<p>深度学习对算力要求很高，普通的 CPU 已经无法满足深度学习的要求。主流的算力都是使用 GPU 和 TPU，所以对于硬件的要求很高，成本也很高。</p>
+<p><strong>缺点3：模型设计复杂</strong></p>
+<p>深度学习的模型设计非常复杂，需要投入大量的人力物力和时间来开发新的算法和模型。大部分人只能使用现成的模型。</p>
+<p><strong>缺点4：没有”人性”，容易存在偏见</strong></p>
+<p>由于深度学习依赖数据，并且可解释性不高。在训练数据不平衡的情况下会出现性别歧视、种族歧视等问题。</p>
+<h2 id="4种典型的深度学习算法"><a href="#4种典型的深度学习算法" class="headerlink" title="4种典型的深度学习算法"></a>4种典型的深度学习算法</h2><p><img src="12.png" alt="9_深度学习"></p>
+<h3 id="卷积神经网络-–-CNN"><a href="#卷积神经网络-–-CNN" class="headerlink" title="卷积神经网络 – CNN"></a>卷积神经网络 – CNN</h3><p><strong>CNN 的价值：</strong></p>
+<ol>
+<li>能够将大数据量的图片有效的降维成小数据量(并不影响结果)</li>
+<li>能够保留图片的特征，类似人类的视觉原理</li>
+</ol>
+<p><strong>CNN 的基本原理：</strong></p>
+<ol>
+<li>卷积层 – 主要作用是保留图片的特征</li>
+<li>池化层 – 主要作用是把数据降维，可以有效的避免过拟合</li>
+<li>全连接层 – 根据不同任务输出我们想要的结果</li>
+</ol>
+<p><strong>CNN 的实际应用：</strong></p>
+<ol>
+<li>图片分类、检索</li>
+<li>目标定位检测</li>
+<li>目标分割</li>
+<li>人脸识别</li>
+<li>骨骼识别</li>
+</ol>
+<h3 id="循环神经网络-–-RNN"><a href="#循环神经网络-–-RNN" class="headerlink" title="循环神经网络 – RNN"></a>循环神经网络 – RNN</h3><p>RNN 是一种能有效的处理序列数据的算法。比如：文章内容、语音音频、股票价格走势…</p>
+<p>之所以他能处理序列数据，是因为在序列中前面的输入也会影响到后面的输出，相当于有了“记忆功能”。但是 RNN 存在严重的短期记忆问题，长期的数据影响很小（哪怕他是重要的信息）。</p>
+<p>于是基于 RNN 出现了 LSTM 和 GRU 等变种算法。这些变种算法主要有几个特点：</p>
+<ol>
+<li>长期信息可以有效的保留</li>
+<li>挑选重要信息保留，不重要的信息会选择“遗忘”</li>
+</ol>
+<p>RNN 几个典型的应用如下：</p>
+<ol>
+<li>文本生成</li>
+<li>语音识别</li>
+<li>机器翻译</li>
+<li>生成图像描述</li>
+<li>视频标记</li>
+</ol>
+<h3 id="生成对抗网络-–-GANs"><a href="#生成对抗网络-–-GANs" class="headerlink" title="生成对抗网络 – GANs"></a>生成对抗网络 – GANs</h3><p>假设一个城市治安混乱，很快，这个城市里就会出现无数的小偷。在这些小偷中，有的可能是盗窃高手，有的可能毫无技术可言。假如这个城市开始整饬其治安，突然开展一场打击犯罪的「运动」，警察们开始恢复城市中的巡逻，很快，一批「学艺不精」的小偷就被捉住了。之所以捉住的是那些没有技术含量的小偷，是因为警察们的技术也不行了，在捉住一批低端小偷后，城市的治安水平变得怎样倒还不好说，但很明显，城市里小偷们的平均水平已经大大提高了。</p>
+<p>警察们开始继续训练自己的破案技术，开始抓住那些越来越狡猾的小偷。随着这些职业惯犯们的落网，警察们也练就了特别的本事，他们能很快能从一群人中发现可疑人员，于是上前盘查，并最终逮捕嫌犯；小偷们的日子也不好过了，因为警察们的水平大大提高，如果还想以前那样表现得鬼鬼祟祟，那么很快就会被警察捉住。为了避免被捕，小偷们努力表现得不那么「可疑」，而魔高一尺、道高一丈，警察也在不断提高自己的水平，争取将小偷和无辜的普通群众区分开。随着警察和小偷之间的这种「交流」与「切磋」，小偷们都变得非常谨慎，他们有着极高的偷窃技巧，表现得跟普通群众一模一样，而警察们都练就了「火眼金睛」，一旦发现可疑人员，就能马上发现并及时控制——最终，我们同时得到了最强的小偷和最强的警察。</p>
+<p><img src="13.png" alt="9_深度学习"></p>
+<h3 id="深度强化学习-–-RL"><a href="#深度强化学习-–-RL" class="headerlink" title="深度强化学习 – RL"></a>深度强化学习 – RL</h3><p>强化学习算法的思路非常简单，以游戏为例，如果在游戏中采取某种策略可以取得较高的得分，那么就进一步「强化」这种策略，以期继续取得较好的结果。这种策略与日常生活中的各种「绩效奖励」非常类似。我们平时也常常用这样的策略来提高自己的游戏水平。</p>
+<p>在 Flappy bird 这个游戏中，我们需要简单的点击操作来控制小鸟，躲过各种水管，飞的越远越好，因为飞的越远就能获得更高的积分奖励。</p>
+<p>这就是一个典型的强化学习场景：</p>
+<ul>
+<li>机器有一个明确的小鸟角色——代理</li>
+<li>需要控制小鸟飞的更远——目标</li>
+<li>整个游戏过程中需要躲避各种水管——环境</li>
+<li>躲避水管的方法是让小鸟用力飞一下——行动</li>
+<li>飞的越远，就会获得越多的积分——奖励</li>
+</ul>
+<p><img src="14.png" alt="9_深度学习"></p>
+<p>你会发现，强化学习和监督学习、无监督学习 最大的不同就是不需要大量的“数据喂养”。而是通过自己不停的尝试来学会某些技能。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>深度学习属于机器学习的范畴，深度学习可以说是在传统神经网络基础上的升级，约等于神经网络。</p>
+<p>深度学习和传统机器学习在数据预处理上都是类似的。核心差别在特征提取环节，深度学习由机器自己完成特征提取，不需要人工提取。</p>
+<p><strong>深度学习的优点：</strong></p>
+<ol>
+<li>学习能力强</li>
+<li>覆盖范围广，适应性好</li>
+<li>数据驱动，上限高</li>
+<li>可移植性好</li>
+</ol>
+<p><strong>深度学习的缺点：</strong></p>
+<ol>
+<li>计算量大，便携性差</li>
+<li>硬件需求高</li>
+<li>模型设计复杂</li>
+<li>没有”人性”，容易存在偏见</li>
+</ol>
+<p><strong>深度学习的4种典型算法：</strong></p>
+<ol>
+<li><p>卷积神经网络 – CNN</p>
+</li>
+<li><p>循环神经网络 – RNN</p>
+</li>
+<li><p>生成对抗网络 – GANs</p>
+</li>
+<li><p>深度强化学习 – RL</p>
+</li>
+</ol>
+<p>   ​                                                                                                                                        <strong><em>高山仰止 景行行止 虽不能至 心向往之</em></strong></p>
 
 
         <hr>
@@ -431,12 +579,12 @@
         <ul class="pager">
           
           <li class="previous">
-            <a href="/2021/03/21/3_SSG/" data-toggle="tooltip" data-placement="top" title="近似最近邻算法SSG">&larr; Previous Post</a>
+            <a href="/2021/05/25/10_CNN/" data-toggle="tooltip" data-placement="top" title="卷积神经网络 – CNN">&larr; Previous Post</a>
           </li>
           
           
           <li class="next">
-            <a href="/2021/03/21/1_向量索引/" data-toggle="tooltip" data-placement="top" title="海量高维向量检索算法">Next Post &rarr;</a>
+            <a href="/2021/05/04/7_Java动态调用脚本语言Groovy/" data-toggle="tooltip" data-placement="top" title="Java动态调用脚本语言Groovy">Next Post &rarr;</a>
           </li>
           
         </ul>
@@ -479,7 +627,7 @@
       </a>
     </li>
     <li class="social-share-li">
-      <a target="_blank" class="social-share-icon" href="mailto:?subject=向量索引算法HNSW和NSG的比较&body=Hi,I found this website and thought you might like it http://lemonsqi.top/2021/03/21/2_HNSW_NSG/">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=深度学习&body=Hi,I found this website and thought you might like it http://lemonsqi.top/2021/05/18/9_深度学习/">
         <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
       </a>
     </li>
@@ -515,7 +663,7 @@
     repo: 'gitalk-comment',
     owner: 'LemonSqi',
     admin: 'LemonSqi',
-    id: 'Sun Mar 21 2021 17:17:21 GMT+0800', // Ensure uniqueness and length less than 50
+    id: 'Tue May 18 2021 19:11:24 GMT+0800', // Ensure uniqueness and length less than 50
     distractionFreeMode: false, // Facebook-like distraction free mode
     perPage: 15 ,
     pagerDirection: 'last',
@@ -570,7 +718,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#向量检索：HNSW与NSG"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">向量检索：HNSW与NSG</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#近邻图-Proximity-Graph-：最朴素的图算法"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">近邻图(Proximity Graph)：最朴素的图算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#HNSW"><span class="toc-nav-number">1.1.1.</span> <span class="toc-nav-text">HNSW</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#NSG"><span class="toc-nav-number">1.1.2.</span> <span class="toc-nav-text">NSG</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#HNSW-和-NSG-的比较"><span class="toc-nav-number">1.1.3.</span> <span class="toc-nav-text">HNSW 和 NSG 的比较</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#深度学习、神经网络、机器学习、人工智能的关系"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">深度学习、神经网络、机器学习、人工智能的关系</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#解释深度学习"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">解释深度学习</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#传统机器学习-VS-深度学习"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">传统机器学习 VS 深度学习</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#深度学习的优缺点"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">深度学习的优缺点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4种典型的深度学习算法"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">4种典型的深度学习算法</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#卷积神经网络-–-CNN"><span class="toc-nav-number">5.1.</span> <span class="toc-nav-text">卷积神经网络 – CNN</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#循环神经网络-–-RNN"><span class="toc-nav-number">5.2.</span> <span class="toc-nav-text">循环神经网络 – RNN</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#生成对抗网络-–-GANs"><span class="toc-nav-number">5.3.</span> <span class="toc-nav-text">生成对抗网络 – GANs</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#深度强化学习-–-RL"><span class="toc-nav-number">5.4.</span> <span class="toc-nav-text">深度强化学习 – RL</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#总结"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">总结</span></a></li></ol>
         
         </div>
       </aside>
@@ -592,17 +740,13 @@
           </h5>
           <div class="tags">
             
-            <a class="tag" href="/tags/#ANNS" title="ANNS">ANNS</a>
+            <a class="tag" href="/tags/#深度学习" title="深度学习">深度学习</a>
             
-            <a class="tag" href="/tags/#HNSW" title="HNSW">HNSW</a>
-            
-            <a class="tag" href="/tags/#NSG" title="NSG">NSG</a>
+            <a class="tag" href="/tags/#人工智能" title="人工智能">人工智能</a>
             
             <a class="tag" href="/tags/#机器学习" title="机器学习">机器学习</a>
             
-            <a class="tag" href="/tags/#向量检索" title="向量检索">向量检索</a>
-            
-            <a class="tag" href="/tags/#算法" title="算法">算法</a>
+            <a class="tag" href="/tags/#神经网络" title="神经网络">神经网络</a>
             
           </div>
         </section>

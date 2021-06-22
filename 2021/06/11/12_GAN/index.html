@@ -137,10 +137,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://lemonsqi.top/2021/03/23/7_Java动态调用脚本语言Groovy/">
+  <link rel="canonical" href="http://lemonsqi.top/2021/06/11/12_GAN/">
   <title>
     
-    Java动态调用脚本语言Groovy - LemonD.K.
+    生成对抗网络 – GAN - LemonD.K.
     
   </title>
 <meta name="generator" content="Hexo 4.2.1"></head>
@@ -209,13 +209,6 @@
 
           
           <li>
-            <a href="/about/">About</a>
-          </li>
-          
-          
-
-          
-          <li>
             <a href="/archive/">Archives</a>
           </li>
           
@@ -224,6 +217,13 @@
           
           <li>
             <a href="/categories/">Categories</a>
+          </li>
+          
+          
+
+          
+          <li>
+            <a href="/about/">About</a>
           </li>
           
           
@@ -314,18 +314,18 @@
           <div class="post-heading">
             <div class="tags">
               
-              <a class="tag" href="/tags/#Groovy" title="Groovy">Groovy</a>
+              <a class="tag" href="/tags/#深度学习" title="深度学习">深度学习</a>
               
-              <a class="tag" href="/tags/#java" title="java">java</a>
+              <a class="tag" href="/tags/#人工智能" title="人工智能">人工智能</a>
               
-              <a class="tag" href="/tags/#脚本语言" title="脚本语言">脚本语言</a>
+              <a class="tag" href="/tags/#GAN" title="GAN">GAN</a>
               
             </div>
-            <h1>Java动态调用脚本语言Groovy</h1>
-            <h2 class="subheading">Java Dynamic calling script language groovy</h2>
+            <h1>生成对抗网络 – GAN</h1>
+            <h2 class="subheading">Generative Adversarial Networks</h2>
             <span class="meta">
               Posted by sqwang on
-              2021-03-23
+              2021-06-11
             </span>
 
 
@@ -333,11 +333,11 @@
             <!-- WordCount start -->
             <div class="blank_box"></div>
             <span class="meta">
-              Estimated Reading Time <span class="post-count">4</span> Minutes
+              Estimated Reading Time <span class="post-count">8</span> Minutes
             </span>
             <div class="blank_box"></div>
             <span class="meta">
-              Words <span class="post-count">1k</span> In Total
+              Words <span class="post-count">2.5k</span> In Total
             </span>
             <div class="blank_box"></div>
             <!-- WordCount end -->
@@ -399,48 +399,167 @@
       <!-- Post Container -->
       <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
 
-        <h2 id="0-pom-xml添加依赖"><a href="#0-pom-xml添加依赖" class="headerlink" title="0. pom.xml添加依赖"></a>0. pom.xml添加依赖</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.codehaus.groovy&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;groovy-all&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.5.6&lt;/version&gt;</span><br><span class="line">    &lt;type&gt;pom&lt;/type&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-使用GroovyShell计算表达式"><a href="#1-使用GroovyShell计算表达式" class="headerlink" title="1.使用GroovyShell计算表达式"></a>1.使用GroovyShell计算表达式</h2><p>使用Binding对象将变量传入表达式，并通过GroovyShell返回表达式的计算结果。</p>
-<p>GroovyShellExample.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> groovy.lang.Binding;</span><br><span class="line"><span class="keyword">import</span> groovy.lang.GroovyShell;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GroovyShellExample</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        Binding binding = <span class="keyword">new</span> Binding();</span><br><span class="line">        binding.setVariable(<span class="string">"x"</span>, <span class="number">10</span>);</span><br><span class="line">        binding.setVariable(<span class="string">"language"</span>, <span class="string">"Groovy"</span>);</span><br><span class="line"></span><br><span class="line">        GroovyShell shell = <span class="keyword">new</span> GroovyShell(binding);</span><br><span class="line">        Object value = shell.evaluate(<span class="string">"println \"Welcome to $language\"; y = x * 2; z = x * 3; return x "</span>);</span><br><span class="line"></span><br><span class="line">        System.err.println(value +<span class="string">", "</span> + value.equals(<span class="number">10</span>));</span><br><span class="line">        System.err.println(binding.getVariable(<span class="string">"y"</span>) +<span class="string">", "</span> + binding.getVariable(<span class="string">"y"</span>).equals(<span class="number">20</span>));</span><br><span class="line">        System.err.println(binding.getVariable(<span class="string">"z"</span>) +<span class="string">", "</span> + binding.getVariable(<span class="string">"z"</span>).equals(<span class="number">30</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Welcome to Groovy</span><br><span class="line"><span class="number">10</span>, <span class="keyword">true</span></span><br><span class="line"><span class="number">20</span>, <span class="keyword">true</span></span><br><span class="line"><span class="number">30</span>, <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="2．使用GroovyScriptEngine脚本引擎加载Groovy脚本"><a href="#2．使用GroovyScriptEngine脚本引擎加载Groovy脚本" class="headerlink" title="2．使用GroovyScriptEngine脚本引擎加载Groovy脚本"></a>2．使用GroovyScriptEngine脚本引擎加载Groovy脚本</h2><p>GroovyScriptEngine从指定的位置（文件系统，URL，数据库等等）加载Groovy脚本，并且随着脚本变化可重新加载它们。和GroovyShell一样，GroovyScriptEngine也可以传进变量值返回脚本的计算结果。这样我们可以把一些可用的计算公式或计算条件写入Groovy脚本中来执行应用计算。当这些公式或计算条件变更时，我们可更方便地进行更改计算。</p>
-<p>GroovyScriptEngineExample.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> groovy.lang.Binding;</span><br><span class="line"><span class="keyword">import</span> groovy.util.GroovyScriptEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GroovyScriptEngineExample</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String[] roots = <span class="keyword">new</span>  String[]&#123;<span class="string">".\\src\\sample\\"</span>&#125; ;<span class="comment">//定义Groovy脚本引擎的根路径</span></span><br><span class="line">            GroovyScriptEngine engine = <span class="keyword">new</span> GroovyScriptEngine(roots);</span><br><span class="line">            Binding binding = <span class="keyword">new</span> Binding();</span><br><span class="line">            binding.setVariable(<span class="string">"language"</span>, <span class="string">"Groovy"</span>);</span><br><span class="line">            Object value = engine.run(<span class="string">"SimpleScript.groovy"</span>, binding);</span><br><span class="line">            <span class="keyword">assert</span> value.equals(<span class="string">"The End"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">SimpleScript.groovy</span><br><span class="line">println <span class="string">"Welcome to $language"</span></span><br><span class="line"><span class="keyword">return</span> <span class="string">"The End"</span></span><br></pre></td></tr></table></figure>
-
-<p>运行结果如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Welcome to Groovy</span><br></pre></td></tr></table></figure>
-
-<h2 id="3．使用GroovyClassLoader动态地载入Groovy的类"><a href="#3．使用GroovyClassLoader动态地载入Groovy的类" class="headerlink" title="3．使用GroovyClassLoader动态地载入Groovy的类"></a>3．使用GroovyClassLoader动态地载入Groovy的类</h2><p>下例现示如何使用GroovyClassLoader加载Groovy类并且调用该类的一个方法。</p>
-<p>GroovyClassLoaderExample.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> groovy.lang.GroovyClassLoader;</span><br><span class="line"><span class="keyword">import</span> groovy.lang.GroovyObject;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GroovyClassLoaderExample</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            GroovyClassLoader loader = <span class="keyword">new</span> GroovyClassLoader();</span><br><span class="line">            Class fileCreator = loader.parseClass(<span class="keyword">new</span> File(<span class="string">"src\\sample\\GroovySimpleFileCreator.groovy"</span>));</span><br><span class="line">            GroovyObject object = (GroovyObject) fileCreator.newInstance();</span><br><span class="line">            object.invokeMethod(<span class="string">"createFile"</span>, <span class="string">"D:\\temp\\emptyFile.txt"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>GroovySimpleFileCreator.groovy</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GroovySimpleFileCreator</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">createFile</span><span class="params">(String fileName)</span></span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(fileName);</span><br><span class="line">        file.createNewFile();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用GroovyClassLoader另一种情景便是：存在一个Java接口和一个实现该Java接口的Groovy类。此时，可以通过GroovyClassLoader加载Groovy实现类到应用中，这样就可以直接调用该接口的方法。</p>
-<p>IFoo.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IFoo</span> </span>&#123;</span><br><span class="line">    <span class="function">Object <span class="title">run</span><span class="params">(Object foo)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>InvokeGroovy.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> groovy.lang.GroovyClassLoader;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InvokeGroovy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ClassLoader cl = <span class="keyword">new</span> InvokeGroovy().getClass().getClassLoader();</span><br><span class="line">        GroovyClassLoader groovyCl = <span class="keyword">new</span> GroovyClassLoader(cl);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//从文件中读取，将实现IFoo接口的groovy类写在一个groovy文件中</span></span><br><span class="line">            <span class="comment">//Class groovyClass = groovyCl.parseClass(new File("./src/sample/Foo.groovy"));</span></span><br><span class="line">            <span class="comment">//直接使用Groovy字符串,也可以获得正确结果</span></span><br><span class="line">            Class groovyClass = groovyCl.parseClass(<span class="string">"class Foo implements IFoo &#123;public Object run(Object foo) &#123;return 2+2&gt;1&#125;&#125;"</span>);<span class="comment">//这个返回true</span></span><br><span class="line">            IFoo foo = (IFoo) groovyClass.newInstance();</span><br><span class="line">            System.out.println(foo.run(<span class="keyword">new</span> Integer(<span class="number">2</span>)));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">true</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="4．使用JAVA脚本API"><a href="#4．使用JAVA脚本API" class="headerlink" title="4．使用JAVA脚本API"></a>4．使用JAVA脚本API</h2><p>Java SE 6 引入了对 Java Specification Request（JSR）223 的支持，JSR 223 旨在定义一个统一的规范，使得 Java 应用程序可以通过一套固定的接口与各种脚本引擎交互，从而达到在 Java 平台上调用各种脚本语言的目的。每一个脚本引擎就是一个脚本解释器，负责运行脚本，获取运行结果。ScriptEngine 接口提供了许多 eval 函数的变体用来运行脚本，这个函数的功能就是获取脚本输入，运行脚本，最后返回输出。</p>
-<p>GroovyJSR223Example.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.script.Invocable;</span><br><span class="line"><span class="keyword">import</span> javax.script.ScriptEngine;</span><br><span class="line"><span class="keyword">import</span> javax.script.ScriptEngineManager;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GroovyJSR223Example</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ScriptEngineManager factory = <span class="keyword">new</span> ScriptEngineManager();</span><br><span class="line">            ScriptEngine engine = factory.getEngineByName(<span class="string">"groovy"</span>);</span><br><span class="line">            String HelloLanguage = <span class="string">"def hello(language) &#123;return \"Hello $language\"&#125;"</span>;</span><br><span class="line">            engine.eval(HelloLanguage);</span><br><span class="line">            Invocable inv = (Invocable) engine;</span><br><span class="line">            Object[] params = &#123;<span class="keyword">new</span> String(<span class="string">"Groovy"</span>)&#125;;</span><br><span class="line">            Object result = inv.invokeFunction(<span class="string">"hello"</span>, params);</span><br><span class="line">            <span class="comment">//assert result.equals("Hello Groovy");</span></span><br><span class="line">            System.out.println(result);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果如下：</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Hello Groovy</span></span><br></pre></td></tr></table></figure>
-
-
-<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+        <blockquote>
+<p>生成对抗网络 – GAN 是最近4年很热门的一种无监督算法，他能生成出非常逼真的照片，图像甚至视频。我们手机里的照片处理软件中就会使用到它。</p>
+<p>下面详细介绍生成对抗网络 – GAN 的设计初衷、基本原理、10种典型算法和13种实际应用。</p>
+</blockquote>
+<h2 id="GAN的设计初衷"><a href="#GAN的设计初衷" class="headerlink" title="GAN的设计初衷"></a>GAN的设计初衷</h2><p>一句话来概括 GAN 的设计动机就是——自动化。</p>
+<p><strong>人工提取特征——自动提取特征</strong></p>
+<p>前面已经讲过，深度学习最特别最厉害的地方就是能够自己学习特征提取。</p>
+<p><img src="1.png" alt="12_GAN"></p>
+<p>机器的超强算力可以解决很多人工无法解决的问题。自动化后，学习能力更强，适应性也更强。</p>
+<p><strong>人工判断生成结果的好坏——自动判断和优化</strong></p>
+<p>在监督学习中，训练集需要大量的人工标注数据，这个过程是成本很高且效率很低的。而人工判断生成结果的好坏也是如此，有成本高和效率低的问题。</p>
+<p>而 GAN 能自动完成这个过程，且不断的优化，这是一种效率非常高，且成本很低的方式。GAN是如何实现自动化的呢？下面上原理。</p>
+<h2 id="生成对抗网络-GAN-的基本原理"><a href="#生成对抗网络-GAN-的基本原理" class="headerlink" title="生成对抗网络 GAN 的基本原理"></a>生成对抗网络 GAN 的基本原理</h2><p>知乎上有一个很不错的解释，大家应该都能理解：</p>
+<p>假设一个城市治安混乱，很快，这个城市里就会出现无数的小偷。在这些小偷中，有的可能是盗窃高手，有的可能毫无技术可言。假如这个城市开始整饬其治安，突然开展一场打击犯罪的「运动」，警察们开始恢复城市中的巡逻，很快，一批「学艺不精」的小偷就被捉住了。之所以捉住的是那些没有技术含量的小偷，是因为警察们的技术也不行了，在捉住一批低端小偷后，城市的治安水平变得怎样倒还不好说，但很明显，城市里小偷们的平均水平已经大大提高了。</p>
+<p><img src="2.png" alt="12_GAN"></p>
+<p>警察们开始继续训练自己的破案技术，开始抓住那些越来越狡猾的小偷。随着这些职业惯犯们的落网，警察们也练就了特别的本事，他们能很快能从一群人中发现可疑人员，于是上前盘查，并最终逮捕嫌犯；小偷们的日子也不好过了，因为警察们的水平大大提高，如果还想以前那样表现得鬼鬼祟祟，那么很快就会被警察捉住。</p>
+<p><img src="3.png" alt="12_GAN"></p>
+<p>为了避免被捕，小偷们努力表现得不那么「可疑」，而魔高一尺、道高一丈，警察也在不断提高自己的水平，争取将小偷和无辜的普通群众区分开。随着警察和小偷之间的这种「交流」与「切磋」，小偷们都变得非常谨慎，他们有着极高的偷窃技巧，表现得跟普通群众一模一样，而警察们都练就了「火眼金睛」，一旦发现可疑人员，就能马上发现并及时控制——最终，我们同时得到了最强的小偷和最强的警察。</p>
+<p><img src="4.png" alt="12_GAN"></p>
+<p>生成对抗网络（GAN）由2个重要的部分构成：</p>
+<ol>
+<li><strong>生成器(Generator</strong>)：通过机器生成数据（大部分情况下是图像），目的是“骗过”判别器</li>
+<li><strong>判别器(Discriminator</strong>)：判断这张图像是真实的还是机器生成的，目的是找出生成器做的“假数据”</li>
+</ol>
+<p><img src="5.png" alt="12_GAN"></p>
+<p>下面详细介绍一下过程：</p>
+<p><strong>第一阶段：固定「判别器D」，训练「生成器G」</strong></p>
+<p>我们使用一个还 OK 判别器，让一个「生成器G」不断生成“假数据”，然后给这个「判别器D」去判断。</p>
+<p>一开始，「生成器G」还很弱，所以很容易被揪出来。</p>
+<p>但是随着不断的训练，「生成器G」技能不断提升，最终骗过了「判别器D」。</p>
+<p>到了这个时候，「判别器D」基本属于瞎猜的状态，判断是否为假数据的概率为50%。</p>
+<p><img src="6.png" alt="12_GAN"></p>
+<p><strong>第二阶段：固定「生成器G」，训练「判别器D」</strong></p>
+<p>当通过了第一阶段，继续训练「生成器G」就没有意义了。这个时候我们固定「生成器G」，然后开始训练「判别器D」。</p>
+<p>「判别器D」通过不断训练，提高了自己的鉴别能力，最终他可以准确的判断出所有的假图片。</p>
+<p>到了这个时候，「生成器G」已经无法骗过「判别器D」。</p>
+<p><img src="7.png" alt="12_GAN"></p>
+<p><strong>循环阶段一和阶段二</strong></p>
+<p>通过不断的循环，「生成器G」和「判别器D」的能力都越来越强。</p>
+<p>最终我们得到了一个效果非常好的「生成器G」，我们就可以用它来生成我们想要的图片了。</p>
+<p>下面的实际应用部分会展示很多“惊艳”的案例。</p>
+<p><img src="8.png" alt="12_GAN"></p>
+<h2 id="GAN的优缺点"><a href="#GAN的优缺点" class="headerlink" title="GAN的优缺点"></a>GAN的优缺点</h2><p><strong>3个优势</strong></p>
+<ol>
+<li>能更好建模数据分布（图像更锐利、清晰）</li>
+<li>理论上，GANs 能训练任何一种生成器网络。其他的框架需要生成器网络有一些特定的函数形式，比如输出层是高斯的。</li>
+<li>无需利用马尔科夫链反复采样，无需在学习过程中进行推断，没有复杂的变分下界，避开近似计算棘手的概率的难题。</li>
+</ol>
+<p><strong>2个缺陷</strong></p>
+<ol>
+<li>难训练，不稳定。生成器和判别器之间需要很好的同步，但是在实际训练中很容易D收敛，G发散。D/G 的训练需要精心的设计。</li>
+<li>模式缺失（Mode Collapse）问题。GANs的学习过程可能出现模式缺失，生成器开始退化，总是生成同样的样本点，无法继续学习。</li>
+</ol>
+<h2 id="10大典型的GAN算法"><a href="#10大典型的GAN算法" class="headerlink" title="10大典型的GAN算法"></a>10大典型的GAN算法</h2><p>GAN 算法有数百种之多，大家对于 GAN 的研究呈指数级的上涨，目前每个月都有数百篇论坛是关于对抗网络的。</p>
+<p>下图是每个月关于 GAN 的论文发表数量：</p>
+<p><img src="9.png" alt="12_GAN"></p>
+<p>如果你对 GANs 算法感兴趣，可以在 「<a href="https://github.com/hindupuravinash/the-gan-zoo" target="_blank" rel="noopener">GANs动物园</a>」里查看几乎所有的算法。这里我为大家从众多算法中挑选了10个比较有代表性的算法，技术人员可以看看他的论文和代码。</p>
+<table>
+<thead>
+<tr>
+<th align="left">算法</th>
+<th align="left">论文</th>
+<th align="left">代码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">GAN</td>
+<td align="left"><a href="https://arxiv.org/abs/1406.2661" target="_blank" rel="noopener">论文地址</a></td>
+<td align="left"><a href="https://github.com/goodfeli/adversarial" target="_blank" rel="noopener">代码地址</a></td>
+</tr>
+<tr>
+<td align="left">DCGAN</td>
+<td align="left"><a href="https://arxiv.org/abs/1511.06434" target="_blank" rel="noopener">论文地址</a></td>
+<td align="left"><a href="https://github.com/floydhub/dcgan" target="_blank" rel="noopener">代码地址</a></td>
+</tr>
+<tr>
+<td align="left">CGAN</td>
+<td align="left"><a href="https://arxiv.org/abs/1411.1784" target="_blank" rel="noopener">论文地址</a></td>
+<td align="left"><a href="https://github.com/PacktPublishing/Advanced-Deep-Learning-with-Keras" target="_blank" rel="noopener">代码地址</a></td>
+</tr>
+<tr>
+<td align="left">CycleGAN</td>
+<td align="left"><a href="https://arxiv.org/abs/1703.10593v6" target="_blank" rel="noopener">论文地址</a></td>
+<td align="left"><a href="https://github.com/junyanz/CycleGAN" target="_blank" rel="noopener">代码地址</a></td>
+</tr>
+<tr>
+<td align="left">CoGAN</td>
+<td align="left"><a href="https://arxiv.org/abs/1606.07536" target="_blank" rel="noopener">论文地址</a></td>
+<td align="left"><a href="https://github.com/mingyuliutw/CoGAN" target="_blank" rel="noopener">代码地址</a></td>
+</tr>
+<tr>
+<td align="left">ProGAN</td>
+<td align="left"><a href="https://arxiv.org/abs/1710.10196" target="_blank" rel="noopener">论文地址</a></td>
+<td align="left"><a href="https://github.com/tkarras/progressive_growing_of_gans" target="_blank" rel="noopener">代码地址</a></td>
+</tr>
+<tr>
+<td align="left">WGAN</td>
+<td align="left"><a href="https://arxiv.org/abs/1701.07875v3" target="_blank" rel="noopener">论文地址</a></td>
+<td align="left"><a href="https://github.com/eriklindernoren/Keras-GAN" target="_blank" rel="noopener">代码地址</a></td>
+</tr>
+<tr>
+<td align="left">SAGAN</td>
+<td align="left"><a href="https://arxiv.org/abs/1805.08318v1" target="_blank" rel="noopener">论文地址</a></td>
+<td align="left"><a href="https://github.com/heykeetae/Self-Attention-GAN" target="_blank" rel="noopener">代码地址</a></td>
+</tr>
+<tr>
+<td align="left">BigGAN</td>
+<td align="left"><a href="https://arxiv.org/abs/1809.11096v2" target="_blank" rel="noopener">论文地址</a></td>
+<td align="left"><a href="https://github.com/huggingface/pytorch-pretrained-BigGAN" target="_blank" rel="noopener">代码地址</a></td>
+</tr>
+</tbody></table>
+<p>上面内容整理自《<a href="https://blog.floydhub.com/gans-story-so-far/" target="_blank" rel="noopener">Generative Adversarial Networks – The Story So Far</a>》原文中对算法有一些粗略的说明，感兴趣的可以看看。</p>
+<h2 id="GAN-的13种实际应用"><a href="#GAN-的13种实际应用" class="headerlink" title="GAN 的13种实际应用"></a>GAN 的13种实际应用</h2><p>GAN 看上去不如「语音识别」「文本挖掘」那么直观。不过他的应用已经进入到我们的生活中了。下面给大家列举一些 GAN 的实际应用。</p>
+<p><strong>生成图像数据集</strong></p>
+<p>人工智能的训练是需要大量的数据集的，如果全部靠人工收集和标注，成本是很高的。GAN 可以自动的生成一些数据集，提供低成本的训练数据。</p>
+<p><img src="10.png" alt="12_GAN"></p>
+<p><strong>生成人脸照片</strong></p>
+<p>生成人脸照片是大家很熟悉的应用，但是生成出来的照片用来做什么是需要思考的问题。因为这种人脸照片还处于法律的边缘。</p>
+<p><img src="11.png" alt="12_GAN"></p>
+<p><strong>生成照片、漫画人物</strong></p>
+<p>GAN 不但能生成人脸，还能生成其他类型的照片，甚至是漫画人物。</p>
+<p><img src="12.png" alt="12_GAN"></p>
+<p><img src="13.png" alt="12_GAN"></p>
+<p><strong>图像到图像的转换</strong></p>
+<p>简单说就是把一种形式的图像转换成另外一种形式的图像，就好像加滤镜一样神奇。例如：</p>
+<ul>
+<li>把草稿转换成照片</li>
+<li>把卫星照片转换为Google地图的图片</li>
+<li>把照片转换成油画</li>
+<li>把白天转换成黑夜</li>
+</ul>
+<p><img src="14.png" alt="12_GAN"></p>
+<p><img src="15.png" alt="12_GAN"></p>
+<p><strong>文字到图像的转换</strong></p>
+<p>在2016年标题为“ <a href="https://arxiv.org/abs/1612.03242" target="_blank" rel="noopener">StackGAN：使用 StackGAN 的文本到逼真照片的图像合成</a> ”的论文中，演示了使用 GAN，特别是他们的 StackGAN，从鸟类和花卉等简单对象的文本描述中生成逼真的照片。</p>
+<p><img src="16.png" alt="12_GAN"></p>
+<p><strong>语意 – 图像 – 照片 的转换</strong></p>
+<p>在2017年标题为“ <a href="https://arxiv.org/abs/1711.11585" target="_blank" rel="noopener">高分辨率图像合成和带条件GAN的语义操纵</a> ”的论文中，演示了在语义图像或草图作为输入的情况下使用条件GAN生成逼真图像。</p>
+<p><img src="17.png" alt="12_GAN"></p>
+<p><strong>自动生成模特</strong></p>
+<p>在2017年标题为“ <a href="https://arxiv.org/abs/1705.09368" target="_blank" rel="noopener">姿势引导人形象生成</a> ”的论文中，可以自动生成人体模特，并且使用新的姿势。</p>
+<p><img src="18.png" alt="12_GAN"></p>
+<p><strong>照片到Emojis</strong></p>
+<p>GANs 可以通过人脸照片自动生成对应的表情（Emojis）。</p>
+<p><img src="19.png" alt="12_GAN"></p>
+<p><strong>照片编辑</strong></p>
+<p>使用GAN可以生成特定的照片，例如更换头发颜色、更改面部表情、甚至是改变性别。</p>
+<p><img src="20.png" alt="12_GAN"></p>
+<p><strong>预测不同年龄的长相</strong></p>
+<p>给一张人脸照片， GAN 就可以帮你预测不同年龄阶段你会长成什么样。</p>
+<p><img src="21.png" alt="12_GAN"></p>
+<p><strong>提高照片分辨率，让照片更清晰</strong></p>
+<p>给GAN一张照片，他就能生成一张分辨率更高的照片，使得这个照片更加清晰。</p>
+<p><img src="22.png" alt="12_GAN"></p>
+<p><strong>照片修复</strong></p>
+<p>假如照片中有一个区域出现了问题（例如被涂上颜色或者被抹去），GAN可以修复这个区域，还原成原始的状态。</p>
+<p><img src="23.png" alt="12_GAN"></p>
+<p><strong>自动生成3D模型</strong></p>
+<p>给出多个不同角度的2D图像，就可以生成一个3D模型。</p>
+<p><img src="24.png" alt="12_GAN"></p>
+<p>​                                                                                                                                        <strong><em>高山仰止 景行行止 虽不能至 心向往之</em></strong></p>
 
 
         <hr>
@@ -448,12 +567,12 @@
         <ul class="pager">
           
           <li class="previous">
-            <a href="/2021/03/25/4_经典排序算法/" data-toggle="tooltip" data-placement="top" title="经典排序算法总结">&larr; Previous Post</a>
+            <a href="/2021/06/20/13_RL/" data-toggle="tooltip" data-placement="top" title="强化学习 - RL">&larr; Previous Post</a>
           </li>
           
           
           <li class="next">
-            <a href="/2021/03/21/3_SSG/" data-toggle="tooltip" data-placement="top" title="近似最近邻算法SSG">Next Post &rarr;</a>
+            <a href="/2021/06/03/11_RNN/" data-toggle="tooltip" data-placement="top" title="循环神经网络 – RNN">Next Post &rarr;</a>
           </li>
           
         </ul>
@@ -496,7 +615,7 @@
       </a>
     </li>
     <li class="social-share-li">
-      <a target="_blank" class="social-share-icon" href="mailto:?subject=Java动态调用脚本语言Groovy&body=Hi,I found this website and thought you might like it http://lemonsqi.top/2021/03/23/7_Java动态调用脚本语言Groovy/">
+      <a target="_blank" class="social-share-icon" href="mailto:?subject=生成对抗网络 – GAN&body=Hi,I found this website and thought you might like it http://lemonsqi.top/2021/06/11/12_GAN/">
         <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
       </a>
     </li>
@@ -532,7 +651,7 @@
     repo: 'gitalk-comment',
     owner: 'LemonSqi',
     admin: 'LemonSqi',
-    id: 'Tue Mar 23 2021 01:21:32 GMT+0800', // Ensure uniqueness and length less than 50
+    id: 'Fri Jun 11 2021 23:19:28 GMT+0800', // Ensure uniqueness and length less than 50
     distractionFreeMode: false, // Facebook-like distraction free mode
     perPage: 15 ,
     pagerDirection: 'last',
@@ -587,7 +706,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#0-pom-xml添加依赖"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">0. pom.xml添加依赖</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-使用GroovyShell计算表达式"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">1.使用GroovyShell计算表达式</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2．使用GroovyScriptEngine脚本引擎加载Groovy脚本"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">2．使用GroovyScriptEngine脚本引擎加载Groovy脚本</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3．使用GroovyClassLoader动态地载入Groovy的类"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">3．使用GroovyClassLoader动态地载入Groovy的类</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4．使用JAVA脚本API"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">4．使用JAVA脚本API</span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#GAN的设计初衷"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">GAN的设计初衷</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#生成对抗网络-GAN-的基本原理"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">生成对抗网络 GAN 的基本原理</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#GAN的优缺点"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">GAN的优缺点</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#10大典型的GAN算法"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">10大典型的GAN算法</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#GAN-的13种实际应用"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">GAN 的13种实际应用</span></a></li></ol>
         
         </div>
       </aside>
@@ -609,11 +728,11 @@
           </h5>
           <div class="tags">
             
-            <a class="tag" href="/tags/#Groovy" title="Groovy">Groovy</a>
+            <a class="tag" href="/tags/#深度学习" title="深度学习">深度学习</a>
             
-            <a class="tag" href="/tags/#java" title="java">java</a>
+            <a class="tag" href="/tags/#人工智能" title="人工智能">人工智能</a>
             
-            <a class="tag" href="/tags/#脚本语言" title="脚本语言">脚本语言</a>
+            <a class="tag" href="/tags/#GAN" title="GAN">GAN</a>
             
           </div>
         </section>
