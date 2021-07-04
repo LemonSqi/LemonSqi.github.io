@@ -70,12 +70,12 @@
 
   <!-- Pygments Highlight CSS -->
   
-<link rel="stylesheet" href="../../../../css/highlight.css">
-<link rel="stylesheet" href="../../../../css/widget.css">
-<link rel="stylesheet" href="../../../../css/rocket.css">
-<link rel="stylesheet" href="../../../../css/signature.css">
-<link rel="stylesheet" href="../../../../css/catalog.css">
-<link rel="stylesheet" href="../../../../css/livemylife.css">
+<link rel="stylesheet" href="../../../css/highlight.css">
+<link rel="stylesheet" href="../../../css/widget.css">
+<link rel="stylesheet" href="../../../css/rocket.css">
+<link rel="stylesheet" href="../../../css/signature.css">
+<link rel="stylesheet" href="../../../css/catalog.css">
+<link rel="stylesheet" href="../../../css/livemylife.css">
 
 
   
@@ -137,10 +137,10 @@
   <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
 
   <!-- ga & ba script hoook -->
-  <link rel="canonical" href="http://lemonsqi.top/2021/04/29/6_Groovy与Java集成常见的坑/">
+  <link rel="canonical" href="http://lemonsqi.top/archives/2021/07/">
   <title>
     
-    Groovy与Java集成常见的坑 - LemonD.K.
+    LemonD.K.
     
   </title>
 <meta name="generator" content="Hexo 4.2.1"></head>
@@ -288,8 +288,8 @@
 
   <style type="text/css">
     header.intro-header {
-       /*post*/
-        background-image: url('/img/blog/3.jpg');
+       /*page*/
+        background-image: url('/img/header_img/archive_bg2.jpg');
       
     }
 
@@ -311,46 +311,10 @@
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
           
-          <div class="post-heading">
-            <div class="tags">
-              
-              <a class="tag" href="/tags/#Groovy" title="Groovy">Groovy</a>
-              
-              <a class="tag" href="/tags/#java" title="java">java</a>
-              
-              <a class="tag" href="/tags/#脚本语言" title="脚本语言">脚本语言</a>
-              
-            </div>
-            <h1>Groovy与Java集成常见的坑</h1>
-            <h2 class="subheading">Integration of groovy and Java</h2>
-            <span class="meta">
-              Posted by sqwang on
-              2021-04-29
-            </span>
-
-
-            
-            <!-- WordCount start -->
-            <div class="blank_box"></div>
-            <span class="meta">
-              Estimated Reading Time <span class="post-count">8</span> Minutes
-            </span>
-            <div class="blank_box"></div>
-            <span class="meta">
-              Words <span class="post-count">2.3k</span> In Total
-            </span>
-            <div class="blank_box"></div>
-            <!-- WordCount end -->
-            
-            
-            <!-- 不蒜子统计 start -->
-            <span class="meta" id="busuanzi_container_page_pv">
-              Viewed <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> Times
-            </span>
-            <!-- 不蒜子统计 end -->
-            
-
-
+          <div class="site-heading">
+            <h1>Live My Life</h1>
+            <!--<hr class="small">-->
+            <span class="subheading">高山仰止、景行行止，虽不能至、心向往之</span>
           </div>
           
         </div>
@@ -391,327 +355,584 @@
 	Friends Blog、
 	anchorjs、
 	) -->
-	<!-- Modify by Yu-Hsuan Yen -->
-<!-- Post Content -->
-<article>
-  <div class="container">
-    <div class="row">
-      <!-- Post Container -->
-      <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1 post-container">
+	<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    
 
-        <p><strong>简介：</strong> groovy特性 Groovy是一门基于JVM的动态语言，同时也是一门面向对象的语言，语法上和Java非常相似。它结合了Python、Ruby和Smalltalk的许多强大的特性，Groovy 代码能够与 Java 代码很好地结合，也能用于扩展现有代码。 Java作为一种通用、静态类型的编译型语</p>
-<h2 id="groovy特性"><a href="#groovy特性" class="headerlink" title="groovy特性"></a>groovy特性</h2><p>Groovy是一门基于JVM的动态语言，同时也是一门面向对象的语言，语法上和Java非常相似。它结合了Python、Ruby和Smalltalk的许多强大的特性，Groovy 代码能够与 Java 代码很好地结合，也能用于扩展现有代码。</p>
-<p>Java作为一种通用、静态类型的编译型语言有很多优势，但同样存在一些负担：</p>
-<ul>
-<li>重新编译太费工；</li>
-<li>静态类型不够灵活，重构起来时间可能比较长；</li>
-<li>部署的动静太大；</li>
-<li>java的语法天然不适用生产dsl；</li>
-</ul>
-<p>相对于Java，它在编写代码的灵活性上有非常明显的提升，对于一个长期使用Java的开发者来说，使用Groovy时能够明显地感受到负身上的“枷锁”轻了。Groovy是动态编译语言，广泛用作脚本语言和快速原型语言，主要优势之一就是它的生产力。Groovy 代码通常要比 Java 代码更容易编写，而且编写起来也更快，这使得它有足够的资格成为开发工作包中的一个附件。</p>
-<p>Java不是解决动态层问题的理想语言，这些动态层问题包括原型设计、脚本处理等。可以把Groovy看作给Java静态世界补充动态能力的语言，同时Groovy已经实现了java不具备的语言特性：</p>
-<ul>
-<li>函数字面值；</li>
-<li>对集合的一等支持；</li>
-<li>对正则表达式的一等支持；</li>
-<li>对xml的一等支持；</li>
-</ul>
-<h2 id="groovy与java集成的方式"><a href="#groovy与java集成的方式" class="headerlink" title="groovy与java集成的方式"></a>groovy与java集成的方式</h2><p>重温下Groovy调用Java方式，包括使用GroovyClassLoader、GroovyShell和GroovyScriptEngine。</p>
-<h3 id="GroovyClassLoader"><a href="#GroovyClassLoader" class="headerlink" title="GroovyClassLoader"></a>GroovyClassLoader</h3><p>用 Groovy 的 GroovyClassLoader ，动态地加载一个脚本并执行它的行为。GroovyClassLoader是一个定制的类装载器，负责解释加载Java类中用到的Groovy类。</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GroovyClassLoader loader = <span class="keyword">new</span> <span class="constructor">GroovyClassLoader()</span>;</span><br><span class="line">Class groovyClass = loader.parse<span class="constructor">Class(<span class="params">new</span> File(<span class="params">groovyFileName</span>)</span>);</span><br><span class="line">GroovyObject groovyObject = (GroovyObject) groovyClass.<span class="keyword">new</span><span class="constructor">Instance()</span>;</span><br><span class="line">groovyObject.invoke<span class="constructor">Method(<span class="string">"run"</span>, <span class="string">"helloworld"</span>)</span>;</span><br></pre></td></tr></table></figure>
+    <!-- USE SIDEBAR -->
+    <!-- Post Container -->
+    <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
 
-<h3 id="GroovyShell"><a href="#GroovyShell" class="headerlink" title="GroovyShell"></a>GroovyShell</h3><p>GroovyShell允许在Java类中（甚至Groovy类）求任意Groovy表达式的值。您可使用Binding对象输入参数给表达式，并最终通过GroovyShell返回Groovy表达式的计算结果。</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GroovyShell shell = new GroovyShell();</span><br><span class="line">Script groovyScript = shell.parse(new File(groovyFileName));</span><br><span class="line">Object[] args = &#123;&#125;;</span><br><span class="line">groovyScript.invokeMethod(<span class="string">"run"</span>, args);</span><br></pre></td></tr></table></figure>
+      
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-0 col-md-10 col-md-offset-1">
+      <!-- 归档列表 -->
 
-<h3 id="GroovyScriptEngine"><a href="#GroovyScriptEngine" class="headerlink" title="GroovyScriptEngine"></a>GroovyScriptEngine</h3><p>GroovyShell多用于推求对立的脚本或表达式，如果换成相互关联的多个脚本，使用GroovyScriptEngine会更好些。GroovyScriptEngine从您指定的位置（文件系统，URL，数据库，等等）加载Groovy脚本，并且随着脚本变化而重新加载它们。如同GroovyShell一样，GroovyScriptEngine也允许您传入参数值，并能返回脚本的值。</p>
-<h2 id="Groovy代码文件与class文件的对应关系"><a href="#Groovy代码文件与class文件的对应关系" class="headerlink" title="Groovy代码文件与class文件的对应关系"></a>Groovy代码文件与class文件的对应关系</h2><p>而作为基于JVM的语言，Groovy可以非常容易的和Java进行互操作，但也需要编译成class文件后才能运行，所以了解Groovy代码文件和class文件的对应关系，有助于更好地理解Groovy的运行方式和结构。</p>
-<h3 id="对于没有任何类定义"><a href="#对于没有任何类定义" class="headerlink" title="对于没有任何类定义"></a>对于没有任何类定义</h3><p>如果Groovy脚本文件里只有执行代码，没有定义任何类（class），则编译器会生成一个Script的子类，类名和脚本文件的文件名一样，而脚本的代码会被包含在一个名为run的方法中，同时还会生成一个main方法，作为整个脚本的入口。</p>
-<h3 id="对于仅有一个类"><a href="#对于仅有一个类" class="headerlink" title="对于仅有一个类"></a>对于仅有一个类</h3><p>如果Groovy脚本文件里仅含有一个类，而这个类的名字又和脚本文件的名字一致，这种情况下就和Java是一样的，即生成与所定义的类一致的class文件。</p>
-<h3 id="对于多个类"><a href="#对于多个类" class="headerlink" title="对于多个类"></a>对于多个类</h3><p>如果Groovy脚本文件含有多个类，groovy编译器会很乐意地为每个类生成一个对应的class文件。如果想直接执行这个脚本，则脚本里的第一个类必须有一个static的main方法。</p>
-<h2 id="groovy与java集成中经常出现的问题"><a href="#groovy与java集成中经常出现的问题" class="headerlink" title="groovy与java集成中经常出现的问题"></a>groovy与java集成中经常出现的问题</h2><h3 id="使用GroovyShell的parse方法导致perm区爆满的问题"><a href="#使用GroovyShell的parse方法导致perm区爆满的问题" class="headerlink" title="使用GroovyShell的parse方法导致perm区爆满的问题"></a>使用GroovyShell的parse方法导致perm区爆满的问题</h3><p>如果应用中内嵌Groovy引擎，会动态执行传入的表达式并返回执行结果，而Groovy每执行一次脚本，都会生成一个脚本对应的class对象，并new一个InnerLoader去加载这个对象，而InnerLoader和脚本对象都无法在gc的时候被回收运行一段时间后将perm占满，一直触发fullgc。</p>
-<ul>
-<li>为什么Groovy每执行一次脚本，都会生成一个脚本对应的class对象？</li>
-</ul>
-<p>一个ClassLoader对于同一个名字的类只能加载一次，都由GroovyClassLoader加载，那么当一个脚本里定义了C这个类之后，另外一个脚本再定义一个C类的话，GroovyClassLoader就无法加载了。为什么这里会每次执行都会加载？</p>
-<p>这是因为对于同一个groovy脚本，groovy执行引擎都会不同的命名，且命名与时间戳有关系。当传入text时，class对象的命名规则为：<code>&quot;script&quot; + System.currentTimeMillis() + Math.abs(text.hashCode()) + &quot;.groovy&quot;</code>。这就导致就算groovy脚本未发生任何变化，每次执行parse方法都会新生成一个脚本对应的class对象，且由GroovyClassLoader进行加载，不断增大perm区。</p>
-<ul>
-<li>为什么InnerLoader加载的对应无法通过gc清理掉？</li>
-</ul>
-<p>大家都知道，JVM中的Class只有满足以下三个条件，才能被GC回收，也就是该Class被卸载：1. 该类所有的实例都已经被GC，也就是JVM中不存在该Class的任何实例；2. 加载该类的ClassLoader已经被GC；3. 该类的java.lang.Class对象没有在任何地方被引用，如不能在任何地方通过反射访问该类的方法。</p>
-<p>在GroovyClassLoader代码中有一个class对象的缓存，进一步跟下去，发现每次编译脚本时都会在Map中缓存这个对象，即：setClassCacheEntry(clazz)。每次groovy编译脚本后，都会缓存该脚本的Class对象，下次编译该脚本时，会优先从缓存中读取，这样节省掉编译的时间。这个缓存的Map由GroovyClassLoader持有，key是脚本的类名，这就导致每个脚本对应的class对象都存在引用，无法被gc清理掉。</p>
-<ul>
-<li>如何解决？</li>
-</ul>
-<p>请参考：<a href="http://xiongzheng.me/question/2015/01/02/groovy-permgen-out/" target="_blank" rel="noopener">Groovy引发的PermGen区爆满问题定位与解决</a>。</p>
-<p>如需更深入的理解GroovyClassLoader体系，请参考下面这篇文章<a href="http://johnnyjian.iteye.com/blog/1847151" target="_blank" rel="noopener">Groovy深入探索——Groovy的ClassLoader体系</a></p>
-<h3 id="使用GroovyClassLoader加载机制导致频繁gc问题"><a href="#使用GroovyClassLoader加载机制导致频繁gc问题" class="headerlink" title="使用GroovyClassLoader加载机制导致频繁gc问题"></a>使用GroovyClassLoader加载机制导致频繁gc问题</h3><p>通常使用如下代码在Java 中执行 Groovy 脚本：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GroovyClassLoader groovyLoader = new GroovyClassLoader();</span><br><span class="line">Class&lt;Script&gt; groovyClass = (Class&lt;Script&gt;) groovyLoader.parseClass(groovyScript);</span><br><span class="line">Script groovyScript = groovyClass.newInstance();</span><br></pre></td></tr></table></figure>
+      
 
-<p>每次执行groovyLoader.parseClass(groovyScript)，Groovy 为了保证每次执行的都是新的脚本内容，会每次生成一个新名字的Class文件，这个点已经在前文中说明过。当对同一段脚本每次都执行这个方法时，会导致的现象就是装载的Class会越来越多，从而导致PermGen被用满。<br>同时这里也存在性能瓶颈问题，如果去分析这段代码会发现90%的耗时占用在Class</p>
-<p>为了避免这一问题通常做法是缓存Script对象，从而避免以上2个问题。在这过程中通常又会引入新的问题：</p>
-<ul>
-<li>高并发情况下，binding对象混乱导致计算出错</li>
-</ul>
-<p>在高并发的情况下，在执行赋值binding对象后，真正执行run操作时，拿到的binding对象可能是其它线程赋值的对象，所以出现数据计算混乱的情况</p>
-<ul>
-<li>长时间运行仍然出现oom，无法解决Class</li>
-</ul>
-<p>这点在上文中已经提到，由于groovyClassLoader会缓存每次编译groovy脚本的Class对象，下次编译该脚本时，会优先从缓存中读取，这样节省掉编译的时间。导致被加载的Class对象因为存在引用而无法被卸载，虽然通过缓存避免了短时间内大量生成新的class对象，但如果长时间运营仍然会存在问题。</p>
-<p>比较好的做法是：</p>
-<ul>
-<li>每个 script 都 new 一个 GroovyClassLoader 来装载；</li>
-<li>对于 parseClass 后生成的 Class 对象进行cache，key 为 groovyScript 脚本的md5值。</li>
-</ul>
-<h3 id="CodeCache用满，导致JIT禁用问题"><a href="#CodeCache用满，导致JIT禁用问题" class="headerlink" title="CodeCache用满，导致JIT禁用问题"></a>CodeCache用满，导致JIT禁用问题</h3><p>对于大量使用Groovy的应用，尤其是 Groovy 脚本还会经常更新的应用，由于这些Groovy脚本在执行了很多次后都会被JVM编译为 native 进行优化，会占据一些 CodeCache 空间，而如果这样的脚本很多的话，可能会导致 CodeCache 被用满，而 CodeCache 一旦被用满，JVM 的 Compiler 就会被禁用，那性能下降的就不是一点点了</p>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a href="http://xiongzheng.me/question/2015/01/02/groovy-permgen-out/" target="_blank" rel="noopener">Groovy引发的PermGen区爆满问题定位与解决</a><br><a href="http://www.bubuko.com/infodetail-670047.html" target="_blank" rel="noopener">groovy脚本导致的FullGC问题</a><br><a href="http://www.zgxue.com/120/1204001.html" target="_blank" rel="noopener">Groovy的classloader加载机制唤起的频繁GC</a></p>
-<p>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+      <!-- 归档列表 -->
 
-
-        <hr>
-        <!-- Pager -->
-        <ul class="pager">
+      
+      <div class="one-tag-list">
+        <span class="fa fa-calendar-times-o listing-seperator" id="2021">
+          <span class="tag-text">2021</span>
+        </span>
+        <ul>
           
-          <li class="previous">
-            <a href="/2021/05/04/7_Java动态调用脚本语言Groovy/" data-toggle="tooltip" data-placement="top" title="Java动态调用脚本语言Groovy">&larr; Previous Post</a>
+          <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+          <li>
+            07-04
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/2021/07/04/15_architecture/" style="color: #0085a1">
+              <span>
+                服务端高并发架构设计
+              </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
           </li>
           
+          <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+          <li>
+            06-22
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/2021/06/22/14_DevOps/" style="color: #0085a1">
+              <span>
+                DevOps
+              </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+          </li>
           
-          <li class="next">
-            <a href="/2021/04/21/5_Groovy 语言快速入门/" data-toggle="tooltip" data-placement="top" title="Groovy 语言快速入门">Next Post &rarr;</a>
+          <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+          <li>
+            06-20
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/2021/06/20/13_RL/" style="color: #0085a1">
+              <span>
+                强化学习 - RL
+              </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+          </li>
+          
+          <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+          <li>
+            06-11
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/2021/06/11/12_GAN/" style="color: #0085a1">
+              <span>
+                生成对抗网络 – GAN
+              </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+          </li>
+          
+          <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+          <li>
+            06-03
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/2021/06/03/11_RNN/" style="color: #0085a1">
+              <span>
+                循环神经网络 – RNN
+              </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+          </li>
+          
+          <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+          <li>
+            05-25
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/2021/05/25/10_CNN/" style="color: #0085a1">
+              <span>
+                卷积神经网络 – CNN
+              </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+          </li>
+          
+          <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+          <li>
+            05-18
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/2021/05/18/9_深度学习/" style="color: #0085a1">
+              <span>
+                深度学习
+              </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+          </li>
+          
+          <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+          <li>
+            05-04
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/2021/05/04/7_Java动态调用脚本语言Groovy/" style="color: #0085a1">
+              <span>
+                Java动态调用脚本语言Groovy
+              </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+          </li>
+          
+          <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+          <li>
+            04-29
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/2021/04/29/6_Groovy与Java集成常见的坑/" style="color: #0085a1">
+              <span>
+                Groovy与Java集成常见的坑
+              </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+          </li>
+          
+          <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+          <li>
+            04-21
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/2021/04/21/5_Groovy 语言快速入门/" style="color: #0085a1">
+              <span>
+                Groovy 语言快速入门
+              </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+          </li>
+          
+          <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+          <li>
+            04-10
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/2021/04/10/4_经典排序算法/" style="color: #0085a1">
+              <span>
+                经典排序算法总结
+              </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+          </li>
+          
+          <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+          <li>
+            04-07
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/2021/04/07/3_SSG/" style="color: #0085a1">
+              <span>
+                近似最近邻算法SSG
+              </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+          </li>
+          
+          <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+          <li>
+            03-28
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/2021/03/28/2_HNSW_NSG/" style="color: #0085a1">
+              <span>
+                向量索引算法HNSW和NSG的比较
+              </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
+          </li>
+          
+          <!-- <li class="listing-item">
+                  <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+                  <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                  </li> -->
+          <li>
+            03-21
+            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            <a href="/2021/03/21/1_向量索引/" style="color: #0085a1">
+              <span>
+                海量高维向量检索算法
+              </span>
+            </a>
+            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
           </li>
           
         </ul>
+      </div>
+      
 
-        
-        <!-- tip start -->
-        <div class="tip">
-          <p>
-            If you like this blog or find it useful for you, you are welcome to comment on it. You are also welcome to share this blog, so that more people can participate in it!
-          </p>
-        </div>
-        <!-- tip end -->
-        
 
-        
-        <!-- Sharing Srtart -->
-        <!-- Social Social Share Post -->
-<!-- Docs:https://github.com/overtrue/share.js -->
+    </div>
+  </div>
+</div>
 
-<div class="social-share" data-initialized="true" data-disabled="tencent ,douban ,qzone ,linkedin ,facebook ,google ,diandian" data-wechat-qrcode-helper="" align="center">
-  <ul class="list-inline text-center social-share-ul">
-    <li class="social-share-li">
-      <a target="_blank" class="social-share-icon icon-twitter">
-        <i class="fa fa-twitter fa-1x" aria-hidden="true"></i>
-      </a>
-    </li>
-    <li class="social-share-li">
-      <a class="social-share-icon icon-wechat">
-        <i class="fa fa-weixin fa-1x" aria-hidden="true"></i>
-      </a>
-    </li>
-    <li class="social-share-li">
-      <a target="_blank" class="social-share-icon icon-weibo">
-        <i class="fa fa-weibo fa-1x" aria-hidden="true"></i>
-      </a>
-    </li>
-    <li class="social-share-li">
-      <a target="_blank" class="social-share-icon icon-qq">
-        <i class="fa fa-qq fa-1x" aria-hidden="true"></i>
-      </a>
-    </li>
-    <li class="social-share-li">
-      <a target="_blank" class="social-share-icon" href="mailto:?subject=Groovy与Java集成常见的坑&body=Hi,I found this website and thought you might like it http://lemonsqi.top/2021/04/29/6_Groovy与Java集成常见的坑/">
-        <i class="fa fa-envelope fa-1x" aria-hidden="true"></i>
-      </a>
-    </li>
+
+      <!-- 如果开启评论功能 -->
+      
+    </div>
+
+    <!-- Sidebar Container -->
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+        <!--   -->
+<h5><a href="/">VISITORS</a></h5>
+
+<div class="widget">
+  <span>
+    Viewed <b><i><span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Times
+  </span>
+  <br />
+  <span>
+    <b><i><span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span></i></b> Visitors In Total
+  </span>
+</div>
+
+<!--   -->
+
+        <hr>
+    
+        <!-- Featured Tags -->
+
+<section>
+  <!-- no hr -->
+  <h5><a href="/tags/">FEATURED TAGS</a></h5>
+  <div class="tags">
+    
+    
+    <a href="/tags/#深度学习" title="深度学习" rel="5">深度学习</a>
+    
+    
+    
+    <a href="/tags/#CNN" title="CNN" rel="1">CNN</a>
+    
+    
+    
+    <a href="/tags/#人工智能" title="人工智能" rel="5">人工智能</a>
+    
+    
+    
+    <a href="/tags/#敏捷开发" title="敏捷开发" rel="1">敏捷开发</a>
+    
+    
+    
+    <a href="/tags/#自动化" title="自动化" rel="1">自动化</a>
+    
+    
+    
+    <a href="/tags/#软件生命周期" title="软件生命周期" rel="1">软件生命周期</a>
+    
+    
+    
+    <a href="/tags/#高并发" title="高并发" rel="1">高并发</a>
+    
+    
+    
+    <a href="/tags/#架构设计" title="架构设计" rel="1">架构设计</a>
+    
+    
+    
+    <a href="/tags/#后端技术" title="后端技术" rel="1">后端技术</a>
+    
+    
+    
+    <a href="/tags/#GAN" title="GAN" rel="1">GAN</a>
+    
+    
+    
+    <a href="/tags/#RL" title="RL" rel="1">RL</a>
+    
+    
+    
+    <a href="/tags/#ANNS" title="ANNS" rel="3">ANNS</a>
+    
+    
+    
+    <a href="/tags/#HNSW" title="HNSW" rel="2">HNSW</a>
+    
+    
+    
+    <a href="/tags/#NSG" title="NSG" rel="2">NSG</a>
+    
+    
+    
+    <a href="/tags/#机器学习" title="机器学习" rel="4">机器学习</a>
+    
+    
+    
+    <a href="/tags/#向量检索" title="向量检索" rel="3">向量检索</a>
+    
+    
+    
+    <a href="/tags/#算法" title="算法" rel="4">算法</a>
+    
+    
+    
+    <a href="/tags/#KD-Tree" title="KD-Tree" rel="1">KD-Tree</a>
+    
+    
+    
+    <a href="/tags/#SVM" title="SVM" rel="1">SVM</a>
+    
+    
+    
+    <a href="/tags/#Annoy" title="Annoy" rel="1">Annoy</a>
+    
+    
+    
+    <a href="/tags/#LSH" title="LSH" rel="1">LSH</a>
+    
+    
+    
+    <a href="/tags/#VQ" title="VQ" rel="1">VQ</a>
+    
+    
+    
+    <a href="/tags/#排序算法" title="排序算法" rel="1">排序算法</a>
+    
+    
+    
+    <a href="/tags/#内排序" title="内排序" rel="1">内排序</a>
+    
+    
+    
+    <a href="/tags/#RNN" title="RNN" rel="1">RNN</a>
+    
+    
+    
+    <a href="/tags/#LSTM" title="LSTM" rel="1">LSTM</a>
+    
+    
+    
+    <a href="/tags/#Groovy" title="Groovy" rel="3">Groovy</a>
+    
+    
+    
+    <a href="/tags/#java" title="java" rel="3">java</a>
+    
+    
+    
+    <a href="/tags/#脚本语言" title="脚本语言" rel="3">脚本语言</a>
+    
+    
+    
+    <a href="/tags/#SSG" title="SSG" rel="1">SSG</a>
+    
+    
+    
+    <a href="/tags/#NSSG" title="NSSG" rel="1">NSSG</a>
+    
+    
+    
+    <a href="/tags/#神经网络" title="神经网络" rel="1">神经网络</a>
+    
+    
+  </div>
+</section>
+
+
+        <hr>
+    
+        <!-- Short About -->
+<section class="visible-md visible-lg">
+  <h5><a href="/about/">ABOUT ME</a></h5>
+  <div class="short-about">
+
+    
+    <img id="avatar_pic" src="/img/avatar/pretty.jpg" alt="avatar_pic" style="box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);
+    -moz-box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, .5);" />
+    
+
+    
+    <p>Excellence is a habit, either work hard or move forward...</p>
+    
+
+    <!-- SNS Link -->
+    <ul class="list-inline">
+      
+
+      
+      <li>
+        <a target="_blank" href="https://github.com/LemonSqi">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a target="_blank" href="https://twitter.com/LemonSqi">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a target="_blank" href="https://www.instagram.com/LemonSqi">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      
+
+      
+
+      
+
+      
+
+      
+      <li>
+        <a target="_blank" href="http://weibo.com/LemonSqi">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      
+
+    </ul>
+  </div>
+</section>
+
+        <hr>
+    
+        
+<!-- <h5>RECENT POSTS</h5> -->
+<h5><a href="/">RECENT POSTS</a></h5>
+<div class="widget">
+  <ul>
+    
+    <a href="../../../2021/07/04/15_architecture/">
+      <li>服务端高并发架构设计</li>
+    </a>
+    
+    <a href="../../../2021/06/22/14_DevOps/">
+      <li>DevOps</li>
+    </a>
+    
+    <a href="../../../2021/06/20/13_RL/">
+      <li>强化学习 - RL</li>
+    </a>
+    
+    <a href="../../../2021/06/11/12_GAN/">
+      <li>生成对抗网络 – GAN</li>
+    </a>
+    
+    <a href="../../../2021/06/03/11_RNN/">
+      <li>循环神经网络 – RNN</li>
+    </a>
+    
   </ul>
 </div>
 
-<!-- css & js -->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css"> -->
-<script defer="defer" async="true" src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
 
-        <!-- Sharing End -->
-        
         <hr>
-
-        <!-- comments start -->
-        <!-- 0. valine comment -->
-
-
-<!-- 1. gitalk comment -->
-
-<!-- gitalk start -->
-<!-- Docs:https://github.com/gitalk/gitalk/blob/master/readme-cn.md -->
-
-<div id="gitalk-container"></div>
-
-<!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.js"></script> -->
-<script src="/js/comment/gitalk.js"></script>
-
-<script>
-  var gitalk = new Gitalk({
-    clientID: 'd50f15a1a53dcf7ec506',
-    clientSecret: 'bcf577b98b32973c3e363c83264395d715f5ee1d',
-    repo: 'gitalk-comment',
-    owner: 'LemonSqi',
-    admin: 'LemonSqi',
-    id: 'Thu Apr 29 2021 01:07:32 GMT+0800', // Ensure uniqueness and length less than 50
-    distractionFreeMode: false, // Facebook-like distraction free mode
-    perPage: 15 ,
-    pagerDirection: 'last',
-    createIssueManually: false ,
-    language: 'zh-CN',
-    proxy: 'https://shielded-brushlands-08810.herokuapp.com/https://github.com/login/oauth/access_token'
-  });
-  gitalk.render('gitalk-container');
-
-  var gtFolded = () => {
-    setTimeout(function() {
-      let markdownBody = document.getElementsByClassName("markdown-body");
-      let list = Array.from(markdownBody);
-      list.forEach(item => {
-        if (item.clientHeight > 250) {
-          item.classList.add('gt-comment-body-folded');
-          item.style.maxHeight = '250px';
-          item.title = 'Click to Expand';
-          item.onclick = function() {
-            item.classList.remove('gt-comment-body-folded');
-            item.style.maxHeight = '';
-            item.title = '';
-            item.onclick = null;
-          };
-        }
-      })
-    }, 800);
-  }
-</script>
-
-<!-- gitalk end -->
-
-
-
-<!-- 2. gitment comment -->
-
-
-
-<!-- 3. disqus comment -->
-
-
-        <!-- comments end -->
-        <hr>
-
-      </div>
-
-      <!-- Catalog: Tabe of Content -->
-      <!-- Table of Contents -->
-
     
-      <aside id="sidebar">
-        <div id="toc" class="toc-article">
-        <strong class="toc-title">Contents</strong>
-        
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#groovy特性"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">groovy特性</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#groovy与java集成的方式"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">groovy与java集成的方式</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#GroovyClassLoader"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">GroovyClassLoader</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#GroovyShell"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">GroovyShell</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#GroovyScriptEngine"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">GroovyScriptEngine</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#Groovy代码文件与class文件的对应关系"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Groovy代码文件与class文件的对应关系</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#对于没有任何类定义"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">对于没有任何类定义</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#对于仅有一个类"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">对于仅有一个类</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#对于多个类"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">对于多个类</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#groovy与java集成中经常出现的问题"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">groovy与java集成中经常出现的问题</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#使用GroovyShell的parse方法导致perm区爆满的问题"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">使用GroovyShell的parse方法导致perm区爆满的问题</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#使用GroovyClassLoader加载机制导致频繁gc问题"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">使用GroovyClassLoader加载机制导致频繁gc问题</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#CodeCache用满，导致JIT禁用问题"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">CodeCache用满，导致JIT禁用问题</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#参考文献"><span class="toc-nav-number">4.4.</span> <span class="toc-nav-text">参考文献</span></a></li></ol></li></ol>
-        
-        </div>
-      </aside>
-    
-
-
-      <!-- Sidebar Container -->
-      <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-        <!-- Featured Tags -->
-        
-        <section>
-          <!-- no hr -->
-          <h5>
-            <a href="/tags/">FEATURED TAGS</a>
-          </h5>
-          <div class="tags">
-            
-            <a class="tag" href="/tags/#Groovy" title="Groovy">Groovy</a>
-            
-            <a class="tag" href="/tags/#java" title="java">java</a>
-            
-            <a class="tag" href="/tags/#脚本语言" title="脚本语言">脚本语言</a>
-            
-          </div>
-        </section>
-        
-
         <!-- Friends Blog -->
-        
+
+<!-- <h5>FRIENDS</h5> -->
+<h5><a href="/">FRIENDS</a></h5>
+<ul class="list-inline">
+  
+  <li><a href="http://cuijiahua.com/" target="_blank">Jack Cui</a></li>
+  
+  <li><a href="http://github.com/WinterFu" target="_blank">Winter Fu</a></li>
+  
+</ul>
+
+
         <hr>
-        <h5>FRIENDS</h5>
-        <ul class="list-inline">
-
-          
-          <li>
-            <a href="http://cuijiahua.com/" target="_blank">Jack Cui</a>
-          </li>
-          
-          <li>
-            <a href="http://github.com/WinterFu" target="_blank">Winter Fu</a>
-          </li>
-          
-        </ul>
+    
         
-      </div>
+    <!-- <h5>ARCHIVES</h5> -->
+    <h5><a href="/archives/">ARCHIVES</a></h5>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="">七月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="../06/">六月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../05/">五月 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="../04/">四月 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="../03/">三月 2021</a><span class="archive-list-count">2</span></li></ul>
     </div>
+
+
+        <hr>
+    
+        <!-- Categories -->
+
+<!-- <h5>categories</h5> -->
+<h5><a href="/categories/">CATEGORIES</a></h5>
+<div class="widget">
+  <ul>
+    
+    <a href="/categories/#技术栈">
+      <li>技术栈</li>
+    </a>
+    
+  </ul>
+</div>
+
+
+        <hr>
+    
+</div>
+
+    
   </div>
-</article>
-
-
-
-<!-- anchorjs start -->
-<!-- async load function -->
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script type="text/javascript">
-  // async load function
-  function async (u, c) {
-    var d = document,
-      t = 'script',
-      o = d.createElement(t),
-      s = d.getElementsByTagName(t)[0];
-    o.src = u;
-    if (c) {
-      o.addEventListener('load', function(e) {
-        c(null, e);
-      }, false);
-    }
-    s.parentNode.insertBefore(o, s);
-  };
-</script>
-<script type="text/javascript">
-  //anchor-js, Doc:http://bryanbraun.github.io/anchorjs/
-  async ("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js", function() {
-    anchors.options = {
-      visible: 'hover',
-      placement: 'left',
-      // icon: 'ℬ'
-      icon: '❡'
-    };
-    anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-  });
-</script>
-<style>
-  /* place left on bigger screen */
-  @media all and (min-width: 800px) {
-    .anchorjs-link {
-      position: absolute;
-      left: -0.75em;
-      font-size: 1.1em;
-      margin-top: -0.1em;
-    }
-  }
-</style>
-
-<!-- anchorjs end -->
-
+</div>
 
 
 	<!-- Footer (contains ThemeColor、viewer) -->
